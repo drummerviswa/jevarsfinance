@@ -1,0 +1,24 @@
+import React from 'react'
+import Loans from "../components/forms/Loans"
+import Loan from "../components/tables/Loans"
+import '../index.css'
+
+function LoanPage() {
+  return (
+    <div className="bg-white">
+      <div className="relative isolate px-6 pt-14 lg:px-8 py-10">
+        <div
+          className="absolute inset-x-0 -top-40 -z-10 transhtmlForm-gpu overflow-hidden blur-3xl sm:-top-80"
+          aria-hidden="true"
+        >
+        </div>
+        <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-36">
+          <Loans />
+        </div>
+          <Loan />
+      </div>
+    </div>
+  )
+}
+
+export default LoanPage

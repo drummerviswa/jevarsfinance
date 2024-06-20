@@ -1,0 +1,435 @@
+import React, { useState, useMemo, useEffect } from "react";
+import LoanModel from "../modals/LoanModel";
+
+const products = [
+  {
+    id: 1,
+    Category: "Electronics",
+    Company: "Apple",
+    Product: "iPhone 13",
+    Description: "The latest iPhone with advanced features",
+    Price: 999,
+    CustomDetails: [
+      {
+        Date: "2023-09-05",
+        Customer: "John Doe",
+        Quantity: 2,
+        TotalAmount: 1998,
+      },
+      {
+        Date: "2023-09-04",
+        Customer: "Jane Smith",
+        Quantity: 1,
+        TotalAmount: 999,
+      },
+    ],
+  },
+  {
+    id: 2,
+    Category: "Clothing",
+    Company: "Nike",
+    Product: "Running Shoes",
+    Description: "High-quality running shoes htmlFor athletes",
+    Price: 89,
+    CustomDetails: [
+      {
+        Date: "2023-09-05",
+        Customer: "Alice Johnson",
+        Quantity: 3,
+        TotalAmount: 267,
+      },
+      {
+        Date: "2023-09-03",
+        Customer: "Bob Brown",
+        Quantity: 2,
+        TotalAmount: 178,
+      },
+    ],
+  },
+  {
+    id: 3,
+    Category: "Books",
+    Company: "Penguin Books",
+    Product: "The Great Gatsby",
+    Description: "Classic novel by F. Scott Fitzgerald",
+    Price: 12,
+    CustomDetails: [
+      {
+        Date: "2023-09-02",
+        Customer: "Ella Williams",
+        Quantity: 5,
+        TotalAmount: 60,
+      },
+    ],
+  },
+  {
+    id: 4,
+    Category: "Home Appliances",
+    Company: "Samsung",
+    Product: "Smart Refrigerator",
+    Description: "Refrigerator with smart features and spacious design",
+    Price: 14,
+    CustomDetails: [
+      {
+        Date: "2023-09-05",
+        Customer: "David Wilson",
+        Quantity: 1,
+        TotalAmount: 14,
+      },
+    ],
+  },
+];
+function Loan() {
+  const [show, setshow] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [activeColumn, setActiveColumn] = useState(["Price"]);
+  const [sortingColumn, setSortingColumn] = useState(["Price"]);
+  let [loan, setLoans] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8800/api/loans/", {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setLoans(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  const sortByColumn = (column) => {
+    if (sortingColumn?.includes(column)) {
+      const sortData = products
+        .slice()
+        .sort((a, b) =>
+          b[column].toString().localeCompare(a[column].toString())
+        );
+      setSortingData(sortData);
+      setSortingColumn([]);
+    } else {
+      const sortData = products
+        .slice()
+        .sort((a, b) =>
+          a[column].toString().localeCompare(b[column].toString())
+        );
+      setSortingData(sortData);
+      setSortingColumn([`${column}`]);
+    }
+    setActiveColumn([`${column}`]);
+  };
+  const [sortingData, setSortingData] = useState(products);
+  const [selectAll, setSelectAll] = useState(false);
+  const toggleSelectAll = () => {
+    setSelectAll(!selectAll);
+    setSelectedRows(selectAll ? [] : sortingData.map((item) => item.id));
+  };
+  const toggleSelectRow = (id) => {
+    if (selectedRows.includes(id)) {
+      setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
+    } else {
+      setSelectedRows([...selectedRows, id]);
+    }
+  };
+  useMemo(() => {
+    const sortedProducts = products.slice().sort((a, b) => a.Price - b.Price);
+    setSortingData(sortedProducts);
+  }, []);
+  return (
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      {/* <div className="w-full px-2">
+        <div className="w-full overflow-x-scroll md:overflow-auto max-w-7xl 2xl:max-w-none mt-2"> */}
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="row">
+              <div className="flex items-center">
+                <svg
+                  className={`w-4 h-4 cursor-pointer ${
+                    activeColumn?.includes("id")
+                      ? "text-orange"
+                      : "text-white group-hover:text-black rotate-180"
+                  } ${sortingColumn?.includes("id") ? "rotate-180" : "rotate-0"}
+           `}
+                  onClick={() => sortByColumn("id")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+                <span
+                  className="cursor-pointer pl-1"
+                  onClick={() => sortByColumn("id")}
+                >
+                  ID
+                </span>
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div className="flex items-center">
+                <svg
+                  className={`w-4 h-4 cursor-pointer ${
+                    activeColumn?.includes("Category")
+                      ? "text-orange"
+                      : "text-white group-hover:text-black rotate-180"
+                  } ${
+                    sortingColumn?.includes("Category")
+                      ? "rotate-180"
+                      : "rotate-0"
+                  }
+           `}
+                  onClick={() => sortByColumn("Category")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+                <span
+                  className="cursor-pointer pl-1"
+                  onClick={() => sortByColumn("Category")}
+                >
+                  Customer Name
+                </span>
+              </div>
+            </th>
+            <th className="py-3 px-3 flex items-center">
+              <svg
+                className={`w-4 h-4 cursor-pointer ${
+                  activeColumn?.includes("Company")
+                    ? "text-orange"
+                    : "text-white group-hover:text-black rotate-180"
+                } ${
+                  sortingColumn?.includes("Company") ? "rotate-180" : "rotate-0"
+                } `}
+                onClick={() => sortByColumn("Company")}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+              <span
+                className="cursor-pointer pl-1"
+                onClick={() => sortByColumn("Company")}
+              >
+                Loan Type
+              </span>
+            </th>
+            <th className="py-3 px-3">
+              <div className="flex items-center">
+                <svg
+                  className={`w-4 h-4 cursor-pointer ${
+                    activeColumn?.includes("Product")
+                      ? "text-orange"
+                      : "text-white group-hover:text-black rotate-180"
+                  } ${
+                    sortingColumn?.includes("Product")
+                      ? "rotate-180"
+                      : "rotate-0"
+                  } `}
+                  onClick={() => sortByColumn("Product")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+                <span
+                  className="cursor-pointer pl-1"
+                  onClick={() => sortByColumn("Product")}
+                >
+                  Amount
+                </span>
+              </div>
+            </th>
+            <th className="flex items-center py-3 px-3">
+              <svg
+                className={`w-4 h-4 cursor-pointer  ${
+                  sortingColumn?.includes("Price") ? "rotate-180" : "rotate-0"
+                } ${
+                  activeColumn?.includes("Price")
+                    ? "text-orange"
+                    : "text-white group-hover:text-black rotate-180"
+                }`}
+                onClick={() => sortByColumn("Price")}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+              <span
+                className="cursor-pointer pl-1"
+                onClick={() => sortByColumn("Price")}
+              >
+                Rate of Interest
+              </span>
+            </th>
+            <th className="py-3 px-3">
+              <div className="flex items-center">
+                <svg
+                  className={`w-4 h-4 cursor-pointer ${
+                    activeColumn?.includes("Product")
+                      ? "text-orange"
+                      : "text-white group-hover:text-black rotate-180"
+                  } ${
+                    sortingColumn?.includes("Product")
+                      ? "rotate-180"
+                      : "rotate-0"
+                  } `}
+                  onClick={() => sortByColumn("Product")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+                <span
+                  className="cursor-pointer pl-1"
+                  onClick={() => sortByColumn("Product")}
+                >
+                  Date of Borrowing
+                </span>
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div className="flex items-center">
+                <svg
+                  className={`w-4 h-4 cursor-pointer ${
+                    activeColumn?.includes("Product")
+                      ? "text-orange"
+                      : "text-white group-hover:text-black rotate-180"
+                  } ${
+                    sortingColumn?.includes("Product")
+                      ? "rotate-180"
+                      : "rotate-0"
+                  } `}
+                  onClick={() => sortByColumn("Product")}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+                <span
+                  className="cursor-pointer pl-1"
+                  onClick={() => sortByColumn("Product")}
+                >
+                  Document
+                </span>
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div className="flex items-center">
+                <span className="cursor-pointer pl-1">Action</span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortingData?.map((data, index) => (
+            <tr
+              key={index}
+              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            >
+              <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                {data?.Loan_No}
+              </td>
+              <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                {data?.FirstName}
+              </td>
+              <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                {data?.LoanType}
+              </td>
+              <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                {"₹"+data?.Amont}
+              </td>
+              <td className="py-5 px-4 text-base font-normal border-t">
+                { data?.Interest}
+              </td>
+              <td className="py-5 px-4 text-base font-normal border-t">
+                {data?.DOB}
+              </td>
+              <td className="py-5 px-4 text-base font-normal border-t">
+                {data?.Document}
+              </td>
+              <td className="flex items-center px-6 py-4 font-normal border-t">
+                <button
+                  onClick={() => setshow(true)}
+                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  Edit
+                </button>
+                <button className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+          <tr>
+            <td colSpan={6} className="border-t"></td>
+          </tr>
+        </tbody>
+      </table>
+      {/* </div>
+      </div> */}
+      <LoanModel setShowModal={setshow} showModal={show} />
+    </div>
+  );
+}
+export default Loan;
