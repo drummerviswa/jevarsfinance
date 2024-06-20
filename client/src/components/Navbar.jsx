@@ -13,7 +13,6 @@ function Navbar() {
     { name: 'Profits', href: '/profit' },
   ];
   let location = useLocation();
-  console.log(location.pathname.split("/"))
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
     <header className="absolute inset-x-0 top-0 z-50">

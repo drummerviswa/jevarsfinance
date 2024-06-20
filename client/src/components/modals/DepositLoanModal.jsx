@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
+function DepositLoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
   const [newData, setNewData] = useState({
     Cus_ID: "",
     loanType: "",
@@ -247,4 +247,4 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
   );
 }
 
-export default LoanModel;
+export default DepositLoanModel;

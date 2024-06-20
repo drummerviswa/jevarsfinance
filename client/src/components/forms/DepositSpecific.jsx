@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCustomer as addCustomerAction } from "../../slices/customerSlice";
 
-function Specific({updated,setUpdated}) {
+function DepositSpecificForm({updated,setUpdated}) {
   const [customers, setCustomers] = useState([]);
   const [current, setCurrent] = useState({});
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/customers/")
+    axios.get("http://localhost:8800/api/deposit/customers/")
       .then(response => {
         setCustomers(response.data);
       })
@@ -106,4 +106,4 @@ function Specific({updated,setUpdated}) {
   );
 }
 
-export default Specific;
+export default DepositSpecificForm;

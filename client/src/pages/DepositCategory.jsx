@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Category = () => {
+const DepositCategory = () => {
   const categories = [
     {
       id: 1,
@@ -31,6 +31,7 @@ const Category = () => {
       id: 5,
       name: "Validity Over",
       image: "validity.png",
+      page:"validity"
     },
   ];
   return (
@@ -42,7 +43,7 @@ const Category = () => {
               <Link
                 to={item.page}
                 key={index}
-                className="bg-gray-400 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
+                className="bg-orange-400 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
               >
                 <h2 className="font-bold sm:text-xl">{item.name}</h2>
                 <img src={item.image} alt={item.name} className="hidden lg:block md:w-40" />
@@ -55,4 +56,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default DepositCategory;

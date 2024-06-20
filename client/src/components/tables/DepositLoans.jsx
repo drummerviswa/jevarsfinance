@@ -2,17 +2,19 @@ import React, { useState, useMemo, useEffect } from "react";
 import moment from "moment";
 import LoanModel from "../modals/LoanModel";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
-const SpecificLoan = ({ updated, setUpdated }) => {
+const DepositLoansTable = () => {
   const [show, setShow] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [loans, setLoans] = useState([]);
   const [activeColumn, setActiveColumn] = useState("Price");
   const [sortingColumn, setSortingColumn] = useState("Price");
   const [current, setCurrent] = useState({});
-  const customer = useSelector((state) => state.customer);
+  const [updated, setUpdated] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
+
   useEffect(() => {
-    fetch(`http://localhost:8800/api/loans/${customer[0]["Cus_ID"]}`, {
+    fetch("http://localhost:8800/api/deposit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +31,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/loans/${item.Loan_No}`);
+      await axios.delete(`http://localhost:8800/api/deposit/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -38,10 +40,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   };
   const handleStatus = async (item) => {
     try {
-      await axios.put(
-        `http://localhost:8800/api/loans/status/${item.Loan_No}`,
-        { status: "Closed" }
-      );
+      await axios.put(`http://localhost:8800/api/deposit/loans/status/${item.Loan_No}`,{status:"Closed"});
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -68,6 +67,19 @@ const SpecificLoan = ({ updated, setUpdated }) => {
     }
     setLoans(sortedData);
     setActiveColumn(column);
+  };
+
+  const toggleSelectAll = () => {
+    setSelectedRows(selectAll ? [] : loans.map((item) => item.Loan_No));
+    setSelectAll(!selectAll);
+  };
+
+  const toggleSelectRow = (Loan_No) => {
+    if (selectedRows.includes(Loan_No)) {
+      setSelectedRows(selectedRows.filter((rowId) => rowId !== Loan_No));
+    } else {
+      setSelectedRows([...selectedRows, Loan_No]);
+    }
   };
 
   return (
@@ -181,14 +193,14 @@ const SpecificLoan = ({ updated, setUpdated }) => {
                 {data.Status.toLowerCase().match("open") ? (
                   <button
                     type="button"
-                    className="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
+                    class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
                   >
                     {data.Status}
                   </button>
                 ) : (
                   <button
                     type="button"
-                    className="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
+                    class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
                   >
                     {data.Status}
                   </button>
@@ -232,4 +244,4 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   );
 };
 
-export default SpecificLoan;
+export default DepositLoansTable;

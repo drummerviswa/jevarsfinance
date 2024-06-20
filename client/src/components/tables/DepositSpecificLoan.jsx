@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useEffect } from "react";
 import moment from "moment";
-import LoanModel from "../modals/LoanModel";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import DepositLoanModel from "../modals/DepositLoanModal";
 
-const SpecificLoan = ({ updated, setUpdated }) => {
+const DepositSpecificLoan = ({ updated, setUpdated }) => {
   const [show, setShow] = useState(false);
   const [loans, setLoans] = useState([]);
   const [activeColumn, setActiveColumn] = useState("Price");
@@ -12,7 +12,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/loans/${customer[0]["Cus_ID"]}`, {
+    fetch(`http://localhost:8800/api/deposit/loans/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/loans/${item.Loan_No}`);
+      await axios.delete(`http://localhost:8800/api/deposit/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -39,7 +39,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   const handleStatus = async (item) => {
     try {
       await axios.put(
-        `http://localhost:8800/api/loans/status/${item.Loan_No}`,
+        `http://localhost:8800/api/deposit/loans/status/${item.Loan_No}`,
         { status: "Closed" }
       );
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
@@ -222,7 +222,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
           ))}
         </tbody>
       </table>
-      <LoanModel
+      <DepositLoanModel
         setUpdatedData={setUpdated}
         loans={current}
         setShowModal={setShow}
@@ -232,4 +232,4 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   );
 };
 
-export default SpecificLoan;
+export default DepositSpecificLoan;

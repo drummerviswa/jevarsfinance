@@ -4,6 +4,11 @@ import customerRoutes from "./routes/customers.js";
 import entryRoutes from "./routes/entries.js";
 import loanRoutes from "./routes/loans.js";
 import authRoutes from "./routes/auth.js";
+import validityRoutes from "./routes/valid.js";
+import depositCustomerRoutes from "./routes/depositCustomers.js";
+import depositLoanRoutes from "./routes/depositLoans.js";
+import depositEntryRoutes from "./routes/depositEntries.js";
+import depositValidityRoutes from "./routes/depositValid.js";
 import cookieParser from 'cookie-parser'
 
 const app = express();
@@ -16,6 +21,11 @@ app.use('/api/customers',customerRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/loans",loanRoutes);
 app.use("/api/entries",entryRoutes);
+app.use("/api/validity",validityRoutes);
+app.use("/api/deposit/customers",depositCustomerRoutes)
+app.use("/api/deposit/loans",depositLoanRoutes)
+app.use("/api/deposit/entries",depositEntryRoutes)
+app.use("/api/deposit/validity",depositValidityRoutes)
 
 app.listen(8800,()=>{
     console.log("Api started");
