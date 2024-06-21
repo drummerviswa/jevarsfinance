@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCustomer as addCustomerAction } from "../../slices/customerSlice";
+import { addDeposit as addDepositAction } from "../../slices/depositSlice";
 
 function DepositSpecificForm({updated,setUpdated}) {
   const [customers, setCustomers] = useState([]);
@@ -47,14 +47,14 @@ function DepositSpecificForm({updated,setUpdated}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (current && current.Cus_ID) {
-      dispatch(addCustomerAction(current));
+      dispatch(addDepositAction(current));
       setUpdated(!updated)
     }
   };
 
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Loan Entries</h1>
+      <h1 className="text-center font-bold text-2xl">Specific Deposit Entries</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="relative z-0 w-full mb-5 group">
           <label

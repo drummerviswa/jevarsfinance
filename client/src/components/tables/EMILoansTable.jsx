@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
-import DepositLoanModel from "../modals/DepositLoanModal";
+import EMILoanModel from "../modals/EMILoanModal";
 
-const DepositLoansTable = () => {
+const EMILoansTable = () => {
   const [show, setShow] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [loans, setLoans] = useState([]);
@@ -14,7 +14,7 @@ const DepositLoansTable = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/loans/", {
+    fetch("http://localhost:8800/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +31,7 @@ const DepositLoansTable = () => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/deposit/loans/${item.Loan_No}`);
+      await axios.delete(`http://localhost:8800/api/emi/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -40,7 +40,7 @@ const DepositLoansTable = () => {
   };
   const handleStatus = async (item) => {
     try {
-      await axios.put(`http://localhost:8800/api/deposit/loans/status/${item.Loan_No}`,{status:"Closed"});
+      await axios.put(`http://localhost:8800/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -233,7 +233,7 @@ const DepositLoansTable = () => {
           ))}
         </tbody>
       </table>
-      <DepositLoanModel
+      <EMILoanModel
         setUpdatedData={setUpdated}
         loans={current}
         setShowModal={setShow}
@@ -243,4 +243,4 @@ const DepositLoansTable = () => {
   );
 };
 
-export default DepositLoansTable;
+export default EMILoansTable;

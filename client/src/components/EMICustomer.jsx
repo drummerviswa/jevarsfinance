@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-function DepositCustomer({ updated, setUpdated, person }) {
+function EMICustomer({ updated, setUpdated, person }) {
   const [customers, setCustomers] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/customers/${person["Cus_ID"]}`, {
+    fetch(`http://localhost:8800/api/emi/customers/${person["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -45,4 +45,4 @@ function DepositCustomer({ updated, setUpdated, person }) {
   );
 }
 
-export default DepositCustomer;
+export default EMICustomer;

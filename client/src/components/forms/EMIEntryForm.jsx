@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function DepositEntryForm() {
+function EMIEntryForm() {
   const [entries, setEntries] = useState([]);
   const [loans, setLoans] = useState([]);
   const [updated, setUpdated] = useState(false);
@@ -11,7 +11,7 @@ function DepositEntryForm() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/loans/${current?.Cus_ID}`, {
+    fetch(`http://localhost:8800/api/emi/loans/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function DepositEntryForm() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/deposit/customers/`, {
+    fetch(`http://localhost:8800/api/emi/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function DepositEntryForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/deposit/entries",
+        "http://localhost:8800/api/emi/entries",
         form
       );
       console.log("Post created:", response.data);
@@ -245,4 +245,4 @@ function DepositEntryForm() {
   );
 }
 
-export default DepositEntryForm;
+export default EMIEntryForm;

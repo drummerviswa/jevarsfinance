@@ -46,7 +46,7 @@ const DepositCategory = () => {
                 className="bg-orange-400 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
               >
                 <h2 className="font-bold sm:text-xl">{item.name}</h2>
-                <img src={item.image} alt={item.name} className="hidden lg:block md:w-40" />
+                <img src={item.image} alt={item.name} className="hidden lg:block md:w-40 rounded-lg" />
               </Link>
             ))}
           </div>

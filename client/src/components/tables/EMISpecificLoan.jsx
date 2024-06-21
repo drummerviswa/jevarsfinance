@@ -1,20 +1,18 @@
 import React, { useState, useMemo, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import DepositLoanModel from "../modals/DepositLoanModal";
 
-const DepositLoansTable = () => {
+const EMISpecificLoan = ({ updated, setUpdated }) => {
   const [show, setShow] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]);
   const [loans, setLoans] = useState([]);
   const [activeColumn, setActiveColumn] = useState("Price");
   const [sortingColumn, setSortingColumn] = useState("Price");
   const [current, setCurrent] = useState({});
-  const [updated, setUpdated] = useState(false);
-  const [selectAll, setSelectAll] = useState(false);
-
+  const emi = useSelector((state) => state.emi);
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/loans/", {
+    fetch(`http://localhost:8800/api/emi/loans/${emi[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +29,7 @@ const DepositLoansTable = () => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/deposit/loans/${item.Loan_No}`);
+      await axios.delete(`http://localhost:8800/api/emi/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -40,7 +38,10 @@ const DepositLoansTable = () => {
   };
   const handleStatus = async (item) => {
     try {
-      await axios.put(`http://localhost:8800/api/deposit/loans/status/${item.Loan_No}`,{status:"Closed"});
+      await axios.put(
+        `http://localhost:8800/api/emi/loans/status/${item.Loan_No}`,
+        { status: "Closed" }
+      );
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -140,15 +141,6 @@ const DepositLoansTable = () => {
             <th className="py-3 px-3">
               <div
                 className="flex items-center cursor-pointer"
-                onClick={() => sortByColumn("AdvancePay")}
-              >
-                Advance Payment
-                {activeColumn === "AdvancePay" && (sortingColumn ? " ↑" : " ↓")}
-              </div>
-            </th>
-            <th className="py-3 px-3">
-              <div
-                className="flex items-center cursor-pointer"
                 onClick={() => sortByColumn("Status")}
               >
                 Status
@@ -185,21 +177,18 @@ const DepositLoansTable = () => {
               <td className="py-5 px-4 text-base font-normal border-t">
                 {data.Document}
               </td>
-              <td className="py-5 px-4 text-base font-normal border-t">
-                {data.advancePay}
-              </td>
               <td className="px-4 py-5 text-base font-normal border-t">
                 {data.Status.toLowerCase().match("open") ? (
                   <button
                     type="button"
-                    class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
+                    className="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
                   >
                     {data.Status}
                   </button>
                 ) : (
                   <button
                     type="button"
-                    class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
+                    className="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
                   >
                     {data.Status}
                   </button>
@@ -243,4 +232,4 @@ const DepositLoansTable = () => {
   );
 };
 
-export default DepositLoansTable;
+export default EMISpecificLoan;

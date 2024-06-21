@@ -1,10 +1,9 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import InterestModel from "../modals/InterestModel";
-import axios from "axios";
 import { useSelector } from "react-redux";
+import DepositEntryModal from "../modals/DepositEntryModal";
 
-function Validity() {
+function EMIValidityTable() {
   const [show, setShow] = useState(false);
   const [validity, setValidity] = useState([]);
   const [activeColumn, setActiveColumn] = useState("Amount");
@@ -12,7 +11,7 @@ function Validity() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/validity`, {
+    fetch(`http://localhost:8800/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -180,10 +179,10 @@ function Validity() {
         </table>
       ) : (
         <div className="w-full rtl:text-right text-black text-center">
-          No Entries found 
+          No Entries found
         </div>
       )}
-      <InterestModel
+      <DepositEntryModal
         interest={current}
         setShowModal={setShow}
         showModal={show}
@@ -192,4 +191,4 @@ function Validity() {
   );
 }
 
-export default Validity;
+export default EMIValidityTable;

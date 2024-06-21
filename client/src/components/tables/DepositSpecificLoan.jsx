@@ -10,7 +10,7 @@ const DepositSpecificLoan = ({ updated, setUpdated }) => {
   const [activeColumn, setActiveColumn] = useState("Price");
   const [sortingColumn, setSortingColumn] = useState("Price");
   const [current, setCurrent] = useState({});
-  const customer = useSelector((state) => state.customer);
+  const customer = useSelector((state) => state.deposit);
   useEffect(() => {
     fetch(`http://localhost:8800/api/deposit/loans/${customer[0]["Cus_ID"]}`, {
       method: "GET",

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-function DepositLoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
+export default function EMILoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
   const [newData, setNewData] = useState({
     Cus_ID: "",
     loanType: "",
@@ -33,7 +33,7 @@ function DepositLoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/deposit/loans/${loans.Loan_No}`, newData)
+        .put(`http://localhost:8800/api/emi/loans/${loans.Loan_No}`, newData)
         .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);
@@ -268,4 +268,3 @@ function DepositLoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
   );
 }
 
-export default DepositLoanModel;

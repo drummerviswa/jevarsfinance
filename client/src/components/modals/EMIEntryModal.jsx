@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 
-export default function InterestModel({
+export default function EMIEntryModal({
   showModal,
   setShowModal,
   interest,
@@ -33,7 +33,7 @@ export default function InterestModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/entries/${interest.Entry_ID}`, newData)
+        .put(`http://localhost:8800/api/emi/entries/${interest.Entry_ID}`, newData)
         .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);

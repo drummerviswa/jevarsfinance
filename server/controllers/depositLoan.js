@@ -53,7 +53,7 @@ export const setDepositStatus = (req, res) => {
 
 export const updateDepositLoan = (req, res) => {
   const q =
-    "UPDATE `depositloans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=? WHERE `Loan_No`=?";
+    "UPDATE `depositloans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=?,`advancePay`=? WHERE `Loan_No`=?";
   const value = [
     req.body.loanType,
     req.body.amount,
@@ -61,6 +61,7 @@ export const updateDepositLoan = (req, res) => {
     req.body.dob,
     req.body.document,
     req.body.status,
+    req.body.advancePay,
     req.params.id,
   ];
   db.query(q, value, (err, data) => {
@@ -75,7 +76,7 @@ export const updateDepositLoan = (req, res) => {
 
 export const addDepositLoan = (req, res) => {
   const q =
-    "INSERT INTO `depositloans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`) VALUES (?,?,?,?,?,?,?)";
+    "INSERT INTO `depositloans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`,`advancePay`) VALUES (?,?,?,?,?,?,?,?)";
   const value = [
     req.body.Cus_ID,
     req.body.loanType,
@@ -84,6 +85,7 @@ export const addDepositLoan = (req, res) => {
     req.body.dob,
     req.body.document,
     "Open",
+    req.body.advancePay,
   ];
   db.query(q, value, (err, data) => {
     if (err) return res.status(500).json(err);

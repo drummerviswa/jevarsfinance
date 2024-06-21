@@ -1,45 +1,45 @@
 import { db } from "../connect.js";
 
-export const getLoans = (req, res) => {
+export const getEMILoans = (req, res) => {
   const q =
-    "SELECT FirstName,LastName,l.* from loans l INNER JOIN customers ON l.Cus_ID=customers.Cus_ID";
+    "SELECT FirstName,LastName,l.* from emiloans l INNER JOIN emicustomers ON l.Cus_ID=emicustomers.Cus_ID";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };
 
-export const getLoan = (req, res) => {
+export const getEMILoan = (req, res) => {
   const q =
-    "SELECT FirstName,LastName,l.* from loans l INNER JOIN customers ON l.Cus_ID=customers.Cus_ID WHERE Cus_ID=?";
+    "SELECT FirstName,LastName,l.* from emiloans l INNER JOIN emicustomers ON l.Cus_ID=emicustomers.Cus_ID WHERE Cus_ID=?";
   db.query(q, [req.param.id], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };
-export const getLoanByCustomer = (req, res) => {
+export const getEMILoanByCustomer = (req, res) => {
   const q =
-    "SELECT FirstName,LastName,l.* from loans l INNER JOIN customers ON l.Cus_ID=customers.Cus_ID WHERE l.Cus_ID=?";
+    "SELECT FirstName,LastName,l.* from emiloans l INNER JOIN emicustomers ON l.Cus_ID=emicustomers.Cus_ID WHERE l.Cus_ID=?";
   db.query(q, [req.params.id], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });
 };
 
-export const deleteLoan = (req, res) => {
-  const q = "SELECT * FROM loans WHERE `Loan_No`=?";
+export const deleteEMILoan = (req, res) => {
+  const q = "SELECT * FROM emiloans WHERE `Loan_No`=?";
   db.query(q, [req.params.id], (err, data) => {
     if (err) return res.status(500).json(err);
     if (!data.length) return res.status(409).json("Loan not found");
-    const q = "DELETE FROM loans WHERE `Loan_No`=?";
+    const q = "DELETE FROM emiloans WHERE `Loan_No`=?";
     db.query(q, [req.params.id], (err, data) => {
       return res.status(200).json("Loan deleted.");
     });
   });
 };
 
-export const setStatus = (req, res) => {
-  const q = "UPDATE `loans` SET `Status`=? WHERE `Loan_No`=?";
+export const setEMIStatus = (req, res) => {
+  const q = "UPDATE `emiloans` SET `Status`=? WHERE `Loan_No`=?";
   const values = [req.body.status, req.params.id];
   db.query(q, values, (err, data) => {
     if (err) {
@@ -51,9 +51,9 @@ export const setStatus = (req, res) => {
   });
 };
 
-export const updateLoan = (req, res) => {
+export const updateEMILoan = (req, res) => {
   const q =
-    "UPDATE `loans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=?,`AdvancePay`=? WHERE `Loan_No`=?";
+    "UPDATE `emiloans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=?,`advancePay`=? WHERE `Loan_No`=?";
   const value = [
     req.body.loanType,
     req.body.amount,
@@ -74,9 +74,9 @@ export const updateLoan = (req, res) => {
   });
 };
 
-export const addLoan = (req, res) => {
+export const addEMILoan = (req, res) => {
   const q =
-    "INSERT INTO `loans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`,`AdvancePay`) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO `emiloans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`,`advancePay`) VALUES (?,?,?,?,?,?,?,?)";
   const value = [
     req.body.Cus_ID,
     req.body.loanType,

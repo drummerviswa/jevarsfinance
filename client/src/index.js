@@ -5,7 +5,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import App from "./App";
 import About from "./pages/About";
 import Profits from "./pages/Profits";
-import EMI from "./pages/EMI";
+import EMICategory from "./pages/EMICategory";
 import Navbar from "./components/Navbar";
 import CustomerPage from "./pages/CustomerPage";
 import LoanCategory from "./pages/LoanCategory";
@@ -21,6 +21,11 @@ import DepositLoan from "./pages/DepositLoan";
 import DepositEntry from "./pages/DepositEntry";
 import DepositSpecific from "./pages/DepositSpecific";
 import DepositValidity from "./pages/DepositValidity";
+import EMICustomer from "./pages/EMICustomer";
+import EMILoan from "./pages/EMILoan";
+import EMIEntry from "./pages/EMIEntry";
+import EMISpecific from "./pages/EMISpecific";
+import EMIValidity from "./pages/EMIValidity";
 
 const router = createBrowserRouter([
   {
@@ -66,7 +71,27 @@ const router = createBrowserRouter([
       },
       {
         path: "emi",
-        element: <EMI />,
+        element: <EMICategory />,
+      },
+      {
+        path: "emi/customer",
+        element: <EMICustomer />,
+      },
+      {
+        path: "emi/loans",
+        element: <EMILoan />,
+      },
+      {
+        path: "emi/interest",
+        element: <EMIEntry />,
+      },
+      {
+        path: "emi/details",
+        element: <EMISpecific />,
+      },
+      {
+        path: "emi/validity",
+        element: <EMIValidity />,
       },
       {
         path: "loan",

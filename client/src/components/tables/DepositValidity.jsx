@@ -179,7 +179,7 @@ function DepositValidityTable() {
         </table>
       ) : (
         <div className="w-full rtl:text-right text-black text-center">
-          No Entries found for this customer
+          No Entries found
         </div>
       )}
       <DepositEntryModal

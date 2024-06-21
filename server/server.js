@@ -9,6 +9,10 @@ import depositCustomerRoutes from "./routes/depositCustomers.js";
 import depositLoanRoutes from "./routes/depositLoans.js";
 import depositEntryRoutes from "./routes/depositEntries.js";
 import depositValidityRoutes from "./routes/depositValid.js";
+import emiCustomerRoutes from "./routes/emiCustomers.js";
+import emiLoanRoutes from "./routes/emiLoans.js";
+import emiEntryRoutes from "./routes/emiEntries.js";
+import emiValidityRoutes from "./routes/emiValid.js";
 import cookieParser from 'cookie-parser'
 
 const app = express();
@@ -25,7 +29,11 @@ app.use("/api/validity",validityRoutes);
 app.use("/api/deposit/customers",depositCustomerRoutes)
 app.use("/api/deposit/loans",depositLoanRoutes)
 app.use("/api/deposit/entries",depositEntryRoutes)
-app.use("/api/deposit/validity",depositValidityRoutes)
+app.use("/api/deposit/validity",depositValidityRoutes);
+app.use("/api/emi/customers",emiCustomerRoutes)
+app.use("/api/emi/loans",emiLoanRoutes)
+app.use("/api/emi/entries",emiEntryRoutes)
+app.use("/api/emi/validity",emiValidityRoutes)
 
 app.listen(8800,()=>{
     console.log("Api started");

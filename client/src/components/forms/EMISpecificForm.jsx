@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCustomer as addCustomerAction } from "../../slices/customerSlice";
+import {addEMI as addEMIAction} from "../../slices/emiSlice";
 
-function Specific({updated,setUpdated}) {
+function EMISpecificForm({updated,setUpdated}) {
   const [customers, setCustomers] = useState([]);
   const [current, setCurrent] = useState({});
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/customers/")
+    axios.get("http://localhost:8800/api/emi/customers/")
       .then(response => {
         setCustomers(response.data);
       })
@@ -47,14 +47,14 @@ function Specific({updated,setUpdated}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (current && current.Cus_ID) {
-      dispatch(addCustomerAction(current));
+      dispatch(addEMIAction(current));
       setUpdated(!updated)
     }
   };
 
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Specific Loan Entries</h1>
+      <h1 className="text-center font-bold text-2xl">Specific Deposit Entries</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="relative z-0 w-full mb-5 group">
           <label
@@ -106,4 +106,4 @@ function Specific({updated,setUpdated}) {
   );
 }
 
-export default Specific;
+export default EMISpecificForm;

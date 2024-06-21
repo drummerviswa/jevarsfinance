@@ -11,6 +11,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     dob: "",
     document: "",
     status:"",
+    advancePay:"",
   });
   useEffect(() => {
     if (loans) {
@@ -20,10 +21,12 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
         interest: loans.Interest,
         dob: moment(loans.DOB).format("YYYY-MM-DD"),
         document: loans.Document,
-        status:loans.Status
+        status:loans.Status,
+        advancePay:loans.AdvancePay,
       });
     }
   }, [loans]);
+  console.log("Form: ",newData)
   const handleInput = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
@@ -31,7 +34,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/deposit/loans/${loans.Loan_No}`, newData)
+        .put(`http://localhost:8800/api/loans/${loans.Loan_No}`, newData)
         .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);
@@ -181,7 +184,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                         />
                       </div>
                     </div>
-                    <div className="grid md:grid-cols-2 md:gap-6">
+                    <div className="grid md:grid-cols-3 md:gap-6">
                       <div className="flex flex-col">
                         <label
                           htmlFor="mobile"
@@ -210,6 +213,25 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                           onChange={handleInput}
                           defaultValue={loans.Document}
                           id="document"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        >
+                          <option value="">Choose an option</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="type"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Advanced Payment
+                        </label>
+                        <select
+                          name="advancePay"
+                          onChange={handleInput}
+                          defaultValue={loans.AdvancePay}
+                          id="advancePay"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         >
                           <option value="">Choose an option</option>

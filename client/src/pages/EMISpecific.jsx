@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import DepositSpecificForm from "../components/forms/DepositSpecific";
-import DepositCustomer from "../components/DepositCustomer";
-import DepositSpecificLoan from "../components/tables/DepositSpecificLoan";
-import DepositSpecificEntry from "../components/tables/SpecificDepositEntry";
+import SpecificEMIEntry from "../components/tables/SpecificEMIEntry";
+import EMISpecificForm from "../components/forms/EMISpecificForm";
+import EMICustomer from "../components/EMICustomer";
+import EMISpecificLoan from "../components/tables/EMISpecificLoan";
 
-function DepositSpecific() {
-  const customer = useSelector((state) => state.deposit);
+function EMISpecific() {
+  const emi = useSelector((state) => state.emi);
   const [updated,setUpdated] = useState(false)
   return (
     <div className="bg-white">
@@ -16,22 +16,22 @@ function DepositSpecific() {
             aria-hidden="true"
           ></div>
           <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-36">
-            <DepositSpecificForm updated={updated} setUpdated={setUpdated} />
+            <EMISpecificForm updated={updated} setUpdated={setUpdated} />
           </div>
-          {customer.length!=0&&customer[0]!="-1"?(<>
+          {emi.length!=0&&emi[0]!="-1"?(<>
             <div>
               <h1 className="text-center font-bold">Customer details</h1>
-              <DepositCustomer updated={updated} setUpdated={setUpdated} person={customer[0]} />
+              <EMICustomer updated={updated} setUpdated={setUpdated} person={emi[0]} />
             </div>
             <div>
               <h1 className="text-center font-bold">Loan details</h1>
-              <DepositSpecificLoan updated={updated} setUpdated={setUpdated} />
+              <EMISpecificLoan updated={updated} setUpdated={setUpdated} />
             </div>
             <div className="mt-3">
               <h1 className="text-center font-bold">
                 Interest Payment details
               </h1>
-              <DepositSpecificEntry updated={updated} setUpdated={setUpdated} />
+              <SpecificEMIEntry updated={updated} setUpdated={setUpdated} />
             </div>
           </>):<></>}
         </div>
@@ -39,4 +39,4 @@ function DepositSpecific() {
   )
 }
 
-export default DepositSpecific
+export default EMISpecific

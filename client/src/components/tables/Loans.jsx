@@ -153,6 +153,15 @@ const Loan = () => {
             <th className="py-3 px-3">
               <div
                 className="flex items-center cursor-pointer"
+                onClick={() => sortByColumn("AdvancePay")}
+              >
+                Advance Payment
+                {activeColumn === "AdvancePay" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div
+                className="flex items-center cursor-pointer"
                 onClick={() => sortByColumn("Status")}
               >
                 Status
@@ -188,6 +197,9 @@ const Loan = () => {
               </td>
               <td className="py-5 px-4 text-base font-normal border-t">
                 {data.Document}
+              </td>
+              <td className="py-5 px-4 text-base font-normal border-t">
+                {data.AdvancePay}
               </td>
               <td className="px-4 py-5 text-base font-normal border-t">
                 {data.Status.toLowerCase().match("open") ? (

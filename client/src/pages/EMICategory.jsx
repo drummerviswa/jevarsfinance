@@ -1,37 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const LoanCategory = () => {
+const EMICategory = () => {
   const categories = [
     {
       id: 1,
       name: "Customers",
       image: "customers.png",
-      page:"customer"
+      page: "customer",
     },
     {
       id: 2,
       name: "Loan Details",
       image: "loan.png",
-      page:'loans'
+      page: "loans",
     },
     {
       id: 3,
       name: "Interest Entries",
       image: "interest.png",
-      page:'interest'
+      page: "interest",
     },
     {
       id: 4,
       name: "Specific Customer",
       image: "Customer.png",
-      page:"details"
+      page: "details",
     },
     {
       id: 5,
       name: "Validity Over",
       image: "validity.png",
-      page:"validity"
+      page: "validity",
     },
   ];
   return (
@@ -43,10 +43,14 @@ const LoanCategory = () => {
               <Link
                 to={item.page}
                 key={index}
-                className="bg-gray-400 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
+                className="bg-blue-500 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
               >
                 <h2 className="font-bold sm:text-xl">{item.name}</h2>
-                <img src={item.image} alt={item.name} className="hidden lg:block md:w-40 rounded-lg" />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="hidden lg:block md:w-40 rounded-lg"
+                />
               </Link>
             ))}
           </div>
@@ -56,4 +60,4 @@ const LoanCategory = () => {
   );
 };
 
-export default LoanCategory;
+export default EMICategory;

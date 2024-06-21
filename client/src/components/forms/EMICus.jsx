@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function DepositCu() {
+function EMICus() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -17,7 +17,7 @@ function DepositCu() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/deposit/customers",
+        "http://localhost:8800/api/emi/customers",
         form
       );
       console.log("Post created:", response.data);
@@ -29,7 +29,7 @@ function DepositCu() {
   };
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Deposit Customers</h1>
+      <h1 className="text-center font-bold text-2xl">EMI Customers</h1>
       <form onSubmit={handleClick} className="max-w-md mx-auto">
         <div className="relative z-0 w-full mb-5 group"></div>
         <div className="grid md:grid-cols-2 md:gap-6">
@@ -156,4 +156,4 @@ function DepositCu() {
   );
 }
 
-export default DepositCu;
+export default EMICus;

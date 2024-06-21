@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function Loan() {
+function EMILo() {
   let [customers, setCustomers] = useState([]);
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("http://localhost:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -41,7 +41,7 @@ function Loan() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/loans",
+        "http://localhost:8800/api/emi/loans",
         form
       );
       console.log("Loan created:", response.data);
@@ -53,7 +53,7 @@ function Loan() {
   }
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Loans</h1>
+      <h1 className="text-center font-bold text-2xl">Deposits</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="grid md:grid-cols-1 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
@@ -258,4 +258,4 @@ function Loan() {
   );
 }
 
-export default Loan;
+export default EMILo;

@@ -23,6 +23,7 @@ function DepositLo() {
     interest: "",
     dob: "",
     document: "",
+    advancePay:"",
   })
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -52,7 +53,7 @@ function DepositLo() {
   }
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Loans</h1>
+      <h1 className="text-center font-bold text-2xl">Deposits</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="grid md:grid-cols-1 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
@@ -131,7 +132,7 @@ function DepositLo() {
             ></textarea>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
+        <div className="grid md:grid-cols-3 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="type"
@@ -150,6 +151,24 @@ function DepositLo() {
               <option value="Personal">Personal</option>
               <option value="Gold">Gold</option>
               <option value="Others">Others</option>
+            </select>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+          <label
+              htmlFor="type"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Advance Payment
+            </label>
+            <select
+              name="advancePay"
+              onChange={handleInput}
+              id="advancePay"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="">Choose an option</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
             </select>
           </div>
           <div className="relative z-0 w-full mb-5 group">
