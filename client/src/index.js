@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./index.css";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import App from "./App";
 import About from "./pages/About";
 import ProfitsCategory from "./pages/ProfitsCategory";
@@ -29,20 +34,31 @@ import EMIValidity from "./pages/EMIValidity";
 import LoanProfits from "./pages/LoanProfits";
 import DepositProfits from "./pages/DepositProfits";
 import EMIProfits from "./pages/EMIProfits";
+import Login from "./pages/Login";
+import { AuthContext, AuthContextProvider } from "./context/authContext";
+import Register from "./pages/Register";
+
+const ProtectedRoute = ({ children }) => {
+  const { currentUser } = useContext(AuthContext);
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+  return children;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <>
+      <ProtectedRoute>
         <Navbar />
         <Outlet />
-      </>
+      </ProtectedRoute>
     ),
     children: [
       {
-        path:'/',
-        element: <App />
+        path: "/",
+        element: <App />,
       },
       {
         path: "about",
@@ -54,23 +70,23 @@ const router = createBrowserRouter([
       },
       {
         path: "deposit/customer",
-        element:<DepositCustomer />
+        element: <DepositCustomer />,
       },
       {
         path: "deposit/loans",
-        element:<DepositLoan />
+        element: <DepositLoan />,
       },
       {
         path: "deposit/interest",
-        element:<DepositEntry />
+        element: <DepositEntry />,
       },
       {
         path: "deposit/details",
-        element:<DepositSpecific />
+        element: <DepositSpecific />,
       },
       {
         path: "deposit/validity",
-        element:<DepositValidity />
+        element: <DepositValidity />,
       },
       {
         path: "emi",
@@ -101,24 +117,24 @@ const router = createBrowserRouter([
         element: <LoanCategory />,
       },
       {
-        path:"loan/customer",
-        element: <CustomerPage />
+        path: "loan/customer",
+        element: <CustomerPage />,
       },
       {
-        path:"loan/loans",
-        element: <LoanPage />
+        path: "loan/loans",
+        element: <LoanPage />,
       },
       {
-        path:"loan/interest",
-        element: <InterestPage />
+        path: "loan/interest",
+        element: <InterestPage />,
       },
       {
-        path:"loan/details",
-        element: <SpecificCustomer />
+        path: "loan/details",
+        element: <SpecificCustomer />,
       },
       {
-        path:"loan/validity",
-        element: <ValidityPage />
+        path: "loan/validity",
+        element: <ValidityPage />,
       },
       {
         path: "profit",
@@ -138,10 +154,20 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "register",
+    element: <Register />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-  <RouterProvider router={router} />
-  </Provider>
+  <AuthContextProvider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </AuthContextProvider>
 );

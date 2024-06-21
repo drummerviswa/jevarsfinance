@@ -1,8 +1,9 @@
 import 'animate.css';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
+import { AuthContext } from '../context/authContext';
 
 function Navbar() {
   const navigation = [
@@ -14,6 +15,19 @@ function Navbar() {
   ];
   let location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate()
+  const { logout } = useContext(AuthContext);
+  
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout(currentUser);
+      navigate("/login",{replace:true})
+    } catch (err) {
+      console.error(err.response.data);
+    }
+  };
   return (
     <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -45,9 +59,9 @@ function Navbar() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            <button onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">
+              Log Out <span aria-hidden="true">&rarr;</span>
+            </button>
           </div>
         </nav>
         <Dialog className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -55,7 +69,7 @@ function Navbar() {
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
+                <span className="sr-only">Jevars</span>
                 <img
                   className="h-8 w-auto"
                   src={"logo.png"}
@@ -85,12 +99,12 @@ function Navbar() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
-                    href="#"
+                  <button
+                    onClick={handleLogout}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Log in
-                  </a>
+                    Log Out
+                  </button>
                 </div>
               </div>
             </div>

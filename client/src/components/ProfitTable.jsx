@@ -29,13 +29,13 @@ function ProfitTable({ items, total }) {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {parseFloat(o.total_interest).toFixed(2)}
+                    {parseInt(o.month)}
                   </th>
                   <td className="px-6 py-4 border-x border-gray-700">
-                    ₹ {parseFloat(o.total_amount).toFixed(2)}
+                    ₹ {parseInt(o.total_amount,10)}
                   </td>
                   <td className="px-6 py-4 border-x border-gray-700">
-                    {parseFloat(o.total_interest).toFixed(2)}
+                    ₹ {parseInt(o.total_interest,10)}
                   </td>
                   <td className="px-6 py-4">{parseFloat(o.avg_interest).toFixed(2)}</td>
                 </tr>
