@@ -1,3 +1,4 @@
+import Export from "./components/Export";
 
 export default function App() {
   return (
@@ -13,7 +14,10 @@ export default function App() {
               Jevars Finance
             </h1>
           </div>
-          <p className="text-center text-2xl">This is my app for storing my personal finance</p>
+          <p className="text-center text-2xl">
+            This is my app for storing my personal finance
+          </p>
+          <Export />
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { utils, writeFile } from "xlsx";
 import DepositEntryModal from "../modals/DepositEntryModal";
 
 function EMIValidityTable() {
@@ -41,9 +42,43 @@ function EMIValidityTable() {
     setActiveColumn(column);
   };
   const now = moment();
+  let Heading = [
+    [
+      "CustomerID",
+      "First Name",
+      "Last Name",
+      "Father Name",
+      "Mother Name",
+      "Mobile No",
+      "Address",
+      "Customer Type",
+      "Loan No",
+      "Loan Type",
+      "Loan Amount",
+      "Rate of Interest",
+      "Date of Borrow",
+      "Document",
+      "Advance Payment",
+      "Loan Status",
+      "Entry ID",
+      "Pay Date",
+      "Pay Amount",
+      "Validity"
+    ],
+  ];
+  const today = moment().format("DD/MM/YYYY");
+  const exportFile = useCallback(() => {
+    const wb = utils.book_new();
+    const ws1 = utils.book_new()
+    utils.sheet_add_aoa(ws1, Heading);
+    utils.sheet_add_json(ws1, validity, { origin: 'A2', skipHeader: true });
+    utils.book_append_sheet(wb, ws1, "EMI Validity");
+    writeFile(wb, `EMIValidity_${today}.xlsx`);
+  }, [validity]);
   return (
     <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
       {validity.length != 0 ? (
+        <>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -177,6 +212,16 @@ function EMIValidityTable() {
               ))}
           </tbody>
         </table>
+        <div className="flex justify-center pt-5">
+            <button
+              onClick={exportFile}
+              type="button"
+              class="flex text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+            >
+              Export
+            </button>
+          </div>
+        </>
       ) : (
         <div className="w-full rtl:text-right text-black text-center">
           No Entries found

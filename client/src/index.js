@@ -29,7 +29,6 @@ import EMIValidity from "./pages/EMIValidity";
 import LoanProfits from "./pages/LoanProfits";
 import DepositProfits from "./pages/DepositProfits";
 import EMIProfits from "./pages/EMIProfits";
-import Overall from "./pages/Overall";
 
 const router = createBrowserRouter([
   {
@@ -132,10 +131,6 @@ const router = createBrowserRouter([
       {
         path: "profit/deposit",
         element: <DepositProfits />,
-      },
-      {
-        path: "profit/overall",
-        element: <Overall />,
       },
       {
         path: "profit/emi",
