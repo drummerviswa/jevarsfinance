@@ -53,7 +53,7 @@ export const setEMIStatus = (req, res) => {
 
 export const updateEMILoan = (req, res) => {
   const q =
-    "UPDATE `emiloans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=?,`advancePay`=? WHERE `Loan_No`=?";
+    "UPDATE `emiloans` SET `LoanType`=?,`Amount`=?,`Interest`=?,`DOB`=?,`Document`=?,`Status`=?,`advancePay`=?,`TimePeriod`=?,`MonthlyAmount`=? WHERE `Loan_No`=?";
   const value = [
     req.body.loanType,
     req.body.amount,
@@ -62,6 +62,8 @@ export const updateEMILoan = (req, res) => {
     req.body.document,
     req.body.status,
     req.body.advancePay,
+    req.body.timePeriod,
+    req.body.monthlyAmount,
     req.params.id,
   ];
   db.query(q, value, (err, data) => {
@@ -76,7 +78,7 @@ export const updateEMILoan = (req, res) => {
 
 export const addEMILoan = (req, res) => {
   const q =
-    "INSERT INTO `emiloans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`,`advancePay`) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO `emiloans`(`Cus_ID`,`LoanType`, `Amount`, `Interest`, `DOB`, `Document`, `Status`,`advancePay`,`TimePeriod`,`MonthlyAmount`) VALUES (?,?,?,?,?,?,?,?,?,?)";
   const value = [
     req.body.Cus_ID,
     req.body.loanType,
@@ -86,6 +88,8 @@ export const addEMILoan = (req, res) => {
     req.body.document,
     "Open",
     req.body.advancePay,
+    req.body.timePeriod,
+    req.body.monthlyAmount,
   ];
   db.query(q, value, (err, data) => {
     if (err) return res.status(500).json(err);

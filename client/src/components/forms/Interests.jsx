@@ -94,7 +94,7 @@ function Interests() {
               <option value="">Choose a Customer</option>
               {customers.map((items) => (
                 <option key={items.Cus_ID} value={items.Cus_ID}>
-                  {items.FirstName} {items.LastName}
+                  {items.Cus_ID} | {items.FirstName} {items.LastName}
                 </option>
               ))}
             </select>

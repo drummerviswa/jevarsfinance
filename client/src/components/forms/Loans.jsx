@@ -72,7 +72,7 @@ function Loan() {
               <option value="">Choose a Customer</option>
               {customers.map((items) => (
                 <option key={items.Cus_ID} value={items.Cus_ID}>
-                  {items.FirstName} {items.LastName} | {items.FatherName} |{" "}
+                  {items.Cus_ID} | {items.FirstName} {items.LastName} | {items.FatherName} |{" "}
                   {items.MobileNo} | {items.Address}
                 </option>
               ))}

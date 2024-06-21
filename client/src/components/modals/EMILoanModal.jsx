@@ -12,6 +12,8 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
     document: "",
     status:"",
     advancePay:"",
+    timePeriod:"",
+    monthlyAmount:""
   });
   useEffect(() => {
     if (loans) {
@@ -23,6 +25,8 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
         document: loans.Document,
         status:loans.Status,
         advancePay:loans.advancePay,
+        timePeriod:loans.TimePeriod,
+        monthlyAmount:loans.MonthlyAmount
       });
     }
   }, [loans]);
@@ -68,7 +72,7 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                 <div className="relative p-6 flex-auto">
                   <form className="space-y-4" onSubmit={handleClick}>
                     <div className="flex flex-row justify-between space-x-6">
-                      <div className="flex flex-col">
+                      <div className="relative z-0 w-full group">
                         <label
                           htmlFor="customerID"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -80,12 +84,12 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                           name="customerID"
                           id="disabled-input"
                           aria-label="disabled input"
-                          className="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="mb-2 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           value={loans.Cus_ID}
                           disabled
                         />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="relative z-0 w-full group">
                         <label
                           htmlFor="customerID"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -97,14 +101,14 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                           name="customerID"
                           id="disabled-input"
                           aria-label="disabled input"
-                          className="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          className="mb-2 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           value={loans.Loan_No}
                           disabled
                         />
                       </div>
                     </div>
                     <div className="flex flex-row justify-between space-x-6">
-                      <div className="relative z-0 w-full mb-5 group">
+                      <div className="relative z-0 w-full group">
                         <label
                           htmlFor="type"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -125,12 +129,12 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                           <option value="others">Others</option>
                         </select>
                       </div>
-                      <div className="relative z-0 w-full mb-5 group">
+                      <div className="relative z-0 w-full group">
                         <label
                           htmlFor="type"
                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
-                          Loan Type
+                          Status
                         </label>
                         <select
                           id="customers"
@@ -145,7 +149,7 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                         </select>
                       </div>
                     </div>
-                    <div className="flex flex-row justify-between space-x-6">
+                    <div className="flex flex-row justify-between items-center space-x-6">
                       <div className="flex flex-col">
                         <label
                           htmlFor="amount"
@@ -161,6 +165,44 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
                           step="100"
                           name="amount"
                           id="amount"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                          required
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="amount"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Monthly Amount ₹
+                        </label>
+                        <input
+                          defaultValue={parseInt(loans.MonthlyAmount,10)}
+                          type="number"
+                          min="0.00"
+                          onChange={handleInput}
+                          step="100"
+                          name="monthlyAmount"
+                          id="monthlyAmount"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                          required
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="amount"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Time Period
+                        </label>
+                        <input
+                          defaultValue={parseInt(loans.TimePeriod,10)}
+                          type="number"
+                          min="0"
+                          onChange={handleInput}
+                          step="1"
+                          name="timePeriod"
+                          id="timePeriod"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                           required
                         />

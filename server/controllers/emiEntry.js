@@ -19,13 +19,14 @@ export const getEMIEntryFromCustomer = (req, res) => {
 
 export const addEMIEntries = (req, res) => {
   const q =
-    "INSERT INTO `emientries`(`Loan_No`, `Cus_ID`, `Pay_Date`, `Pay_Amount`, `Validity`) VALUES (?,?,?,?,?)";
+    "INSERT INTO `emientries`(`Loan_No`, `Cus_ID`, `Pay_Date`, `Pay_Amount`, `Validity`,`EMINo`) VALUES (?,?,?,?,?,?)";
   const value = [
     req.body.Loan_No,
     req.body.Cus_ID,
     req.body.payDate,
     req.body.payAmount,
     req.body.validity,
+    req.body.EMINo
   ];
   db.query(q, value, (err, data) => {
     if (err) return res.status(500).json(err);
@@ -47,10 +48,10 @@ export const deleteEMIEntry = (req, res) => {
 
 export const updateEMIEntry = (req, res) => {
   const q =
-    "UPDATE `emientries` SET `Pay_Date`=?,`Pay_Amount`=?,`Validity`=? WHERE `Entry_ID`=?";
+    "UPDATE `emientries` SET `Pay_Date`=?,`Pay_Amount`=?,`Validity`=?,`EMINo`=? WHERE `Entry_ID`=?";
   db.query(
     q,
-    [req.body.payDate, req.body.payAmount, req.body.validity, req.params.id],
+    [req.body.payDate, req.body.payAmount, req.body.validity,req.body.EMINo, req.params.id],
     (err, data) => {
       if (err) {
         console.error(err);

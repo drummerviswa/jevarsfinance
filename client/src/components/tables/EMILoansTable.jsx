@@ -68,7 +68,6 @@ const EMILoansTable = () => {
     setLoans(sortedData);
     setActiveColumn(column);
   };
-
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -108,6 +107,24 @@ const EMILoansTable = () => {
               >
                 Amount
                 {activeColumn === "Amount" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => sortByColumn("MonthlyAmount")}
+              >
+                Monthly Amount
+                {activeColumn === "MonthlyAmount" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => sortByColumn("TimePeriod")}
+              >
+                Time Period
+                {activeColumn === "TimePeriod" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="py-3 px-3">
@@ -176,6 +193,12 @@ const EMILoansTable = () => {
               <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
                 {"₹ " + data.Amount}
               </td>
+              <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                {"₹ " + data.MonthlyAmount}
+              </td>
+              <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                {data.TimePeriod}
+              </td>
               <td className="py-5 px-4 text-base font-normal border-t">
                 {data.Interest}
               </td>
@@ -205,7 +228,7 @@ const EMILoansTable = () => {
                   </button>
                 )}
               </td>
-              <td className="px-4 py-5 text-base font-normal border-t">
+              <td className="flex px-4 py-5 text-base font-normal border-t">
                 <button
                   onClick={() => handleUpdate(data)}
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

@@ -72,7 +72,7 @@ function Specific({updated,setUpdated}) {
             <option value="">Choose a Customer</option>
             {customers.map((customer) => (
               <option key={customer.Cus_ID} value={customer.Cus_ID}>
-                {customer.FirstName} {customer.LastName}
+                {customer.Cus_ID} | {customer.FirstName} {customer.LastName}
               </option>
             ))}
           </select>

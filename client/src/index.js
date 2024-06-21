@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import App from "./App";
 import About from "./pages/About";
-import Profits from "./pages/Profits";
+import ProfitsCategory from "./pages/ProfitsCategory";
 import EMICategory from "./pages/EMICategory";
 import Navbar from "./components/Navbar";
 import CustomerPage from "./pages/CustomerPage";
@@ -26,6 +26,10 @@ import EMILoan from "./pages/EMILoan";
 import EMIEntry from "./pages/EMIEntry";
 import EMISpecific from "./pages/EMISpecific";
 import EMIValidity from "./pages/EMIValidity";
+import LoanProfits from "./pages/LoanProfits";
+import DepositProfits from "./pages/DepositProfits";
+import EMIProfits from "./pages/EMIProfits";
+import Overall from "./pages/Overall";
 
 const router = createBrowserRouter([
   {
@@ -119,7 +123,23 @@ const router = createBrowserRouter([
       },
       {
         path: "profit",
-        element: <Profits />,
+        element: <ProfitsCategory />,
+      },
+      {
+        path: "profit/loan",
+        element: <LoanProfits />,
+      },
+      {
+        path: "profit/deposit",
+        element: <DepositProfits />,
+      },
+      {
+        path: "profit/overall",
+        element: <Overall />,
+      },
+      {
+        path: "profit/emi",
+        element: <EMIProfits />,
       },
     ],
   },

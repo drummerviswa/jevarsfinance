@@ -12,7 +12,7 @@ function LoanPage() {
           aria-hidden="true"
         >
         </div>
-        <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-36">
+        <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-20">
           <Loans />
         </div>
           <Loan />

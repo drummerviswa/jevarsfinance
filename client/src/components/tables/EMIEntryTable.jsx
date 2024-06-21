@@ -101,6 +101,12 @@ function EMIEntryTable() {
               </div>
             </th>
             <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("EMINo")}>
+                EMI No
+                {activeColumn === "EMINo" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="px-6 py-3">
               <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FatherName")}>
               Payment Date
                 {activeColumn === "Pay_Date" && (sortingColumn ? " ↑" : " ↓")}
@@ -141,10 +147,11 @@ function EMIEntryTable() {
                 <td className="px-6 py-4">{item.LoanType}</td>
                 <td className="px-6 py-4">{item.Cus_ID}</td>
                 <td className="px-6 py-4">{item.FirstName} {item.LastName}</td>
+                <td className="px-6 py-4">{item.EMINo}</td>
                 <td className="px-6 py-4">{moment(item.Pay_Date).format("DD-MM-YYYY")}</td>
                 <td className="px-6 py-4">{item.Pay_Amount}</td>
                 <td className="px-6 py-4">{moment(item.Validity).format("DD-MM-YYYY")}</td>
-                <td className="px-6 py-4 space-x-3">
+                <td className="px-6 py-4 flex flex-col">
                   <button
                     onClick={() => handleUpdate(item)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

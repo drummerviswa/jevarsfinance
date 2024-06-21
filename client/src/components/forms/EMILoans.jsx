@@ -24,6 +24,8 @@ function EMILo() {
     dob: "",
     document: "",
     advancePay:"",
+    timePeriod:"",
+    monthlyAmount:""
   })
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -72,7 +74,7 @@ function EMILo() {
               <option value="">Choose a Customer</option>
               {customers.map((items) => (
                 <option key={items.Cus_ID} value={items.Cus_ID}>
-                  {items.FirstName} {items.LastName} | {items.FatherName} |{" "}
+                  {items.Cus_ID} | {items.FirstName} {items.LastName} | {items.FatherName} |{" "}
                   {items.MobileNo} | {items.Address}
                 </option>
               ))}
@@ -138,7 +140,7 @@ function EMILo() {
               htmlFor="type"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
             >
-              Loan Type
+              EMI Type
             </label>
             <select
               id="customers"
@@ -147,10 +149,8 @@ function EMILo() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
               <option value="">Choose a Type</option>
-              <option value="Educational">Education</option>
-              <option value="Personal">Personal</option>
-              <option value="Gold">Gold</option>
-              <option value="Others">Others</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Weekly">Weekly</option>
             </select>
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -175,7 +175,7 @@ function EMILo() {
             <input
               type="number"
               min="0.00"
-              step="1000.00"
+              step="100.00"
               name="amount"
               onChange={handleInput}
               id="floating_amount"
@@ -210,6 +210,46 @@ function EMILo() {
               Interest %
             </label>
           </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              type="number"
+              min="0.00"
+              step="100"
+              name="monthlyAmount"
+              onChange={handleInput}
+              id="floating_monthlyamount"
+              className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              htmlFor="floating_monthlyamount"
+              className="peer-focus:font-medium absolute text-sm text-black dark:text-black duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Monthly Amount ₹
+            </label>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <input
+              type="number"
+              name="timePeriod"
+              min="0"
+              step="1"
+              onChange={handleInput}
+              id="floating_timeperiod"
+              className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=" "
+              required
+            />
+            <label
+              htmlFor="floating_timeperiod"
+              className="peer-focus:font-medium absolute text-sm text-black dark:text-black duration-300 transhtmlForm -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Time Period
+            </label>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
           <label
               htmlFor="type"

@@ -93,7 +93,7 @@ function DepositEntryForm() {
               <option value="">Choose a Customer</option>
               {customers.map((items) => (
                 <option key={items.Cus_ID} value={items.Cus_ID}>
-                  {items.FirstName} {items.LastName}
+                  {items.Cus_ID} | {items.FirstName} {items.LastName}
                 </option>
               ))}
             </select>
@@ -114,7 +114,7 @@ function DepositEntryForm() {
               <option value="">Choose a Loan</option>
               {loans.map((item) => (
                 <option value={item.Loan_No}>
-                  Loan No: {item.Loan_No} | Loan Type: {item.LoanType} | Amount: ₹ {item.Amount} | Interest:{item.Interest}
+                  {item.Loan_No} | {item.LoanType} | ₹ {item.Amount} | {item.Interest}
                 </option>
               ))}
             </select>

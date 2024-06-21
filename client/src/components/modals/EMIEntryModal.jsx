@@ -14,6 +14,7 @@ export default function EMIEntryModal({
     validity: "",
     payDate: "",
     payAmount: "",
+    EMINo:"",
   });
   useEffect(() => {
     if (interest) {
@@ -23,6 +24,7 @@ export default function EMIEntryModal({
         validity: moment(interest.Validity).format("YYYY-MM-DD"),
         payDate: moment(interest.Pay_Date).format("YYYY-MM-DD"),
         payAmount: interest.Pay_Amount,
+        EMINo:interest.EMINo,
       });
     }
   }, [interest]);
@@ -172,6 +174,25 @@ export default function EMIEntryModal({
                           defaultValue={moment(interest.Validity).format("YYYY-MM-DD")}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Select date"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="name"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          EMI No
+                        </label>
+                        <input
+                          defaultValue={parseInt(interest.EMINo,10)}
+                          type="number"
+                          min="0.00"
+                          onChange={handleInput}
+                          step="1"
+                          name="EMINo"
+                          id="EMINo"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                          required
                         />
                       </div>
                     </div>
