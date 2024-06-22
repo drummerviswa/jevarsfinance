@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { utils, writeFile } from "xlsx";
 function Export() {
   const [Ploans, setPLoans] = useState([]);
-  const [PDeposits,setPDeposits] = useState([]);
-  const [PEMI,setEMI] = useState([]);
+  const [PDeposits, setPDeposits] = useState([]);
+  const [PEMI, setEMI] = useState([]);
   const [Ltotal, setLTotal] = useState([]);
   const [Ptotal, setPTotal] = useState([]);
   const [Etotal, setETotal] = useState([]);
@@ -24,12 +24,12 @@ function Export() {
     fetch("https://app-1odw.onrender.com/api/profit/emi/", {
       method: "GET",
     })
-    .then(async (response) => response.json())
+      .then(async (response) => response.json())
       .then((data) => {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-      fetch("https://app-1odw.onrender.com/api/profit/emi/total", {
+    fetch("https://app-1odw.onrender.com/api/profit/emi/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -37,8 +37,6 @@ function Export() {
         setETotal(data);
       })
       .catch((error) => console.log(error));
-    }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/profit/deposit/", {
       method: "GET",
     })
@@ -55,8 +53,6 @@ function Export() {
         setPTotal(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/profit/loans/", {
       method: "GET",
     })
@@ -73,8 +69,6 @@ function Export() {
         setLTotal(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/emi/entries/", {
       method: "GET",
     })
@@ -83,8 +77,6 @@ function Export() {
         setEEntries(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/deposit/entries/", {
       method: "GET",
     })
@@ -93,8 +85,6 @@ function Export() {
         setDEntries(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/entries/", {
       method: "GET",
     })
@@ -103,8 +93,6 @@ function Export() {
         setEntries(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/emi/loans/", {
       method: "GET",
     })
@@ -113,8 +101,6 @@ function Export() {
         setEMILoans(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/deposit/loans/", {
       method: "GET",
     })
@@ -123,8 +109,6 @@ function Export() {
         setDLoans(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/loans/", {
       method: "GET",
     })
@@ -133,8 +117,6 @@ function Export() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/emi/customers/", {
       method: "GET",
     })
@@ -143,8 +125,6 @@ function Export() {
         setEMICustomers(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/deposit/customers/", {
       method: "GET",
     })
@@ -153,8 +133,6 @@ function Export() {
         setLoanCustomers(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/customers/", {
       method: "GET",
     })
@@ -163,8 +141,6 @@ function Export() {
         setDepositCustomers(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/validity`, {
       method: "GET",
     })
@@ -173,8 +149,6 @@ function Export() {
         setLoanValidity(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/deposit/validity`, {
       method: "GET",
     })
@@ -183,8 +157,6 @@ function Export() {
         setDepositValidity(data);
       })
       .catch((error) => console.log(error));
-  }, []);
-  useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/emi/validity`, {
       method: "GET",
     })
@@ -394,11 +366,31 @@ function Export() {
     //EMI Profits
     const ws3 = utils.json_to_sheet(Eentire, { skipHeader: true });
     utils.sheet_add_aoa(ws3, ProfitHeading);
-    utils.sheet_add_json(ws3,PEMI);
+    utils.sheet_add_json(ws3, PEMI);
     utils.book_append_sheet(wb, ws3, "EMI Profits");
     //File write
-    writeFile(wb, `Overall_${today}.xlsx`);
+      writeFile(wb, `Overall_${today}.xlsx`);
   }, []);
+  console.log(
+    Ploans.length,
+    PDeposits.length,
+    PEMI.length,
+    Ltotal.length,
+    Ptotal.length,
+    Etotal.length,
+    entries.length,
+    Dentries.length,
+    Eentire.length,
+    loans.length,
+    dloans.length,
+    EMIloans.length,
+    EMICustomers.length,
+    loanCustomers.length,
+    depositCustomers.length,
+    Emivalidity.length,
+    Loanvalidity.length,
+    DepositValidity.length
+  );
   return (
     <div className="flex justify-center pt-5">
       <button
