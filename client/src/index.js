@@ -37,6 +37,7 @@ import EMIProfits from "./pages/EMIProfits";
 import Login from "./pages/Login";
 import { AuthContext, AuthContextProvider } from "./context/authContext";
 import Register from "./pages/Register";
+import Overall from "./pages/Overall";
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
@@ -151,6 +152,10 @@ const router = createBrowserRouter([
       {
         path: "profit/emi",
         element: <EMIProfits />,
+      },
+      {
+        path: "overall",
+        element: <Overall />,
       },
     ],
   },

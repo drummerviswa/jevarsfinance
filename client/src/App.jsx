@@ -1,4 +1,4 @@
-import Export from "./components/Export";
+import { Link } from "react-router-dom";
 
 export default function App() {
   return (
@@ -17,7 +17,9 @@ export default function App() {
           <p className="text-center text-2xl">
             This is my app for storing my personal finance
           </p>
-          <Export />
+          <Link to="overall" className="justify-center">
+            Overll
+          </Link>
         </div>
       </div>
     </div>

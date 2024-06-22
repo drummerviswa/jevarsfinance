@@ -393,6 +393,86 @@ function Export() {
   );
   return (
     <div className="flex justify-center pt-5">
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                ID
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                First Name
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                Last Name
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                Father's Name
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                Mother's Name
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                Address
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer">
+                Mobile no
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {loanCustomers &&
+            loanCustomers.map((item) => (
+              <tr
+                key={item.Cus_ID}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              >
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {item.Cus_ID}
+                </th>
+                <td className="px-6 py-4">{item.FirstName}</td>
+                <td className="px-6 py-4">{item.LastName}</td>
+                <td className="px-6 py-4">{item.FatherName}</td>
+                <td className="px-6 py-4">{item.MotherName}</td>
+                <td className="px-6 py-4">{item.Address}</td>
+                <td onClick={()=>window.open(`tel:+91${item.MobileNo}`)} className="cursor-pointer px-6 py-4">{item.MobileNo}</td>
+                <td className="px-6 py-4 space-x-3">
+                  <button
+                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
       <button
         onClick={exportFile}
         type="button"
