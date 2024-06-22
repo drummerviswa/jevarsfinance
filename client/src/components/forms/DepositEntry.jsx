@@ -11,7 +11,7 @@ function DepositEntryForm() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/loans/${current?.Cus_ID}`, {
+    fetch(`http://15.206.73.76:8800/api/deposit/loans/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function DepositEntryForm() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/deposit/customers/`, {
+    fetch(`http://15.206.73.76:8800/api/deposit/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function DepositEntryForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/deposit/entries",
+        "http://15.206.73.76:8800/api/deposit/entries",
         form
       );
       console.log("Post created:", response.data);

@@ -17,7 +17,7 @@ function Customers() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/customers",
+        "http://15.206.73.76:8800/api/customers",
         form
       );
       console.log("Post created:", response.data);

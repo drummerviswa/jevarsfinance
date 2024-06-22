@@ -13,7 +13,7 @@ function Validity() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/validity`, {
+    fetch(`http://15.206.73.76:8800/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

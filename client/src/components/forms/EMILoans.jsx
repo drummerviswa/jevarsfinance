@@ -6,7 +6,7 @@ function EMILo() {
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/customers/", {
+    fetch("http://15.206.73.76:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -43,7 +43,7 @@ function EMILo() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/emi/loans",
+        "http://15.206.73.76:8800/api/emi/loans",
         form
       );
       console.log("Loan created:", response.data);

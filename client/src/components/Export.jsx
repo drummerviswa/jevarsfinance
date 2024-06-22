@@ -21,7 +21,7 @@ function Export() {
   const [Loanvalidity, setLoanValidity] = useState([]);
   const [DepositValidity, setDepositValidity] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8800/api/profit/emi/", {
+    fetch("http://15.206.73.76:8800/api/profit/emi/", {
       method: "GET",
     })
     .then(async (response) => response.json())
@@ -29,7 +29,7 @@ function Export() {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-      fetch("http://localhost:8800/api/profit/emi/total", {
+      fetch("http://15.206.73.76:8800/api/profit/emi/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -39,7 +39,7 @@ function Export() {
       .catch((error) => console.log(error));
     }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/profit/deposit/", {
+    fetch("http://15.206.73.76:8800/api/profit/deposit/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -47,7 +47,7 @@ function Export() {
         setPDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/deposit/total", {
+    fetch("http://15.206.73.76:8800/api/profit/deposit/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -57,7 +57,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/profit/loans/", {
+    fetch("http://15.206.73.76:8800/api/profit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -65,7 +65,7 @@ function Export() {
         setPLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/loans/total", {
+    fetch("http://15.206.73.76:8800/api/profit/loans/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -75,7 +75,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/entries/", {
+    fetch("http://15.206.73.76:8800/api/emi/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -85,7 +85,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/entries/", {
+    fetch("http://15.206.73.76:8800/api/deposit/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -95,7 +95,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/entries/", {
+    fetch("http://15.206.73.76:8800/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -105,7 +105,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/loans/", {
+    fetch("http://15.206.73.76:8800/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -115,7 +115,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/loans/", {
+    fetch("http://15.206.73.76:8800/api/deposit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -125,7 +125,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/loans/", {
+    fetch("http://15.206.73.76:8800/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -135,7 +135,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/customers/", {
+    fetch("http://15.206.73.76:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -145,7 +145,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/customers/", {
+    fetch("http://15.206.73.76:8800/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -155,7 +155,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("http://15.206.73.76:8800/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -165,7 +165,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/validity`, {
+    fetch(`http://15.206.73.76:8800/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -175,7 +175,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/validity`, {
+    fetch(`http://15.206.73.76:8800/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -185,7 +185,7 @@ function Export() {
       .catch((error) => console.log(error));
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/validity`, {
+    fetch(`http://15.206.73.76:8800/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

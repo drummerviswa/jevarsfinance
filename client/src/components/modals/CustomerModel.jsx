@@ -36,7 +36,7 @@ export default function CustomerModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/customers/${customer.Cus_ID}`, newData)
+        .put(`http://15.206.73.76:8800/api/customers/${customer.Cus_ID}`, newData)
         .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);

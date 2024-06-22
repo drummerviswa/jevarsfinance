@@ -9,7 +9,7 @@ function DepositSpecificForm({updated,setUpdated}) {
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/deposit/customers/")
+    axios.get("http://15.206.73.76:8800/api/deposit/customers/")
       .then(response => {
         setCustomers(response.data);
       })

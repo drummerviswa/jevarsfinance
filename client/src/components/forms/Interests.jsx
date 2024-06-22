@@ -11,7 +11,7 @@ function Interests() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/loans/${current?.Cus_ID}`, {
+    fetch(`http://15.206.73.76:8800/api/loans/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function Interests() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/customers/`, {
+    fetch(`http://15.206.73.76:8800/api/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function Interests() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/entries",
+        "http://15.206.73.76:8800/api/entries",
         form
       );
       console.log("Post created:", response.data);

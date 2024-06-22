@@ -86,7 +86,7 @@ function Loan() {
   const [sortingColumn, setSortingColumn] = useState(["Price"]);
   let [loan, setLoans] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8800/api/loans/", {
+    fetch("http://15.206.73.76:8800/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())

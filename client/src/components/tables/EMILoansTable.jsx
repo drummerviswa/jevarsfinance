@@ -14,7 +14,7 @@ const EMILoansTable = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/loans/", {
+    fetch("http://15.206.73.76:8800/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +31,7 @@ const EMILoansTable = () => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/emi/loans/${item.Loan_No}`);
+      await axios.delete(`http://15.206.73.76:8800/api/emi/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -40,7 +40,7 @@ const EMILoansTable = () => {
   };
   const handleStatus = async (item) => {
     try {
-      await axios.put(`http://localhost:8800/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
+      await axios.put(`http://15.206.73.76:8800/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {

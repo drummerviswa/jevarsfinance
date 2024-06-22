@@ -12,7 +12,7 @@ function DepositValidityTable() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/validity`, {
+    fetch(`http://15.206.73.76:8800/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

@@ -6,7 +6,7 @@ function Loan() {
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("http://15.206.73.76:8800/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -41,7 +41,7 @@ function Loan() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/loans",
+        "http://15.206.73.76:8800/api/loans",
         form
       );
       console.log("Loan created:", response.data);

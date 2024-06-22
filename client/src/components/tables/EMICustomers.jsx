@@ -13,7 +13,7 @@ function EMICustomers() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/customers/", {
+    fetch("http://15.206.73.76:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -30,7 +30,7 @@ function EMICustomers() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/emi/customers/${item.Cus_ID}`);
+      await axios.delete(`http://15.206.73.76:8800/api/emi/customers/${item.Cus_ID}`);
       setCustomers(customers.filter((i) => i.Cus_ID !== item.Cus_ID));
       setUpdated(!updated);
     } catch (error) {

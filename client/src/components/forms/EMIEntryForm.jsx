@@ -11,7 +11,7 @@ function EMIEntryForm() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/loans/${current?.Cus_ID}`, {
+    fetch(`http://15.206.73.76:8800/api/emi/loans/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function EMIEntryForm() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/emi/customers/`, {
+    fetch(`http://15.206.73.76:8800/api/emi/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function EMIEntryForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/emi/entries",
+        "http://15.206.73.76:8800/api/emi/entries",
         form
       );
       console.log("Post created:", response.data);

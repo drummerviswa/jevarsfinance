@@ -12,7 +12,7 @@ function DepositSpecificEntry({ updated, setUpdated }) {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.deposit);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/entries/${customer[0]["Cus_ID"]}`, {
+    fetch(`http://15.206.73.76:8800/api/deposit/entries/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ function DepositSpecificEntry({ updated, setUpdated }) {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/deposit/api/entries/${item.Entry_ID}`);
+      await axios.delete(`http://15.206.73.76:8800/deposit/api/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
     } catch (error) {
