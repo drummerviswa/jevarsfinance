@@ -8,7 +8,7 @@ function DepositProfits() {
   const [total,setTotal] = useState([]);
   let entire = [...deposits,[{}], ...total];
   useEffect(() => {
-    fetch("http://15.206.73.76:8800/api/profit/deposit/", {
+    fetch("https://app-1odw.onrender.com/api/profit/deposit/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -16,7 +16,7 @@ function DepositProfits() {
         setDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://15.206.73.76:8800/api/profit/deposit/total", {
+    fetch("https://app-1odw.onrender.com/api/profit/deposit/total", {
       method: "GET",
     })
       .then(async (response) => response.json())

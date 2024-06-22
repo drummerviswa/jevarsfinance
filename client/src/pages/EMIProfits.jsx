@@ -8,7 +8,7 @@ function EMIProfits() {
   const [total, setTotal] = useState([]);
   let entire = [...emi,[{}], ...total];
   useEffect(() => {
-    fetch("http://15.206.73.76:8800/api/profit/emi/", {
+    fetch("https://app-1odw.onrender.com/api/profit/emi/", {
       method: "GET",
     })
     .then(async (response) => response.json())
@@ -16,7 +16,7 @@ function EMIProfits() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-      fetch("http://15.206.73.76:8800/api/profit/emi/total", {
+      fetch("https://app-1odw.onrender.com/api/profit/emi/total", {
       method: "GET",
     })
       .then(async (response) => response.json())

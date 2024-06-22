@@ -36,7 +36,7 @@ export default function EMICustomerModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://15.206.73.76:8800/api/emi/customers/${customer.Cus_ID}`, newData)
+        .put(`https://app-1odw.onrender.com/api/emi/customers/${customer.Cus_ID}`, newData)
         .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);

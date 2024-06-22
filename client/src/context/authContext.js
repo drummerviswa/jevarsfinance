@@ -9,9 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   );
   const login = async(inputs) => {
     try {
-      const res = await axios.post("http://15.206.73.76:8800/api/auth/login", inputs, {
-        withCredentials: true,
-      });
+      const res = await axios.post("https://app-1odw.onrender.com/api/auth/login", inputs);
       setCurrentUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
@@ -20,9 +18,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logout = async () => {
     try {
-      await axios.post("http://15.206.73.76:8800/api/auth/logout", {}, {
-        withCredentials: true,
-      });
+      await axios.post("https://app-1odw.onrender.com/api/auth/logout", {});
       setCurrentUser(null);
       localStorage.removeItem("user");
     } catch (err) {

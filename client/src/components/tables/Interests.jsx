@@ -14,7 +14,7 @@ function Interest() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://15.206.73.76:8800/api/entries/", {
+    fetch("https://app-1odw.onrender.com/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +31,7 @@ function Interest() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://15.206.73.76:8800/api/entries/${item.Entry_ID}`);
+      await axios.delete(`https://app-1odw.onrender.com/api/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
     } catch (error) {

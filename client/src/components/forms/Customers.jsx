@@ -17,7 +17,7 @@ function Customers() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://15.206.73.76:8800/api/customers",
+        "https://app-1odw.onrender.com/api/customers",
         form
       );
       console.log("Post created:", response.data);

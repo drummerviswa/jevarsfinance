@@ -11,7 +11,7 @@ function Interests() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://15.206.73.76:8800/api/loans/${current?.Cus_ID}`, {
+    fetch(`https://app-1odw.onrender.com/api/loans/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function Interests() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://15.206.73.76:8800/api/customers/`, {
+    fetch(`https://app-1odw.onrender.com/api/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function Interests() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://15.206.73.76:8800/api/entries",
+        "https://app-1odw.onrender.com/api/entries",
         form
       );
       console.log("Post created:", response.data);

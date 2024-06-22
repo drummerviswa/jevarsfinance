@@ -28,7 +28,7 @@ function LoanProfits() {
     writeFile(wb, `LoanProfits_${today}.xlsx`);
   }, [loans]);
   useEffect(() => {
-    fetch("http://15.206.73.76:8800/api/profit/loans/", {
+    fetch("https://app-1odw.onrender.com/api/profit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -36,7 +36,7 @@ function LoanProfits() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://15.206.73.76:8800/api/profit/loans/total", {
+    fetch("https://app-1odw.onrender.com/api/profit/loans/total", {
       method: "GET",
     })
       .then(async (response) => response.json())

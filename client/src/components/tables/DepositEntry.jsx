@@ -14,7 +14,7 @@ function DepositEntryTable() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://15.206.73.76:8800/api/deposit/entries/", {
+    fetch("https://app-1odw.onrender.com/api/deposit/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +31,7 @@ function DepositEntryTable() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://15.206.73.76:8800/api/deposit/entries/${item.Entry_ID}`);
+      await axios.delete(`https://app-1odw.onrender.com/api/deposit/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
     } catch (error) {
