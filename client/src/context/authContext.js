@@ -9,7 +9,9 @@ export const AuthContextProvider = ({ children }) => {
   );
   const login = async(inputs) => {
     try {
-      const res = await axios.post("https://app-1odw.onrender.com/api/auth/login", inputs);
+      const res = await axios.post("https://app-1odw.onrender.com/api/auth/login", inputs,{
+        withCredentials:true
+      });
       setCurrentUser(res.data);
       localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
