@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DepositValidityTable from "../components/tables/DepositValidity";
 
 function DepositValidity() {
+  useEffect(() => {
+    document.title= "Deposit - Validity";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">

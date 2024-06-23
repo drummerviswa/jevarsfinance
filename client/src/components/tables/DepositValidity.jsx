@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DepositEntryModal from "../modals/DepositEntryModal";
 import { utils, writeFile } from "xlsx";
+import Icon from "react-icons-kit";
+import { ic_call } from "react-icons-kit/md/ic_call";
 
 function DepositValidityTable() {
   const [show, setShow] = useState(false);
@@ -138,24 +140,10 @@ function DepositValidityTable() {
                 </div>
               </th>
               <th className="px-6 py-3">
-                <div
-                  className="flex items-center cursor-pointer"
-                  onClick={() => sortByColumn("Pay_Date")}
-                >
-                  Payment Date
-                  {activeColumn === "Pay_Date" && (sortingColumn ? " ↑" : " ↓")}
-                </div>
-              </th>
-              <th className="px-6 py-3">
-                <div
-                  className="flex items-center cursor-pointer"
-                  onClick={() => sortByColumn("Pay_Amount")}
-                >
-                  Paid Amount
-                  {activeColumn === "Pay_Amount" &&
-                    (sortingColumn ? " ↑" : " ↓")}
-                </div>
-              </th>
+                  <div className="flex items-center cursor-pointer">
+                    Mobile No
+                  </div>
+                </th>
               <th className="px-6 py-3">Remaining</th>
               <th className="px-6 py-3">
                 <div className="flex items-center cursor-pointer">Validity</div>
@@ -182,10 +170,15 @@ function DepositValidityTable() {
                   <td className="px-6 py-4">
                     {item.FirstName} {item.LastName}
                   </td>
-                  <td className="px-6 py-4">
-                    {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                  </td>
-                  <td className="px-6 py-4">{item.Pay_Amount}</td>
+                  <td className="flex flex-row items-center justify-center px-6 py-4">
+                      <p className="text-center p-3">{item.MobileNo}</p>
+                      <button
+                        onClick={() => window.open(`tel:+91${item.MobileNo}`)}
+                        className="flex py-0.5 px-1 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      >
+                        Call <Icon icon={ic_call} size={15} />
+                      </button>
+                    </td>
                   <td className="px-6 py-4">
                     {-1 * moment(item.Validity).diff(now, "months") > 0 ? (
                       <>

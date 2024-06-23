@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EMILo from '../components/forms/EMILoans'
 import EMILoansTable from '../components/tables/EMILoansTable'
 
 function EMILoan() {
+  useEffect(() => {
+    document.title= "EMI - Loans";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-14 lg:px-8 py-10">

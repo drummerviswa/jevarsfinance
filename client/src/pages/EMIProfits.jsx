@@ -4,6 +4,9 @@ import { utils, writeFile } from "xlsx";
 import moment from "moment";
 
 function EMIProfits() {
+  useEffect(() => {
+    document.title= "Profit - EMI";
+  }, [])
   const [emi, setEmi] = useState([]);
   const [total, setTotal] = useState([]);
   let entire = [...emi,[{}], ...total];

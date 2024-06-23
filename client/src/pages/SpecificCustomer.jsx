@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Specific from "../components/forms/Specfic";
 import { useSelector } from "react-redux";
 import SpecificLoan from "../components/tables/SpecificLoan";
@@ -6,6 +6,9 @@ import SpecificEntry from "../components/tables/SpecificEntry";
 import CustomerDetails from "../components/CustomerDetails";
 
 function SpecificCustomer() {
+  useEffect(() => {
+    document.title= "Loan - Specific";
+  }, [])
   const customer = useSelector((state) => state.customer);
   const [updated,setUpdated] = useState(false)
   return (

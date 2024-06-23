@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DepositEntryForm from '../components/forms/DepositEntry'
 import DepositEntryTable from '../components/tables/DepositEntry'
 
 function DepositEntry() {
+  useEffect(() => {
+    document.title= "Deposit - Entires";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-14 lg:px-8 py-10">

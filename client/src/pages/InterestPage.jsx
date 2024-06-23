@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Interest from '../components/tables/Interests'
 import '../index.css'
 import Interests from '../components/forms/Interests'
 
 function InterestPage() {
+  useEffect(() => {
+    document.title= "Loan - Entries";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-14 lg:px-8 py-10">

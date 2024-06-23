@@ -4,6 +4,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import { AuthContext } from '../context/authContext';
+import logo from './logo.png'
 
 function Navbar() {
   const navigation = [
@@ -30,14 +31,14 @@ function Navbar() {
   };
   return (
     <header className="absolute inset-x-0 top-0 z-50">
-        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <nav className="flex items-center justify-between p-4 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to="/" className={"flex flex-col -m-1.5 p-1.5"&&location.pathname=="/"?"animate__animated animate__pulse animate__infinite":""}>
               <span className="sr-only">Jevars Finance</span>
               <img
                 className="h-20 w-auto"
-                src="logo.png"
-                alt=""
+                src={logo}
+                alt="Home"
                 />
             </Link>
           </div>
@@ -59,8 +60,8 @@ function Navbar() {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">
-              Log Out <span aria-hidden="true">&rarr;</span>
+            <button onClick={handleLogout} className="underline text-sm font-semibold leading-6 text-red-600">
+              Log Out
             </button>
           </div>
         </nav>
@@ -101,9 +102,9 @@ function Navbar() {
                 <div className="py-6">
                   <button
                     onClick={handleLogout}
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-red-600 hover:bg-gray-50"
                   >
-                    Log Out
+                    Log Out →
                   </button>
                 </div>
               </div>

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const DepositCategory = () => {
+  useEffect(() => {
+    document.title= "Deposit Category";
+  }, [])
   const categories = [
     {
       id: 1,

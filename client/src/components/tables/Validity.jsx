@@ -4,6 +4,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { utils, writeFile } from "xlsx";
 import moment from "moment";
+import Icon from "react-icons-kit";
+import { ic_call } from "react-icons-kit/md/ic_call";
 
 function Validity() {
   const [show, setShow] = useState(false);
@@ -22,26 +24,6 @@ function Validity() {
       })
       .catch((error) => console.log(error));
   }, []);
-  const sortByColumn = (column) => {
-    let sortedData = [];
-    if (sortingColumn === column) {
-      sortedData = validity
-        .slice()
-        .sort((a, b) =>
-          b[column].toString().localeCompare(a[column].toString())
-        );
-      setSortingColumn("");
-    } else {
-      sortedData = validity
-        .slice()
-        .sort((a, b) =>
-          a[column].toString().localeCompare(b[column].toString())
-        );
-      setSortingColumn(column);
-    }
-    setValidity(sortedData);
-    setActiveColumn(column);
-  };
   const now = moment();
   let Heading = [
     [
@@ -64,15 +46,15 @@ function Validity() {
       "Entry ID",
       "Pay Date",
       "Pay Amount",
-      "Validity"
+      "Validity",
     ],
   ];
   const today = moment().format("DD/MM/YYYY");
   const exportFile = useCallback(() => {
     const wb = utils.book_new();
-    const ws1 = utils.book_new()
+    const ws1 = utils.book_new();
     utils.sheet_add_aoa(ws1, Heading);
-    utils.sheet_add_json(ws1, validity, { origin: 'A2', skipHeader: true });
+    utils.sheet_add_json(ws1, validity, { origin: "A2", skipHeader: true });
     utils.book_append_sheet(wb, ws1, "Loan Validity");
     writeFile(wb, `LoanValidity_${today}.xlsx`);
   }, [validity]);
@@ -84,81 +66,38 @@ function Validity() {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Entry_ID")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Entry ID
-                    {activeColumn === "Entry_ID" &&
-                      (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Loan_No")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Loan No
-                    {activeColumn === "Loan_No" &&
-                      (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Amount")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Loan Amount
-                    {activeColumn === "Amount" && (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("LoanType")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Loan Type
-                    {activeColumn === "LoanType" &&
-                      (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Cus_ID")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Customer ID
-                    {activeColumn === "Cus_ID" && (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("FirstName")}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     Customer Name
-                    {activeColumn === "FirstName" &&
-                      (sortingColumn ? " ↑" : " ↓")}
                   </div>
                 </th>
                 <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Pay_Date")}
-                  >
-                    Payment Date
-                    {activeColumn === "Pay_Date" &&
-                      (sortingColumn ? " ↑" : " ↓")}
-                  </div>
-                </th>
-                <th className="px-6 py-3">
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => sortByColumn("Pay_Amount")}
-                  >
-                    Paid Amount
-                    {activeColumn === "Pay_Amount" &&
-                      (sortingColumn ? " ↑" : " ↓")}
+                  <div className="flex items-center cursor-pointer">
+                    Mobile No
                   </div>
                 </th>
                 <th className="px-6 py-3">Remaining</th>
@@ -189,10 +128,15 @@ function Validity() {
                     <td className="px-6 py-4">
                       {item.FirstName} {item.LastName}
                     </td>
-                    <td className="px-6 py-4">
-                      {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                    <td className="flex flex-row items-center justify-center px-6 py-4">
+                      <p className="text-center p-3">{item.MobileNo}</p>
+                      <button
+                        onClick={() => window.open(`tel:+91${item.MobileNo}`)}
+                        className="flex py-0.5 px-1 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                      >
+                        Call <Icon icon={ic_call} size={15} />
+                      </button>
                     </td>
-                    <td className="px-6 py-4">{item.Pay_Amount}</td>
                     <td className="px-6 py-4">
                       {-1 * moment(item.Validity).diff(now, "months") > 0 ? (
                         <>
@@ -204,7 +148,7 @@ function Validity() {
                       )}{" "}
                       {-1 *
                         moment(item.Validity).diff(
-                          now.add(
+                          moment(now).add(
                             moment(item.Validity).diff(now, "months"),
                             "months"
                           ),

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Validity from "../components/tables/Validity";
 
 function ValidityPage() {
+  useEffect(() => {
+    document.title= "Loan - Validity";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">

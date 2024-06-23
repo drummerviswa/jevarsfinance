@@ -20,7 +20,7 @@ const app = express();
 app.use(cookieParser());
 
 app.use(cors({
-    origin:"https://jeevars.vercel.app",
+    origin:"https://jevars.vercel.app",
     credentials:true,
   }));
 app.use(express.json());

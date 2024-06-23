@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DepositSpecificForm from "../components/forms/DepositSpecific";
 import DepositCustomer from "../components/DepositCustomer";
@@ -6,6 +6,9 @@ import DepositSpecificLoan from "../components/tables/DepositSpecificLoan";
 import DepositSpecificEntry from "../components/tables/SpecificDepositEntry";
 
 function DepositSpecific() {
+  useEffect(() => {
+    document.title= "Deposit - Specific";
+  }, [])
   const customer = useSelector((state) => state.deposit);
   const [updated,setUpdated] = useState(false)
   return (

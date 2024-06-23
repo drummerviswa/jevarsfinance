@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SpecificEMIEntry from "../components/tables/SpecificEMIEntry";
 import EMISpecificForm from "../components/forms/EMISpecificForm";
@@ -6,6 +6,9 @@ import EMICustomer from "../components/EMICustomer";
 import EMISpecificLoan from "../components/tables/EMISpecificLoan";
 
 function EMISpecific() {
+  useEffect(() => {
+    document.title= "EMI - Specific";
+  }, [])
   const emi = useSelector((state) => state.emi);
   const [updated,setUpdated] = useState(false)
   return (

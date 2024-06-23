@@ -4,8 +4,13 @@ import moment from "moment"
 import { utils, writeFile } from "xlsx";
 
 function LoanProfits() {
+  useEffect(() => {
+    document.title= "Profit - Loans";
+  }, [])
   const [loans, setLoans] = useState([]);
+  const [loanse, setLoanse] = useState([]);
   const [total, setTotal] = useState([]);
+  const [totale, setTotale] = useState([]);
   let entire = [...loans, [{}], ...total];
   let Heading = [
     [

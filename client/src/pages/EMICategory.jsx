@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const EMICategory = () => {
+  useEffect(() => {
+    document.title= "EMI Category";
+  }, [])
   const categories = [
     {
       id: 1,
@@ -43,7 +46,7 @@ const EMICategory = () => {
               <Link
                 to={item.page}
                 key={index}
-                className="bg-blue-500 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
+                className="bg-pink-300 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
               >
                 <h2 className="font-bold sm:text-xl">{item.name}</h2>
                 <img

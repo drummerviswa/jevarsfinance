@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EMIEntryForm from '../components/forms/EMIEntryForm'
 import EMIEntryTable from '../components/tables/EMIEntryTable'
 
 function EMIEntry() {
+  useEffect(() => {
+    document.title= "EMI - Entries";
+  }, [])
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-14 lg:px-8 py-10">

@@ -4,6 +4,9 @@ import { utils, writeFile } from "xlsx";
 import moment from "moment";
 
 function DepositProfits() {
+  useEffect(() => {
+    document.title= "Profit - Deposit";
+  }, [])
   const [deposits, setDeposits] = useState([]);
   const [total,setTotal] = useState([]);
   let entire = [...deposits,[{}], ...total];

@@ -1,22 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const ProfitCategory = () => {
+  useEffect(() => {
+    document.title = "Profit Category";
+  }, []);
   const categories = [
     {
       id: 1,
       name: "Loans",
       page: "loan",
+      image: "profitloan.png",
     },
     {
       id: 2,
       name: "Deposits",
       page: "deposit",
+      image: "profitdeposit.png",
     },
     {
       id: 3,
       name: "EMIs",
       page: "emi",
+      image: "profitemi.png",
     },
   ];
   return (
@@ -28,9 +34,14 @@ const ProfitCategory = () => {
               <Link
                 to={item.page}
                 key={index}
-                className="bg-black text-white font-semibold underline hover:bg-white hover:text-black cursor-pointer duration-500 rounded-lg p-16 flex justify-between items-center flex flex-col"
+                className="bg-green-600 font-semibold underline hover:bg-white cursor-pointer duration-500 rounded-lg p-10 flex justify-between items-center"
               >
                 <h2 className="font-bold sm:text-xl">{item.name}</h2>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="hidden lg:block md:w-40 rounded-lg"
+                />
               </Link>
             ))}
           </div>

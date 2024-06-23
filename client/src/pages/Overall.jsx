@@ -1,7 +1,10 @@
+import ReactToPrint from "react-to-print";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { utils, writeFile } from "xlsx";
 import ProfitTable from "../components/ProfitTable";
+import Icon from "react-icons-kit";
+import { ic_call } from "react-icons-kit/md/ic_call";
 function Overall() {
   const now = moment();
   const [Ploans, setPLoans] = useState([]);
@@ -22,6 +25,10 @@ function Overall() {
   const [Emivalidity, setEmiValidity] = useState([]);
   const [Loanvalidity, setLoanValidity] = useState([]);
   const [DepositValidity, setDepositValidity] = useState([]);
+  useEffect(() => {
+    document.title = `${now.format("DD/MM/YYYY")} Overall`;
+  }, []);
+
   useEffect(() => {
     fetch("https://app-1odw.onrender.com/api/profit/emi/", {
       method: "GET",
@@ -393,19 +400,111 @@ function Overall() {
     Loanvalidity.length,
     DepositValidity.length
   );
+  const componentRef = useRef();
   return (
-    <div className="bg-white">
+    <div ref={componentRef} className="bg-white">
       <div className="relative isolate px-6 lg:px-8">
         <div className="items-center justify-center flex  mx-auto py-32 flex-col">
-          <button
-            onClick={exportFile}
-            type="button"
-            className="flex text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          >
-            Export
-          </button>
-          <div className="flex justify-center py-3">
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div className="flex flex-row">
+            <ReactToPrint
+              pageStyle="@page"
+              trigger={() => (
+                <button
+                  type="button"
+                  className="flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                >
+                  PDF
+                </button>
+              )}
+              content={() => componentRef.current}
+              documentTitle={`${now.format("DD/MM/YYYY")} Overall`}
+            />
+            <button
+              onClick={exportFile}
+              type="button"
+              className="flex text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+            >
+              Export
+            </button>
+          </div>
+          <div>
+            <div className="flex justify-center py-3">
+              <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <h1 className="font-bold text-center">Loan Customers</h1>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          ID
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          First Name
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          Last Name
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          Father's Name
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          Mother's Name
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          Address
+                        </div>
+                      </th>
+                      <th className="px-6 py-3">
+                        <div className="flex items-center cursor-pointer">
+                          Mobile no
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {loanCustomers &&
+                      loanCustomers.map((item) => (
+                        <tr
+                          key={item.Cus_ID}
+                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        >
+                          <th
+                            scope="row"
+                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          >
+                            {item.Cus_ID}
+                          </th>
+                          <td className="px-6 py-4">{item.FirstName}</td>
+                          <td className="px-6 py-4">{item.LastName}</td>
+                          <td className="px-6 py-4">{item.FatherName}</td>
+                          <td className="px-6 py-4">{item.MotherName}</td>
+                          <td className="px-6 py-4">{item.Address}</td>
+                          <td
+                            onClick={() =>
+                              window.open(`tel:+91${item.MobileNo}`)
+                            }
+                            className="cursor-pointer px-6 py-4"
+                          >
+                            {item.MobileNo}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">Deposit Customers</h1>
               <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -442,12 +541,11 @@ function Overall() {
                         Mobile no
                       </div>
                     </th>
-                    <th className="px-6 py-3">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {loanCustomers &&
-                    loanCustomers.map((item) => (
+                  {depositCustomers &&
+                    depositCustomers.map((item) => (
                       <tr
                         key={item.Cus_ID}
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -469,1171 +567,1033 @@ function Overall() {
                         >
                           {item.MobileNo}
                         </td>
-                        <td className="px-6 py-4 space-x-3">
-                          <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                            Edit
-                          </button>
-                          <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                            Delete
-                          </button>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">EMI Customers</h1>
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">ID</div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        First Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Last Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Father's Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Mother's Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Address
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Mobile no
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {EMICustomers &&
+                    EMICustomers.map((item) => (
+                      <tr
+                        key={item.Cus_ID}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                          {item.Cus_ID}
+                        </th>
+                        <td className="px-6 py-4">{item.FirstName}</td>
+                        <td className="px-6 py-4">{item.LastName}</td>
+                        <td className="px-6 py-4">{item.FatherName}</td>
+                        <td className="px-6 py-4">{item.MotherName}</td>
+                        <td className="px-6 py-4">{item.Address}</td>
+                        <td
+                          onClick={() => window.open(`tel:+91${item.MobileNo}`)}
+                          className="cursor-pointer px-6 py-4"
+                        >
+                          {item.MobileNo}
                         </td>
                       </tr>
                     ))}
                 </tbody>
               </table>
             </div>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">ID</div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      First Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Last Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Father's Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Mother's Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Address
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Mobile no
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {depositCustomers &&
-                  depositCustomers.map((item) => (
-                    <tr
-                      key={item.Cus_ID}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {item.Cus_ID}
-                      </th>
-                      <td className="px-6 py-4">{item.FirstName}</td>
-                      <td className="px-6 py-4">{item.LastName}</td>
-                      <td className="px-6 py-4">{item.FatherName}</td>
-                      <td className="px-6 py-4">{item.MotherName}</td>
-                      <td className="px-6 py-4">{item.Address}</td>
-                      <td
-                        onClick={() => window.open(`tel:+91${item.MobileNo}`)}
-                        className="cursor-pointer px-6 py-4"
-                      >
-                        {item.MobileNo}
-                      </td>
-                      <td className="px-6 py-4 space-x-3">
-                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </button>
-                        <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">ID</div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      First Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Last Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Father's Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Mother's Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Address
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Mobile no
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {EMICustomers &&
-                  EMICustomers.map((item) => (
-                    <tr
-                      key={item.Cus_ID}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {item.Cus_ID}
-                      </th>
-                      <td className="px-6 py-4">{item.FirstName}</td>
-                      <td className="px-6 py-4">{item.LastName}</td>
-                      <td className="px-6 py-4">{item.FatherName}</td>
-                      <td className="px-6 py-4">{item.MotherName}</td>
-                      <td className="px-6 py-4">{item.Address}</td>
-                      <td
-                        onClick={() => window.open(`tel:+91${item.MobileNo}`)}
-                        className="cursor-pointer px-6 py-4"
-                      >
-                        {item.MobileNo}
-                      </td>
-                      <td className="px-6 py-4 space-x-3">
-                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </button>
-                        <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Amount
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Rate of Interest
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Date of Borrowing
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Document
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Advance Payment
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Status
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loans.map((data, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.Loan_No}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.FirstName} {data.LastName}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.LoanType}
-                    </td>
-                    <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
-                      {"₹ " + data.Amount}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Interest}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {moment(data.DOB).format("DD-MM-YYYY")}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Document}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.AdvancePay}
-                    </td>
-                    <td className="px-4 py-5 text-base font-normal border-t">
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button
-                          type="button"
-                          class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
-                        >
-                          {data.Status}
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
-                        >
-                          {data.Status}
-                        </button>
-                      )}
-                    </td>
-                    <td className="px-4 py-5 text-base font-normal border-t">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </button>
-                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
-                        Delete
-                      </button>
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button className="font-medium text-yellow-400 dark:text-yellow-500 hover:underline ms-3">
-                          Close
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </td>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">Loans</h1>
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Amount
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Rate of Interest
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Date of Borrowing
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Document
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Advance Payment
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Status
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Amount
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Rate of Interest
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Date of Borrowing
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Document
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Advance Payment
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Status
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dloans.map((data, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.Loan_No}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.FirstName} {data.LastName}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.LoanType}
-                    </td>
-                    <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
-                      {"₹ " + data.Amount}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Interest}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {moment(data.DOB).format("DD-MM-YYYY")}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Document}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.AdvancePay}
-                    </td>
-                    <td className="px-4 py-5 text-base font-normal border-t">
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button
-                          type="button"
-                          class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
-                        >
-                          {data.Status}
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
-                        >
-                          {data.Status}
-                        </button>
-                      )}
-                    </td>
-                    <td className="px-4 py-5 text-base font-normal border-t">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </button>
-                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
-                        Delete
-                      </button>
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button className="font-medium text-yellow-400 dark:text-yellow-500 hover:underline ms-3">
-                          Close
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </td>
+                </thead>
+                <tbody>
+                  {loans.map((data, index) => (
+                    <tr
+                      key={index}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.Loan_No}
+                      </td>
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.FirstName} {data.LastName}
+                      </td>
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.LoanType}
+                      </td>
+                      <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                        {"₹ " + data.Amount}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Interest}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {moment(data.DOB).format("DD-MM-YYYY")}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Document}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.AdvancePay}
+                      </td>
+                      <td className="px-4 py-5 text-base font-normal border-t">
+                        {data.Status.toLowerCase().match("open") ? (
+                          <button
+                            type="button"
+                            class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
+                          >
+                            {data.Status}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
+                          >
+                            {data.Status}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">Deposit Loans</h1>
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Amount
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Rate of Interest
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Date of Borrowing
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Document
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Advance Payment
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Status
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Amount
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Monthly Amount
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Time Period
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Rate of Interest
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Date of Borrowing
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Document
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div>Advance Payment</div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center cursor-pointer">
-                      Status
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {EMIloans.map((data, index) => (
-                  <tr
-                    key={index}
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                  >
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.Loan_No}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.FirstName} {data.LastName}
-                    </td>
-                    <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
-                      {data.LoanType}
-                    </td>
-                    <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
-                      {"₹ " + data.Amount}
-                    </td>
-                    <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
-                      {"₹ " + data.MonthlyAmount}
-                    </td>
-                    <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
-                      {data.TimePeriod}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Interest}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {moment(data.DOB).format("DD-MM-YYYY")}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.Document}
-                    </td>
-                    <td className="py-5 px-4 text-base font-normal border-t">
-                      {data.advancePay}
-                    </td>
-                    <td className="px-4 py-5 text-base font-normal border-t">
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button
-                          type="button"
-                          class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
-                        >
-                          {data.Status}
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
-                        >
-                          {data.Status}
-                        </button>
-                      )}
-                    </td>
-                    <td className="flex px-4 py-5 text-base font-normal border-t">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Edit
-                      </button>
-                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
-                        Delete
-                      </button>
-                      {data.Status.toLowerCase().match("open") ? (
-                        <button className="font-medium text-yellow-400 dark:text-yellow-500 hover:underline ms-3">
-                          Close
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </td>
+                </thead>
+                <tbody>
+                  {dloans.map((data, index) => (
+                    <tr
+                      key={index}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                    >
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.Loan_No}
+                      </td>
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.FirstName} {data.LastName}
+                      </td>
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.LoanType}
+                      </td>
+                      <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                        {"₹ " + data.Amount}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Interest}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {moment(data.DOB).format("DD-MM-YYYY")}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Document}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.AdvancePay}
+                      </td>
+                      <td className="px-4 py-5 text-base font-normal border-t">
+                        {data.Status.toLowerCase().match("open") ? (
+                          <button
+                            type="button"
+                            class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
+                          >
+                            {data.Status}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
+                          >
+                            {data.Status}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">EMI Loans</h1>
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Amount
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Monthly Amount
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Time Period
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Rate of Interest
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Date of Borrowing
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Document
+                      </div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div>Advance Payment</div>
+                    </th>
+                    <th className="py-3 px-3">
+                      <div className="flex items-center cursor-pointer">
+                        Status
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Entry ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Payment Date
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Paid Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Validity
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {entries &&
-                  entries.map((item) => (
+                </thead>
+                <tbody>
+                  {EMIloans.map((data, index) => (
                     <tr
-                      key={item.Cus_ID}
+                      key={index}
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                     >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {item.Entry_ID}
-                      </th>
-                      <td className="px-6 py-4">{item.Loan_No}</td>
-                      <td className="px-6 py-4">{item.Amount}</td>
-                      <td className="px-6 py-4">{item.LoanType}</td>
-                      <td className="px-6 py-4">{item.Cus_ID}</td>
-                      <td className="px-6 py-4">
-                        {item.FirstName} {item.LastName}
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.Loan_No}
                       </td>
-                      <td className="px-6 py-4">
-                        {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.FirstName} {data.LastName}
                       </td>
-                      <td className="px-6 py-4">{item.Pay_Amount}</td>
-                      <td className="px-6 py-4">
-                        {moment(item.Validity).format("DD-MM-YYYY")}
+                      <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                        {data.LoanType}
                       </td>
-                      <td className="px-6 py-4 space-x-3">
-                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </button>
-                        <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                          Delete
-                        </button>
+                      <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                        {"₹ " + data.Amount}
+                      </td>
+                      <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                        {"₹ " + data.MonthlyAmount}
+                      </td>
+                      <td className="py-2 px-3 text-base font-normal border-t whitespace-nowrap">
+                        {data.TimePeriod}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Interest}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {moment(data.DOB).format("DD-MM-YYYY")}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.Document}
+                      </td>
+                      <td className="py-5 px-4 text-base font-normal border-t">
+                        {data.advancePay}
+                      </td>
+                      <td className="px-4 py-5 text-base font-normal border-t">
+                        {data.Status.toLowerCase().match("open") ? (
+                          <button
+                            type="button"
+                            class="font-medium text-green-600 dark:text-green-500 hover:text-green-100"
+                          >
+                            {data.Status}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            class="font-medium text-red-600 dark:text-red-500 hover:text-red-100"
+                          >
+                            {data.Status}
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Entry ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Payment Date
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Paid Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Validity
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Dentries &&
-                  Dentries.map((item) => (
-                    <tr
-                      key={item.Cus_ID}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">Loan Entries</h1>
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Payment Date
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Paid Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Validity
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {entries &&
+                    entries.map((item) => (
+                      <tr
+                        key={item.Cus_ID}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                       >
-                        {item.Entry_ID}
-                      </th>
-                      <td className="px-6 py-4">{item.Loan_No}</td>
-                      <td className="px-6 py-4">{item.Amount}</td>
-                      <td className="px-6 py-4">{item.LoanType}</td>
-                      <td className="px-6 py-4">{item.Cus_ID}</td>
-                      <td className="px-6 py-4">
-                        {item.FirstName} {item.LastName}
-                      </td>
-                      <td className="px-6 py-4">
-                        {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                      </td>
-                      <td className="px-6 py-4">{item.Pay_Amount}</td>
-                      <td className="px-6 py-4">
-                        {moment(item.Validity).format("DD-MM-YYYY")}
-                      </td>
-                      <td className="px-6 py-4 space-x-3">
-                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </button>
-                        <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Entry ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan No
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Loan Type
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer ID
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Customer Name
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      EMI No
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Payment Date
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Paid Amount
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">
-                    <div className="flex items-center cursor-pointer">
-                      Validity
-                    </div>
-                  </th>
-                  <th className="px-6 py-3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Eentries &&
-                  Eentries.map((item) => (
-                    <tr
-                      key={item.Cus_ID}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
+                          {item.Entry_ID}
+                        </th>
+                        <td className="px-6 py-4">{item.Loan_No}</td>
+                        <td className="px-6 py-4">{item.Amount}</td>
+                        <td className="px-6 py-4">{item.LoanType}</td>
+                        <td className="px-6 py-4">{item.Cus_ID}</td>
+                        <td className="px-6 py-4">
+                          {item.FirstName} {item.LastName}
+                        </td>
+                        <td className="px-6 py-4">
+                          {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                        </td>
+                        <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">
+                          {moment(item.Validity).format("DD-MM-YYYY")}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg py-3">
+              <h1 className="font-bold text-center">Deposit Entries</h1>
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Payment Date
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Paid Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Validity
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Dentries &&
+                    Dentries.map((item) => (
+                      <tr
+                        key={item.Cus_ID}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                       >
-                        {item.Entry_ID}
-                      </th>
-                      <td className="px-6 py-4">{item.Loan_No}</td>
-                      <td className="px-6 py-4">{item.Amount}</td>
-                      <td className="px-6 py-4">{item.LoanType}</td>
-                      <td className="px-6 py-4">{item.Cus_ID}</td>
-                      <td className="px-6 py-4">
-                        {item.FirstName} {item.LastName}
-                      </td>
-                      <td className="px-6 py-4">{item.EMINo}</td>
-                      <td className="px-6 py-4">
-                        {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                      </td>
-                      <td className="px-6 py-4">{item.Pay_Amount}</td>
-                      <td className="px-6 py-4">
-                        {moment(item.Validity).format("DD-MM-YYYY")}
-                      </td>
-                      <td className="px-6 py-4 flex flex-col">
-                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </button>
-                        <button className="font-medium text-red-600 dark:text-red-500 hover:underline">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
-            {Loanvalidity.length != 0 ? (
-              <>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Entry ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan No
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Type
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer Name
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Payment Date
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Paid Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">Remaining</th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Validity
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Loanvalidity &&
-                      Loanvalidity.map((item) => (
-                        <tr
-                          key={item.Cus_ID}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                          <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            {item.Entry_ID}
-                          </th>
-                          <td className="px-6 py-4">{item.Loan_No}</td>
-                          <td className="px-6 py-4">{item.Amount}</td>
-                          <td className="px-6 py-4">{item.LoanType}</td>
-                          <td className="px-6 py-4">{item.Cus_ID}</td>
-                          <td className="px-6 py-4">
-                            {item.FirstName} {item.LastName}
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                          </td>
-                          <td className="px-6 py-4">{item.Pay_Amount}</td>
-                          <td className="px-6 py-4">
-                            {-1 * moment(item.Validity).diff(now, "months") >
-                            0 ? (
-                              <>
-                                {-1 * moment(item.Validity).diff(now, "months")}{" "}
-                                months and
-                              </>
-                            ) : (
-                              <></>
-                            )}{" "}
-                            {-1 *
-                              moment(item.Validity).diff(
-                                now.add(
-                                  moment(item.Validity).diff(now, "months"),
-                                  "months"
-                                ),
-                                "days"
-                              )}{" "}
-                            days
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Validity).format("DD-MM-YYYY")}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </>
-            ) : (
-              <div className="w-full rtl:text-right text-black text-center">
-                No Entries found
-              </div>
-            )}
-          </div>
-          <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
-            {DepositValidity.length != 0 ? (
-              <>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Entry ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan No
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Type
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer Name
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Payment Date
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Paid Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">Remaining</th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Validity
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {DepositValidity &&
-                      DepositValidity.map((item) => (
-                        <tr
-                          key={item.Cus_ID}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                          {item.Entry_ID}
+                        </th>
+                        <td className="px-6 py-4">{item.Loan_No}</td>
+                        <td className="px-6 py-4">{item.Amount}</td>
+                        <td className="px-6 py-4">{item.LoanType}</td>
+                        <td className="px-6 py-4">{item.Cus_ID}</td>
+                        <td className="px-6 py-4">
+                          {item.FirstName} {item.LastName}
+                        </td>
+                        <td className="px-6 py-4">
+                          {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                        </td>
+                        <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">
+                          {moment(item.Validity).format("DD-MM-YYYY")}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              <h1 className="font-bold text-center">EMI Entries</h1>
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan No
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Loan Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer ID
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Customer Name
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        EMI No
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Payment Date
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Paid Amount
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Validity
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Eentries &&
+                    Eentries.map((item) => (
+                      <tr
+                        key={item.Cus_ID}
+                        className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      >
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                         >
-                          <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          {item.Entry_ID}
+                        </th>
+                        <td className="px-6 py-4">{item.Loan_No}</td>
+                        <td className="px-6 py-4">{item.Amount}</td>
+                        <td className="px-6 py-4">{item.LoanType}</td>
+                        <td className="px-6 py-4">{item.Cus_ID}</td>
+                        <td className="px-6 py-4">
+                          {item.FirstName} {item.LastName}
+                        </td>
+                        <td className="px-6 py-4">{item.EMINo}</td>
+                        <td className="px-6 py-4">
+                          {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                        </td>
+                        <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">
+                          {moment(item.Validity).format("DD-MM-YYYY")}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
+              <h1 className="font-bold text-center">Loan Validity</h1>
+              {Loanvalidity.length != 0 ? (
+                <>
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Entry ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Amount
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Type
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer Name
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Mobile No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">Remaining</th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Validity
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Loanvalidity &&
+                        Loanvalidity.map((item) => (
+                          <tr
+                            key={item.Cus_ID}
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                           >
-                            {item.Entry_ID}
-                          </th>
-                          <td className="px-6 py-4">{item.Loan_No}</td>
-                          <td className="px-6 py-4">{item.Amount}</td>
-                          <td className="px-6 py-4">{item.LoanType}</td>
-                          <td className="px-6 py-4">{item.Cus_ID}</td>
-                          <td className="px-6 py-4">
-                            {item.FirstName} {item.LastName}
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                          </td>
-                          <td className="px-6 py-4">{item.Pay_Amount}</td>
-                          <td className="px-6 py-4">
-                            {-1 * moment(item.Validity).diff(now, "months") >
-                            0 ? (
-                              <>
-                                {-1 * moment(item.Validity).diff(now, "months")}{" "}
-                                months and
-                              </>
-                            ) : (
-                              <></>
-                            )}{" "}
-                            {-1 *
-                              moment(item.Validity).diff(
-                                now.add(
-                                  moment(item.Validity).diff(now, "months"),
-                                  "months"
-                                ),
-                                "days"
+                            <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              {item.Entry_ID}
+                            </th>
+                            <td className="px-6 py-4">{item.Loan_No}</td>
+                            <td className="px-6 py-4">{item.Amount}</td>
+                            <td className="px-6 py-4">{item.LoanType}</td>
+                            <td className="px-6 py-4">{item.Cus_ID}</td>
+                            <td className="px-6 py-4">
+                              {item.FirstName} {item.LastName}
+                            </td>
+                            <td className="flex flex-row items-center justify-center px-6 py-4">
+                              <p className="text-center p-3">{item.MobileNo}</p>
+                              <button
+                                onClick={() =>
+                                  window.open(`tel:+91${item.MobileNo}`)
+                                }
+                                className="flex py-0.5 px-1 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                              >
+                                Call <Icon icon={ic_call} size={15} />
+                              </button>
+                            </td>
+                            <td className="px-6 py-4">
+                              {-1 * moment(item.Validity).diff(now, "months") >
+                              0 ? (
+                                <>
+                                  {-1 *
+                                    moment(item.Validity).diff(
+                                      now,
+                                      "months"
+                                    )}{" "}
+                                  months and
+                                </>
+                              ) : (
+                                <></>
                               )}{" "}
-                            days
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Validity).format("DD-MM-YYYY")}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </>
-            ) : (
-              <div className="w-full rtl:text-right text-black text-center">
-                No Entries found
-              </div>
-            )}
-          </div>
-          <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
-            {Emivalidity.length != 0 ? (
-              <>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Entry ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan No
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Loan Type
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer ID
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Customer Name
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Payment Date
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Paid Amount
-                        </div>
-                      </th>
-                      <th className="px-6 py-3">Remaining</th>
-                      <th className="px-6 py-3">
-                        <div className="flex items-center cursor-pointer">
-                          Validity
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Emivalidity &&
-                      Emivalidity.map((item) => (
-                        <tr
-                          key={item.Cus_ID}
-                          className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                        >
-                          <th
-                            scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                              {-1 *
+                                moment(item.Validity).diff(
+                                  now.add(
+                                    moment(item.Validity).diff(now, "months"),
+                                    "months"
+                                  ),
+                                  "days"
+                                )}{" "}
+                              days
+                            </td>
+                            <td className="px-6 py-4">
+                              {moment(item.Validity).format("DD-MM-YYYY")}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </>
+              ) : (
+                <div className="w-full rtl:text-right text-black text-center">
+                  No Entries found
+                </div>
+              )}
+            </div>
+            <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
+              <h1 className="font-bold text-center">Deposit Validity</h1>
+              {DepositValidity.length != 0 ? (
+                <>
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Entry ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Amount
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Type
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer Name
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Mobile No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">Remaining</th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Validity
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {DepositValidity &&
+                        DepositValidity.map((item) => (
+                          <tr
+                            key={item.Cus_ID}
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                           >
-                            {item.Entry_ID}
-                          </th>
-                          <td className="px-6 py-4">{item.Loan_No}</td>
-                          <td className="px-6 py-4">{item.Amount}</td>
-                          <td className="px-6 py-4">{item.LoanType}</td>
-                          <td className="px-6 py-4">{item.Cus_ID}</td>
-                          <td className="px-6 py-4">
-                            {item.FirstName} {item.LastName}
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Pay_Date).format("DD-MM-YYYY")}
-                          </td>
-                          <td className="px-6 py-4">{item.Pay_Amount}</td>
-                          <td className="px-6 py-4">
-                            {-1 * moment(item.Validity).diff(now, "months") >
-                            0 ? (
-                              <>
-                                {-1 * moment(item.Validity).diff(now, "months")}{" "}
-                                months and
-                              </>
-                            ) : (
-                              <></>
-                            )}{" "}
-                            {-1 *
-                              moment(item.Validity).diff(
-                                now.add(
-                                  moment(item.Validity).diff(now, "months"),
-                                  "months"
-                                ),
-                                "days"
+                            <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              {item.Entry_ID}
+                            </th>
+                            <td className="px-6 py-4">{item.Loan_No}</td>
+                            <td className="px-6 py-4">{item.Amount}</td>
+                            <td className="px-6 py-4">{item.LoanType}</td>
+                            <td className="px-6 py-4">{item.Cus_ID}</td>
+                            <td className="px-6 py-4">
+                              {item.FirstName} {item.LastName}
+                            </td>
+                            <td className="flex flex-row items-center justify-center px-6 py-4">
+                              <p className="text-center p-3">{item.MobileNo}</p>
+                              <button
+                                onClick={() =>
+                                  window.open(`tel:+91${item.MobileNo}`)
+                                }
+                                className="flex py-0.5 px-1 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                              >
+                                Call <Icon icon={ic_call} size={15} />
+                              </button>
+                            </td>
+                            <td className="px-6 py-4">
+                              {-1 * moment(item.Validity).diff(now, "months") >
+                              0 ? (
+                                <>
+                                  {-1 *
+                                    moment(item.Validity).diff(
+                                      now,
+                                      "months"
+                                    )}{" "}
+                                  months and
+                                </>
+                              ) : (
+                                <></>
                               )}{" "}
-                            days
-                          </td>
-                          <td className="px-6 py-4">
-                            {moment(item.Validity).format("DD-MM-YYYY")}
-                          </td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </>
-            ) : (
-              <div className="w-full rtl:text-right text-black text-center">
-                No Entries found
-              </div>
-            )}
-          </div>
-          <div className="relative isolate px-6 lg:px-8">
-            <ProfitTable items={Ploans} total={Ltotal} />
-          </div>
-          <div className="relative isolate px-6 lg:px-8">
-            <ProfitTable items={PDeposits} total={Ptotal} />
-          </div>
-          <div className="relative isolate px-6 lg:px-8">
-            <ProfitTable items={PEMI} total={Etotal} />
+                              {-1 *
+                                moment(item.Validity).diff(
+                                  now.add(
+                                    moment(item.Validity).diff(now, "months"),
+                                    "months"
+                                  ),
+                                  "days"
+                                )}{" "}
+                              days
+                            </td>
+                            <td className="px-6 py-4">
+                              {moment(item.Validity).format("DD-MM-YYYY")}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </>
+              ) : (
+                <div className="w-full rtl:text-right text-black text-center">
+                  No Entries found
+                </div>
+              )}
+            </div>
+            <div className="mt-5 relative overflow-x-auto shadow-md sm:rounded-lg">
+              <h1 className="font-bold text-center">EMI Validity</h1>
+              {Emivalidity.length != 0 ? (
+                <>
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Entry ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Amount
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Loan Type
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer ID
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Customer Name
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Mobile No
+                          </div>
+                        </th>
+                        <th className="px-6 py-3">Remaining</th>
+                        <th className="px-6 py-3">
+                          <div className="flex items-center cursor-pointer">
+                            Validity
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Emivalidity &&
+                        Emivalidity.map((item) => (
+                          <tr
+                            key={item.Cus_ID}
+                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                          >
+                            <th
+                              scope="row"
+                              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                              {item.Entry_ID}
+                            </th>
+                            <td className="px-6 py-4">{item.Loan_No}</td>
+                            <td className="px-6 py-4">{item.Amount}</td>
+                            <td className="px-6 py-4">{item.LoanType}</td>
+                            <td className="px-6 py-4">{item.Cus_ID}</td>
+                            <td className="px-6 py-4">
+                              {item.FirstName} {item.LastName}
+                            </td>
+                            <td className="flex flex-row items-center justify-center px-6 py-4">
+                              <p className="text-center p-3">{item.MobileNo}</p>
+                              <button
+                                onClick={() =>
+                                  window.open(`tel:+91${item.MobileNo}`)
+                                }
+                                className="flex py-0.5 px-1 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                              >
+                                Call <Icon icon={ic_call} size={15} />
+                              </button>
+                            </td>
+                            <td className="px-6 py-4">
+                              {-1 * moment(item.Validity).diff(now, "months") >
+                              0 ? (
+                                <>
+                                  {-1 *
+                                    moment(item.Validity).diff(
+                                      now,
+                                      "months"
+                                    )}{" "}
+                                  months and
+                                </>
+                              ) : (
+                                <></>
+                              )}{" "}
+                              {-1 *
+                                moment(item.Validity).diff(
+                                  now.add(
+                                    moment(item.Validity).diff(now, "months"),
+                                    "months"
+                                  ),
+                                  "days"
+                                )}{" "}
+                              days
+                            </td>
+                            <td className="px-6 py-4">
+                              {moment(item.Validity).format("DD-MM-YYYY")}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </>
+              ) : (
+                <div className="w-full rtl:text-right text-black text-center">
+                  No Entries found
+                </div>
+              )}
+            </div>
+            <div className="relative isolate px-6 lg:px-8">
+              <h1 className="font-bold text-center">Loan Profits</h1>
+              <ProfitTable items={Ploans} total={Ltotal} />
+            </div>
+            <div className="relative isolate px-6 lg:px-8">
+              <h1 className="font-bold text-center">Deposit Profits</h1>
+              <ProfitTable items={PDeposits} total={Ptotal} />
+            </div>
+            <div className="relative isolate px-6 lg:px-8">
+              <h1 className="font-bold text-center">EMI Profits</h1>
+              <ProfitTable items={PEMI} total={Etotal} />
+            </div>
           </div>
         </div>
       </div>
