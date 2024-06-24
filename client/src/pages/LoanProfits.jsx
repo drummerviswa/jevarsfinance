@@ -22,7 +22,7 @@ function LoanProfits() {
 
   function get5YearsBeforeAndAfter() {
     const years = [];
-    for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+    for (let i = currentYear - 10; i <= currentYear + 10; i++) {
       years.push(i);
     }
     return years;
