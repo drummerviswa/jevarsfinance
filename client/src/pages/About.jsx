@@ -11,19 +11,19 @@ function About() {
  Our mission is to empower our clients to achieve financial success and security. We believe in building long-term relationships based on trust, integrity, and professionalism. 
 With Jeevars Financial Office, you can count on reliable advice and exceptional service every step of the way.
  Thank you for considering Jeevars Financial Office for your financial needs. We look forward to serving you and helping you build a brighter financial future`,
-      title: "Ravikumar (Founder and MD)",
+      title: "Mr.Ravikumar (Founder and MD)",
       img: "dad.jpg",
     },
     {
       para: "Mrs.Vanitha , the Managing Partner of our financial company, bringing over two decades of experience and expertise to our team. With a keen eye for detail and a passion for excellence, she has played a pivotal role in shaping our company’s vision and strategy. Her leadership has been instrumental in driving growth, fostering innovation, and maintaining the highest standards of client service. Under her guidance, we have achieved numerous milestones and continue to strive towards new heights. Vanitha’s dedication and commitment to the financial industry make her an invaluable asset to our firm and our clients.",
-      title: "Vanitha ( Managing Partner )",
+      title: "Mrs.Vanitha ( Managing Partner )",
       img: "mom.jpg",
     },
     {
       para: `Welcome to Jevars Financial Service. It has been my privilege to lead this company and serve our clients with dedication and integrity. As I step down, I am proud to introduce my son, Sudhakar, as the next Managing Director. Sudhakar has shown exceptional commitment and vision, and I am confident that he will continue our tradition of excellence, offering personalized financial advice and comprehensive solutions to help you achieve your financial goals. Thank you for your continued trust in our services.
 Warm regards,
 Ravikumar K`,
-      title: "Sudhakar R.V",
+      title: "Mr.Sudhakar R.V",
       img: "me.jpg",
     },
   ];
