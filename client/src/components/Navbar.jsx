@@ -66,7 +66,7 @@ function Navbar() {
         <div
           className="hidden lg:flex lg:gap-x-12"
           style={
-            location.pathname == "/" ? { color: "white" } : { color: "white" }
+            location.pathname == "/" ? { color: "white" } : { color: "black" }
           }
         >
           {navigation.map((item) => (
