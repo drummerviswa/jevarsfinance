@@ -146,9 +146,9 @@ CombinedData AS (
 )
 SELECT 
     Month,
-    SUM(Loan_Amount + EMI_Amount) AS total_credit,
-    SUM( Deposit_Amount) AS total_debit,
-    SUM(Loan_Amount + EMI_Amount - Deposit_Amount) AS total_balance
+    SUM(Loan_Interest + EMI_Interest) AS total_credit,
+    SUM( Deposit_Interest) AS total_debit,
+    SUM(Loan_Interest + EMI_Interest - Deposit_Interest) AS total_balance
 FROM CombinedData
 GROUP BY Month
 ORDER BY Month;
@@ -213,6 +213,8 @@ EMIPaymentData AS (
 )
 SELECT 
     COALESCE(ld.Total_total_amount, 0) + COALESCE(ed.Total_total_amount, 0) AS Total_credits,
+    COALESCE(ld.Total_total_amount, 0) AS Total_loans,
+    COALESCE(ed.Total_total_amount, 0) AS Total_emis,
     COALESCE(dld.Total_total_amount, 0) AS Total_debits,
     (COALESCE(ld.Total_total_amount, 0) + COALESCE(ed.Total_total_amount, 0) - COALESCE(dld.Total_total_amount, 0)) AS Total_balance
 FROM 

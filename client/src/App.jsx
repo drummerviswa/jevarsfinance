@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import 'animate.css';
+import "animate.css";
 export default function App() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [users, setUsers] = useState([]);
@@ -28,7 +28,7 @@ export default function App() {
               Jevars Financier
             </h1>
           </div>
-          <p className="animate__animated animate__flipInY hover:animate-pulse relative font-mono before:absolute before:inset-0 before:animate-typewriter before:bg-white after:absolute after:inset-0 after:w-[0.100em] after:animate-caret after:bg-black">
+          <p className="animate__animated animate__flipInY font-bold">
             Better , Brighter , Banking
           </p>
           <div className="pt-5 flex flex-row">
@@ -50,26 +50,27 @@ export default function App() {
             <h2 className="font-bold py-3 text-center text-xl">
               List of users
             </h2>
-            <div className="lg:grid lg:grid-cols-3 font-bold text-left">
+            <div className="lg:grid lg:grid-cols-3 font-bold text-center">
               <p>UserID</p>
               <p>Username</p>
               <p>Name</p>
             </div>
             {users.map((u) => (
               <div key={u.UID} className="lg:grid lg:grid-cols-3 text-left">
-                <p className="lg:block">
-                  <span className="font-bold lg:hidden">UserID:</span> {u.UID}
-                </p>
-                <p>
-                  <span className="font-bold lg:hidden">Username: </span>{" "}
-                  {u.username}
-                  {u.UID == currentUser.UID ? (
-                    <span className="px-1">🎯</span>
-                  ) : null}
-                </p>
-                <p>
-                  <span className="font-bold lg:hidden">Name: </span> {u.name}
-                </p>
+                <div className="lg:block">
+                  <p className="font-bold text-center">{u.UID}</p>
+                </div>
+                <div className="px-6">
+                  <p className="font-bold text-center">
+                    {u.username}
+                    {u.UID == currentUser.UID ? (
+                      <span>🎯</span>
+                    ) : null}
+                  </p>
+                </div>
+                <div className="px-6">
+                  <p className="font-bold text-center">{u.name}</p>
+                </div>
               </div>
             ))}
           </div>

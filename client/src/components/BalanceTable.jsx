@@ -17,10 +17,10 @@ function BalanceTable({ items, total }) {
                 Month
               </th>
               <th scope="col" className="px-6 py-3 border-x border-gray-700">
-                Credits
+                Interest Credited
               </th>
               <th scope="col" className="px-6 py-3 border-x border-gray-700">
-                Debits
+                Interest Debited
               </th>
               <th scope="col" className="px-6 py-3 rounded-e-lg">
                 Balance
@@ -58,7 +58,23 @@ function BalanceTable({ items, total }) {
               <thead key={index} className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Overall Credits
+                    Overall Loans
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    ₹ {parseFloat(i.Total_loans).toFixed(2)}
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Overall EMI's
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    ₹ {parseFloat(i.Total_emis).toFixed(2)}
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Overall Loans + EMI's
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ₹ {parseFloat(i.Total_credits).toFixed(2)}
@@ -66,7 +82,7 @@ function BalanceTable({ items, total }) {
                 </tr>
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Overall Debits
+                    Overall Deposits
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ₹ {parseFloat(i.Total_debits).toFixed(2)}
@@ -74,7 +90,7 @@ function BalanceTable({ items, total }) {
                 </tr>
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Overall Available Balance
+                    Total Tally
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ₹ {parseFloat(i.Total_balance).toFixed(2)}

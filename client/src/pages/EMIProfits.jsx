@@ -71,7 +71,7 @@ function EMIProfits() {
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
-          <h1 className="text-center font-bold text-2xl">Loans Analysis</h1>
+          <h1 className="text-center font-bold text-2xl">EMI Analysis</h1>
           <select onChange={handleInput} name="year" defaultValue={form.year}>
             <option value="">Choose an year</option>
             {years.map((y)=>(

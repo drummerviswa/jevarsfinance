@@ -66,7 +66,7 @@ function ProfitTable({ items, total }) {
                 </tr>
                 <tr>
                   <th scope="col" className="px-6 py-3">
-                    Overall Interest Credited
+                    Overall Interest
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ₹ {parseFloat(i.Total_total_interest).toFixed(2)}
