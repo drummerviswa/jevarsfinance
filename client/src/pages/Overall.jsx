@@ -408,7 +408,9 @@ function Overall() {
         <div className="items-center justify-center flex  mx-auto py-32 flex-col">
           <div className="flex flex-row">
             <ReactToPrint
-              pageStyle="@page"
+              pageStyle="@page {
+    size: A4 landscape;
+  }"
               trigger={() => (
                 <button
                   type="button"
