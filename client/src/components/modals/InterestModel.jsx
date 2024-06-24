@@ -34,7 +34,7 @@ export default function InterestModel({
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/entries/${interest.Entry_ID}`, newData)
-        .then((response) => console.log("Data:", response))
+        .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);
         });

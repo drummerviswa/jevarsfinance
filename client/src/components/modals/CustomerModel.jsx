@@ -37,7 +37,7 @@ export default function CustomerModel({
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/customers/${customer.Cus_ID}`, newData)
-        .then((response) => console.log("Data:", response))
+        .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);
         });

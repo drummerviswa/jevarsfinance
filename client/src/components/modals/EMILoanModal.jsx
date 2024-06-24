@@ -38,7 +38,7 @@ export default function EMILoanModel({ showModal, setShowModal, loans, setUpdate
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/emi/loans/${loans.Loan_No}`, newData)
-        .then((response) => console.log("Data:", response))
+        .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);
         });
