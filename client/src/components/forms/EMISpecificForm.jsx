@@ -9,7 +9,7 @@ function EMISpecificForm({updated,setUpdated}) {
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("https://app-1odw.onrender.com/api/emi/customers/")
+    axios.get("http://localhost:8800/api/emi/customers/")
       .then(response => {
         setCustomers(response.data);
       })

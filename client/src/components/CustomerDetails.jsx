@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function CustomerDetails({ updated, setUpdated, person }) {
   const [customers, setCustomers] = useState([]);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/customers/${person["Cus_ID"]}`, {
+    fetch(`http://localhost:8800/api/customers/${person["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

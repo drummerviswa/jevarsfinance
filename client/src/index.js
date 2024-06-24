@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import "./index.css";
+import bg from "./bg.jpg"
 import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
@@ -39,6 +40,7 @@ import { AuthContext, AuthContextProvider } from "./context/authContext";
 import Register from "./pages/Register";
 import Overall from "./pages/Overall";
 import Balance from "./pages/Balance";
+import Users from "./pages/Users";
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
@@ -161,6 +163,10 @@ const router = createBrowserRouter([
       {
         path: "overall",
         element: <Overall />,
+      },
+      {
+        path: "users",
+        element: <Users />,
       },
     ],
   },

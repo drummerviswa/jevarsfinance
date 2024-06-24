@@ -1,34 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import bg from "./bg.jpg"
 import "animate.css";
 export default function App() {
-  const currentUser = JSON.parse(localStorage.getItem("user"));
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     document.title = "Jevars financier";
-    fetch("https://app-1odw.onrender.com/api/auth/users", {
-      method: "GET",
-    })
-      .then(async (response) => response.json())
-      .then((data) => {
-        setUsers(data);
-      })
-      .catch((error) => console.log(error));
   }, []);
   return (
-    <div className="flex items-center justify-center w-screen h-screen bg-white">
+    <div className="flex items-center justify-center w-screen h-screen bg-cover" style={{backgroundImage:`url(${bg})`}}>
       <div className="relative isolate">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
         ></div>
-        <div className="flex items-center justify-center mx-auto max-w-2xl py-30 sm:py-48 lg:py-56 flex-col">
-          <div className="lg:flex sm:mb-8 sm:flex sm:justify-center">
-            <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
+        <div className="flex items-end justify-center mx-auto py-30 sm:py-48 lg:py-56 flex-col">
+          <div className="lg:flex  sm:flex sm:justify-center">
+            <h1 className="text-end mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-9xl dark:text-white">
               Jevars Financier
             </h1>
           </div>
-          <p className="animate__animated animate__flipInY font-bold">
+          <p className="sm:mb-2 animate__animated animate__flipInY font-bold lg:text-4xl text-white">
             Better , Brighter , Banking
           </p>
           <div className="pt-5 flex flex-row">
@@ -45,34 +36,6 @@ export default function App() {
             >
               Add users
             </Link>
-          </div>
-          <div className="hidden lg:flex flex-col max-h-10">
-            <h2 className="font-bold py-3 text-center text-xl">
-              List of users
-            </h2>
-            <div className="lg:grid lg:grid-cols-3 font-bold text-center">
-              <p>UserID</p>
-              <p>Username</p>
-              <p>Name</p>
-            </div>
-            {users.map((u) => (
-              <div key={u.UID} className="lg:grid lg:grid-cols-3 text-left">
-                <div className="lg:block">
-                  <p className="font-bold text-center">{u.UID}</p>
-                </div>
-                <div className="px-6">
-                  <p className="font-bold text-center">
-                    {u.username}
-                    {u.UID == currentUser.UID ? (
-                      <span>🎯</span>
-                    ) : null}
-                  </p>
-                </div>
-                <div className="px-6">
-                  <p className="font-bold text-center">{u.name}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

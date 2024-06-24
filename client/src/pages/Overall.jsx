@@ -31,7 +31,7 @@ function Overall() {
   var currentTime = new Date()
   const year = currentTime.getFullYear();
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${year}`, {
+    fetch(`http://localhost:8800/api/profit/emi/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -39,7 +39,7 @@ function Overall() {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/total/${year}`, {
+    fetch(`http://localhost:8800/api/profit/emi/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -47,7 +47,7 @@ function Overall() {
         setETotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -55,7 +55,7 @@ function Overall() {
         setPDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/total/${year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -63,7 +63,7 @@ function Overall() {
         setPTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/loans/e/${year}`, {
+    fetch(`http://localhost:8800/api/profit/loans/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -71,7 +71,7 @@ function Overall() {
         setPLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/loans/total/${year}`, {
+    fetch(`http://localhost:8800/api/profit/loans/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -79,7 +79,7 @@ function Overall() {
         setLTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/emi/entries/", {
+    fetch("http://localhost:8800/api/emi/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -87,7 +87,7 @@ function Overall() {
         setEEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/deposit/entries/", {
+    fetch("http://localhost:8800/api/deposit/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -95,7 +95,7 @@ function Overall() {
         setDEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/entries/", {
+    fetch("http://localhost:8800/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -103,7 +103,7 @@ function Overall() {
         setEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/emi/loans/", {
+    fetch("http://localhost:8800/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -111,7 +111,7 @@ function Overall() {
         setEMILoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/deposit/loans/", {
+    fetch("http://localhost:8800/api/deposit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -119,7 +119,7 @@ function Overall() {
         setDLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/loans/", {
+    fetch("http://localhost:8800/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -127,7 +127,7 @@ function Overall() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/emi/customers/", {
+    fetch("http://localhost:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -135,7 +135,7 @@ function Overall() {
         setEMICustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/deposit/customers/", {
+    fetch("http://localhost:8800/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -143,7 +143,7 @@ function Overall() {
         setLoanCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/customers/", {
+    fetch("http://localhost:8800/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -151,7 +151,7 @@ function Overall() {
         setDepositCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/validity`, {
+    fetch(`http://localhost:8800/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -159,7 +159,7 @@ function Overall() {
         setLoanValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/deposit/validity`, {
+    fetch(`http://localhost:8800/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -167,7 +167,7 @@ function Overall() {
         setDepositValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/emi/validity`, {
+    fetch(`http://localhost:8800/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

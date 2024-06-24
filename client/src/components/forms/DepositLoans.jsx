@@ -6,7 +6,7 @@ function DepositLo() {
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/deposit/customers/", {
+    fetch("http://localhost:8800/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -41,7 +41,7 @@ function DepositLo() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://app-1odw.onrender.com/api/deposit/loans",
+        "http://localhost:8800/api/deposit/loans",
         form
       );
       console.log("Loan created:", response.data);

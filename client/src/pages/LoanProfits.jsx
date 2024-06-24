@@ -55,7 +55,7 @@ function LoanProfits() {
   }, [loans]);
 
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/profit/loans/e/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/loans/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -64,7 +64,7 @@ function LoanProfits() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`https://app-1odw.onrender.com/api/profit/loans/total/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/loans/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

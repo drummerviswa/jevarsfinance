@@ -35,7 +35,7 @@ function DepositProfits() {
   let entire = [...deposits, [{}], ...total];
 
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/e/${form.year}`, {
       method: 'GET',
     })
       .then(async (response) => response.json())
@@ -44,7 +44,7 @@ function DepositProfits() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/total/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/total/${form.year}`, {
       method: 'GET',
     })
       .then(async (response) => response.json())
