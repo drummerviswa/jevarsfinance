@@ -37,12 +37,14 @@ export default function EMICustomerModel({
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/emi/customers/${customer.Cus_ID}`, newData)
-        .then((response) => console.log("Data:", response))
+        .then((response) => {
+          console.log("Data:", response);
+          window.location.reload;
+        })
         .catch((err) => {
           alert(err);
         });
       setShowModal(false);
-      window.location.reload();
     } catch (error) {
       console.error(error);
       alert(error.response.data);
