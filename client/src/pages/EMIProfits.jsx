@@ -28,7 +28,7 @@ function EMIProfits() {
   };
   let entire = [...emi,[{}], ...total];
   useEffect(() => {
-    fetch(`http://localhost:8800/api/profit/emi/e/${form.year}`, {
+    fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${form.year}`, {
       method: "GET",
     })
     .then(async (response) => response.json())
@@ -36,7 +36,7 @@ function EMIProfits() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-      fetch(`http://localhost:8800/api/profit/emi/total/${form.year}`, {
+      fetch(`https://app-1odw.onrender.com/api/profit/emi/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

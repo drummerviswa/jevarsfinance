@@ -33,7 +33,7 @@ function DepositLoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/deposit/loans/${loans.Loan_No}`, newData)
+        .put(`https://app-1odw.onrender.com/api/deposit/loans/${loans.Loan_No}`, newData)
         .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);

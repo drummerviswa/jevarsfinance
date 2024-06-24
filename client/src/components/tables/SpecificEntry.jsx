@@ -12,7 +12,7 @@ function SpecificEntry({ updated, setUpdated }) {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/entries/${customer[0]["Cus_ID"]}`, {
+    fetch(`https://app-1odw.onrender.com/api/entries/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ function SpecificEntry({ updated, setUpdated }) {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/entries/${item.Entry_ID}`);
+      await axios.delete(`https://app-1odw.onrender.com/api/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
     } catch (error) {

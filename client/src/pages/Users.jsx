@@ -5,7 +5,7 @@ function Users() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     document.title = "Users";
-    fetch("http://localhost:8800/api/auth/users", {
+    fetch("https://app-1odw.onrender.com/api/auth/users", {
       method: "GET",
     })
       .then(async (response) => response.json())
