@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import 'animate.css';
 export default function App() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [users, setUsers] = useState([]);
@@ -27,7 +28,7 @@ export default function App() {
               Jevars Financier
             </h1>
           </div>
-          <p className="hover:animate-pulse relative font-mono before:absolute before:inset-0 before:animate-typewriter before:bg-white after:absolute after:inset-0 after:w-[0.100em] after:animate-caret after:bg-black">
+          <p className="animate__animated animate__flipInY hover:animate-pulse relative font-mono before:absolute before:inset-0 before:animate-typewriter before:bg-white after:absolute after:inset-0 after:w-[0.100em] after:animate-caret after:bg-black">
             Better , Brighter , Banking
           </p>
           <div className="pt-5 flex flex-row">
