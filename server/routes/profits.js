@@ -1,5 +1,7 @@
 import express from "express";
 import {
+  getBalance,
+  getBalanceTotal,
   getDepositProfits,
   getDepositTotal,
   getEMIProfits,
@@ -9,11 +11,13 @@ import {
 } from "../controllers/profit.js";
 
 const router = express.Router();
-router.get("/loans", getLoanProfits);
-router.get("/deposit", getDepositProfits);
-router.get("/emi", getEMIProfits);
-router.get("/loans/total", getLoanTotal);
-router.get("/deposit/total", getDepositTotal);
-router.get("/emi/total", getEMITotal);
+router.get("/loans/e/:id", getLoanProfits);
+router.get("/deposit/e/:id", getDepositProfits);
+router.get("/emi/e/:id", getEMIProfits);
+router.get("/loans/total/:id", getLoanTotal);
+router.get("/deposit/total/:id", getDepositTotal);
+router.get("/emi/total/:id", getEMITotal);
+router.get("/balance/e/:id",getBalance)
+router.get("/balance/total/:id",getBalanceTotal)
 
 export default router;

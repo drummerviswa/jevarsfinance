@@ -9,9 +9,26 @@ function EMIProfits() {
   }, [])
   const [emi, setEmi] = useState([]);
   const [total, setTotal] = useState([]);
+  const [form, setForm] = useState({
+    year: new Date().getFullYear().toString(),
+  });
+  const currentYear = new Date().getFullYear();
+  function get5YearsBeforeAndAfter() {
+    const years = [];
+    
+    for (let i = currentYear - 5; i <= currentYear + 5; i++) {
+        years.push(i);
+    }
+    
+    return years;
+  }
+  const years = get5YearsBeforeAndAfter();
+  const handleInput = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   let entire = [...emi,[{}], ...total];
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/profit/emi/", {
+    fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${form.year}`, {
       method: "GET",
     })
     .then(async (response) => response.json())
@@ -19,7 +36,7 @@ function EMIProfits() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-      fetch("https://app-1odw.onrender.com/api/profit/emi/total", {
+      fetch(`https://app-1odw.onrender.com/api/profit/emi/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -27,7 +44,7 @@ function EMIProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    }, []);
+    }, [form]);
     let Heading = [
       [
         "Month",
@@ -55,7 +72,13 @@ function EMIProfits() {
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Loans Analysis</h1>
-          <ProfitTable items={emi} total={total} />
+          <select onChange={handleInput} name="year" defaultValue={form.year}>
+            <option value="">Choose an year</option>
+            {years.map((y)=>(
+            <option value={y}>{y}</option>
+            ))}
+          </select>
+          {form.year ? <ProfitTable items={emi} total={total} /> : <></>}
           <div className="flex justify-center">
             <button
               onClick={exportFile}

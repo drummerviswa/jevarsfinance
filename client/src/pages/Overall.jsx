@@ -28,9 +28,10 @@ function Overall() {
   useEffect(() => {
     document.title = `${now.format("DD/MM/YYYY")} Overall`;
   }, []);
-
+  var currentTime = new Date()
+  const year = currentTime.getFullYear();
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/profit/emi/", {
+    fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -38,7 +39,7 @@ function Overall() {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/emi/total", {
+    fetch(`https://app-1odw.onrender.com/api/profit/emi/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -46,7 +47,7 @@ function Overall() {
         setETotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/deposit/", {
+    fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -54,7 +55,7 @@ function Overall() {
         setPDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/deposit/total", {
+    fetch(`https://app-1odw.onrender.com/api/profit/deposit/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -62,7 +63,7 @@ function Overall() {
         setPTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/loans/", {
+    fetch(`https://app-1odw.onrender.com/api/profit/loans/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -70,7 +71,7 @@ function Overall() {
         setPLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/loans/total", {
+    fetch(`https://app-1odw.onrender.com/api/profit/loans/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

@@ -224,8 +224,18 @@ function DepositLo() {
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             >
               <option value="">Choose an option</option>
-              <option value="yes">Yes</option>
               <option value="no">No</option>
+              <option value="cheque">Cheque</option>
+              <option value="bond">Bond</option>
+              <option value="land document">Land Document</option>
+              <option value="gold">Gold</option>
+              <option value="vehicle">Vehicle</option>
+              <option value="bond and cheque">Bond and Cheque</option>
+              <option value="bond and land document">Bond and Land Document</option>
+              <option value="bond and gold">Bond and Gold</option>
+              <option value="bond and vehicle">Bond and Vehicle</option>
+              <option value="bond and others">Bond and Others</option>
+              <option value="others">Others</option>
             </select>
           </div>
           <div className="relative z-0 w-full mb-5 group">

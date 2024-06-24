@@ -1,4 +1,4 @@
-import moment from "moment"
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import InterestModel from "../modals/InterestModel";
 import axios from "axios";
@@ -42,11 +42,7 @@ function Interest() {
   const sortByColumn = (column) => {
     let sortedData = [];
     if (sortingColumn === column) {
-      sortedData = entries
-        .slice()
-        .sort((a, b) =>
-          b[column].toString().localeCompare(a[column].toString())
-        );
+      sortedData = entries.slice().reverse();
       setSortingColumn("");
     } else {
       sortedData = entries
@@ -59,75 +55,74 @@ function Interest() {
     setEntries(sortedData);
     setActiveColumn(column);
   };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Cus_ID")}>
-              Entry ID
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Entry_ID")}>
+                Entry ID
                 {activeColumn === "Entry_ID" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Loan_No")}>
                 Loan No
                 {activeColumn === "Loan_No" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Amount")}>
                 Loan Amount
                 {activeColumn === "Amount" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LoanType")}>
                 Loan Type
                 {activeColumn === "LoanType" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LastName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Cus_ID")}>
                 Customer ID
                 {activeColumn === "Cus_ID" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LastName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
                 Customer Name
                 {activeColumn === "FirstName" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FatherName")}>
-              Payment Date
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Pay_Date")}>
+                Payment Date
                 {activeColumn === "Pay_Date" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("MotherName")}>
-              Paid Amount
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Pay_Amount")}>
+                Paid Amount
                 {activeColumn === "Pay_Amount" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Address")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Validity")}>
                 Validity
                 {activeColumn === "Validity" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
-            <th className="px-6 py-3">
-              Action
-            </th>
+            <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {entries &&
             entries.map((item) => (
               <tr
-                key={item.Cus_ID}
+                key={item.Entry_ID}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
                 <th
@@ -140,10 +135,16 @@ function Interest() {
                 <td className="px-6 py-4">{item.Amount}</td>
                 <td className="px-6 py-4">{item.LoanType}</td>
                 <td className="px-6 py-4">{item.Cus_ID}</td>
-                <td className="px-6 py-4">{item.FirstName} {item.LastName}</td>
-                <td className="px-6 py-4">{moment(item.Pay_Date).format("DD-MM-YYYY")}</td>
+                <td className="px-6 py-4">
+                  {item.FirstName} {item.LastName}
+                </td>
+                <td className="px-6 py-4">
+                  {moment(item.Pay_Date).format("DD-MM-YYYY")}
+                </td>
                 <td className="px-6 py-4">{item.Pay_Amount}</td>
-                <td className="px-6 py-4">{moment(item.Validity).format("DD-MM-YYYY")}</td>
+                <td className="px-6 py-4">
+                  {moment(item.Validity).format("DD-MM-YYYY")}
+                </td>
                 <td className="px-6 py-4 space-x-3">
                   <button
                     onClick={() => handleUpdate(item)}

@@ -1,4 +1,4 @@
-import moment from "moment"
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DepositEntryModal from "../modals/DepositEntryModal";
@@ -42,11 +42,7 @@ function DepositEntryTable() {
   const sortByColumn = (column) => {
     let sortedData = [];
     if (sortingColumn === column) {
-      sortedData = entries
-        .slice()
-        .sort((a, b) =>
-          b[column].toString().localeCompare(a[column].toString())
-        );
+      sortedData = entries.slice().reverse();
       setSortingColumn("");
     } else {
       sortedData = entries
@@ -59,75 +55,74 @@ function DepositEntryTable() {
     setEntries(sortedData);
     setActiveColumn(column);
   };
+
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Cus_ID")}>
-              Entry ID
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Entry_ID")}>
+                Entry ID
                 {activeColumn === "Entry_ID" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Loan_No")}>
                 Loan No
                 {activeColumn === "Loan_No" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Amount")}>
                 Loan Amount
                 {activeColumn === "Amount" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LoanType")}>
                 Loan Type
                 {activeColumn === "LoanType" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LastName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Cus_ID")}>
                 Customer ID
                 {activeColumn === "Cus_ID" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("LastName")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FirstName")}>
                 Customer Name
                 {activeColumn === "FirstName" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("FatherName")}>
-              Payment Date
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Pay_Date")}>
+                Payment Date
                 {activeColumn === "Pay_Date" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("MotherName")}>
-              Paid Amount
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Pay_Amount")}>
+                Paid Amount
                 {activeColumn === "Pay_Amount" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
             <th className="px-6 py-3">
-              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Address")}>
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Validity")}>
                 Validity
                 {activeColumn === "Validity" && (sortingColumn ? " ↑" : " ↓")}
               </div>
             </th>
-            <th className="px-6 py-3">
-              Action
-            </th>
+            <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
           {entries &&
             entries.map((item) => (
               <tr
-                key={item.Cus_ID}
+                key={item.Entry_ID}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
                 <th

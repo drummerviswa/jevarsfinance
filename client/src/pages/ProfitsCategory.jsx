@@ -24,11 +24,17 @@ const ProfitCategory = () => {
       page: "emi",
       image: "profitemi.png",
     },
+    {
+      id: 4,
+      name: "Balance",
+      page: "balance",
+      image: "balance.png",
+    },
   ];
   return (
     <div className="bg-white">
-      <div className="relative isolate px-6 pt-20 lg:px-8">
-        <div className="max-w-[1640px] m-auto px-4 py-48">
+      <div className="relative isolate px-6 lg:px-8">
+        <div className="max-w-[1640px] m-auto px-4 pt-40">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {categories.map((item, index) => (
               <Link
