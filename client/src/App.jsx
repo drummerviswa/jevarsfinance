@@ -24,7 +24,7 @@ export default function App() {
         <div className="flex items-center justify-center mx-auto max-w-2xl py-30 sm:py-48 lg:py-56 flex-col">
           <div className="lg:flex sm:mb-8 sm:flex sm:justify-center">
             <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
-              Jevars Finance
+              Jevars Financier
             </h1>
           </div>
           <p className="hover:animate-pulse relative font-mono before:absolute before:inset-0 before:animate-typewriter before:bg-white after:absolute after:inset-0 after:w-[0.100em] after:animate-caret after:bg-black">
