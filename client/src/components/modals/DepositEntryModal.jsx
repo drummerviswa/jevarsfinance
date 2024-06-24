@@ -34,10 +34,7 @@ export default function DepositEntryModal({
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/deposit/entries/${interest.Entry_ID}`, newData)
-        .then((response) => {
-          console.log("Data:", response);
-          window.location.reload;
-        })
+        .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);
         });

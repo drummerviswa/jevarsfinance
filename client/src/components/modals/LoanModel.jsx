@@ -35,10 +35,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/loans/${loans.Loan_No}`, newData)
-        .then((response) => {
-          console.log("Data:", response);
-          window.location.reload;
-        })
+        .then((response) => console.log("Data:", response))
         .catch((err) => {
           alert(err);
         });
