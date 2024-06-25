@@ -15,7 +15,7 @@ export default function App() {
         ></div>
         <div className="flex items-end justify-center mx-auto py-30 sm:py-48 lg:py-56 flex-col">
           <div className="lg:flex  sm:flex sm:justify-center">
-            <h1 className="text-end mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-6xl lg:text-9xl dark:text-white">
+            <h1 className="text-end mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-6xl lg:text-9xl dark:text-white">
               Jevars Financier
             </h1>
           </div>
