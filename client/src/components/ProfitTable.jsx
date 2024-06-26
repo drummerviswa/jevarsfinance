@@ -6,6 +6,7 @@ function ProfitTable({ items, total }) {
     date.setMonth(monthNumber - 1); // monthNumber is 1-based index
     return date.toLocaleString("default", { month: "long" });
   };
+  console.log(total)
 
   return (
     <div>
@@ -20,7 +21,10 @@ function ProfitTable({ items, total }) {
                 Total Amount Given
               </th>
               <th scope="col" className="px-6 py-3 border-x border-gray-700">
-                Monthly Entries
+                Monthly Interests
+              </th>
+              <th scope="col" className="px-6 py-3 border-x border-gray-700">
+                Monthly Principals
               </th>
               <th scope="col" className="px-6 py-3 rounded-e-lg">
                 Average Interest
@@ -35,16 +39,19 @@ function ProfitTable({ items, total }) {
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {getMonthName(parseInt(o.month))}
+                    {getMonthName(parseInt(o.Month))}
                   </th>
                   <td className="px-6 py-4 border-x border-gray-700">
-                    ₹ {parseInt(o.total_amount, 10)}
+                    ₹ {parseInt(o.Total_Amount, 10)}
                   </td>
                   <td className="px-6 py-4 border-x border-gray-700">
-                    ₹ {parseInt(o.total_interest, 10)}
+                    ₹ {parseInt(o.Total_Interest, 10)}
+                  </td>
+                  <td className="px-6 py-4 border-x border-gray-700">
+                    ₹ {parseInt(o.Principal, 10)}
                   </td>
                   <td className="px-6 py-4">
-                    {parseFloat(o.avg_interest).toFixed(2)}
+                    {parseFloat(o.Avg_Interest).toFixed(2)} %
                   </td>
                 </tr>
               ))}
@@ -70,6 +77,14 @@ function ProfitTable({ items, total }) {
                   </th>
                   <th scope="col" className="px-6 py-3">
                     ₹ {parseFloat(i.Total_total_interest).toFixed(2)}
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Overall Principal
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    ₹ {parseFloat(i.Principal).toFixed(2)}
                   </th>
                 </tr>
                 <tr>

@@ -36,10 +36,12 @@ function LoanProfits() {
       "Month",
       "Total Amount Given",
       "Monthly Entries",
+      "Monthly Principal",
       "Average Interest",
       "",
       "Overall Amount",
       "Overall Entries",
+      "Overall Principal",
       "Overall Average Interest",
     ],
   ];
@@ -83,7 +85,7 @@ function LoanProfits() {
   }, [form]);
 
   console.log("LoanP", no);
-
+  console.log("TOtal:",total)
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">

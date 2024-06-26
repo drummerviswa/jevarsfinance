@@ -23,7 +23,16 @@ function BalanceTable({ items, total }) {
                 Interest Debited
               </th>
               <th scope="col" className="px-6 py-3 rounded-e-lg">
-                Balance
+                Balance Interest's
+              </th>
+              <th scope="col" className="px-6 py-3 border-x border-gray-700">
+                Principal Credited
+              </th>
+              <th scope="col" className="px-6 py-3 border-x border-gray-700">
+                Principal Debited
+              </th>
+              <th scope="col" className="px-6 py-3 rounded-e-lg">
+                Balance Principal's
               </th>
             </tr>
           </thead>
@@ -46,6 +55,15 @@ function BalanceTable({ items, total }) {
                   <td className="px-6 py-4">
                     {parseFloat(o.total_balance).toFixed(2)}
                   </td>
+                  <td className="px-6 py-4 border-x border-gray-700">
+                    ₹ {parseInt(o.total_loan_principal, 10)}
+                  </td>
+                  <td className="px-6 py-4 border-x border-gray-700">
+                    ₹ {parseInt(o.total_deposit_principal, 10)}
+                  </td>
+                  <td className="px-6 py-4 border-x border-gray-700">
+                    ₹ {parseInt(o.total_principal_balance, 10)}
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -55,6 +73,8 @@ function BalanceTable({ items, total }) {
         <table>
           {total &&
             total.map((i, index) => (
+              <div className="">
+              <h1 className="font-bold text-black">Including Interest and Principals</h1>
               <thead key={index} className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-900 dark:text-gray-400">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -97,6 +117,7 @@ function BalanceTable({ items, total }) {
                   </th>
                 </tr>
               </thead>
+            </div>
             ))}
         </table>
       </div>

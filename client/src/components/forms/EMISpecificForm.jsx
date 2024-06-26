@@ -54,7 +54,7 @@ function EMISpecificForm({updated,setUpdated}) {
 
   return (
     <div>
-      <h1 className="text-center font-bold text-2xl">Specific Deposit Entries</h1>
+      <h1 className="text-center font-bold text-2xl">Specific EMI Entries</h1>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="relative z-0 w-full mb-5 group">
           <label

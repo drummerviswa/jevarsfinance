@@ -72,6 +72,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      {loans.length!=0?(
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -222,6 +223,9 @@ const SpecificLoan = ({ updated, setUpdated }) => {
           ))}
         </tbody>
       </table>
+      ):(
+        <div className="w-full rtl:text-right text-black text-center">No Entries found for this customer</div>
+      )}
       <LoanModel
         setUpdatedData={setUpdated}
         loans={current}
