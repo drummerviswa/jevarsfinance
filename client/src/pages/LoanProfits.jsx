@@ -13,7 +13,7 @@ function LoanProfits() {
   const [form, setForm] = useState({
     year: new Date().getFullYear().toString(), // Set current year as default
   });
-
+  const [no,setNo] = useState([])
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -72,23 +72,42 @@ function LoanProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
+    fetch("https://app-1odw.onrender.com/api/profit/loans/c/", {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setNo(data);
+      })
+      .catch((error) => console.log(error));
   }, [form]);
 
-  console.log("LoanP", loans);
+  console.log("LoanP", no);
 
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Loans Analysis</h1>
-          <select onChange={handleInput} name="year" defaultValue={form.year}>
-            <option value="">Choose a year</option>
-            {years.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          <div className="">
+            <div className="justify-start">
+              <select
+                onChange={handleInput}
+                name="year"
+                defaultValue={form.year}
+              >
+                <option value="">Choose a year</option>
+                {years.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex justify-end">
+              <h2 className="font-bold">No of currently available customers: {no[0]?no[0].cus_count:0}</h2>
+            </div>
+          </div>
           {form.year ? <ProfitTable items={loans} total={total} /> : <></>}
           <div className="flex justify-center">
             <button

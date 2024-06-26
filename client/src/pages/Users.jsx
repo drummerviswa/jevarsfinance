@@ -1,8 +1,10 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function Users() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const [users, setUsers] = useState([]);
+  const [updated, setUpdated] = useState(false);
   useEffect(() => {
     document.title = "Users";
     fetch("https://app-1odw.onrender.com/api/auth/users", {
@@ -13,7 +15,16 @@ function Users() {
         setUsers(data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [updated]);
+  const handleDelete = async (item) => {
+    try {
+      await axios.delete(`https://app-1odw.onrender.com/api/auth/users/${item.UID}`);
+      setUsers(users.filter((i) => i.UID !== item.UID));
+      setUpdated(!updated);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
   return (
     <div className="flex items-center justify-center w-15 lg:w-screen h-screen">
       <div className="relative isolate">
@@ -22,8 +33,8 @@ function Users() {
           aria-hidden="true"
         ></div>
         <h1 className="text-center mb-4 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-black">
-              Users
-            </h1>
+          Users
+        </h1>
         <div className="flex flex-col">
           <div className="overflow-x-auto">
             <div className="p-1.5 w-full inline-block align-middle">
@@ -49,6 +60,12 @@ function Users() {
                       >
                         Name
                       </th>
+                      <th
+                        scope="col"
+                        className="px-6 py-3 text-xs font-bold text-left text-white uppercase "
+                      >
+                        Action
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-500">
@@ -64,6 +81,14 @@ function Users() {
                         <td className="px-6 py-4 text-2xl text-black whitespace-nowrap">
                           {u.name}
                         </td>
+                        {u.UID != currentUser.UID ? (
+                          <button
+                            onClick={() => handleDelete(u)}
+                            className="px-6 py-5 font-medium text-red-600 dark:text-red-500 hover:underline"
+                          >
+                            Delete
+                          </button>
+                        ) : null}
                       </tr>
                     ))}
                   </tbody>

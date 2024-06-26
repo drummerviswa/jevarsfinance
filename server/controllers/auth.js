@@ -66,3 +66,16 @@ export const getUsers = (req, res) => {
     return res.status(200).json(data);
   });
 };
+
+
+export const deleteUser = (req,res) => {
+  const q = "SELECT * FROM users WHERE `UID`=?";
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    if (!data.length) return res.status(409).json("User not found");
+    const q = "DELETE FROM users WHERE `UID`=?";
+    db.query(q, [req.params.id], (err, data) => {
+      return res.status(200).json("User deleted.");
+    });
+  });
+}

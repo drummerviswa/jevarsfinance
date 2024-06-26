@@ -27,6 +27,7 @@ function EMIProfits() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   let entire = [...emi,[{}], ...total];
+  const [no, setNo] = useState([]);
   useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${form.year}`, {
       method: "GET",
@@ -44,6 +45,14 @@ function EMIProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
+      fetch("https://app-1odw.onrender.com/api/profit/emi/c/", {
+        method: "GET",
+      })
+        .then(async (response) => response.json())
+        .then((data) => {
+          setNo(data);
+        })
+        .catch((error) => console.log(error));
     }, [form]);
     let Heading = [
       [
@@ -72,12 +81,19 @@ function EMIProfits() {
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">EMI Analysis</h1>
+          <div className="">
+            <div className="justify-start">
           <select onChange={handleInput} name="year" defaultValue={form.year}>
             <option value="">Choose an year</option>
             {years.map((y)=>(
             <option value={y}>{y}</option>
             ))}
           </select>
+          </div>
+            <div className="flex justify-end">
+              <h2 className="font-bold">No of currently available customers: {no[0]?no[0].cus_count:0}</h2>
+            </div>
+          </div>
           {form.year ? <ProfitTable items={emi} total={total} /> : <></>}
           <div className="flex justify-center">
             <button

@@ -19,26 +19,26 @@ function CustomerDetails({ updated, setUpdated, person }) {
         customers.map((item) => (
           <div className="flex lg:flex-row flex-col justify-between lg:px-20 px-8 py-5">
             <div className="flex flex-row">
-              <p className="font-bold text-gray-400">ID :</p>
-              <p className="ps-1">{item.Cus_ID}</p>
+              <p className="font-bold text-black dark:text-gray-300">ID :</p>
+              <p className="ps-1 text-black dark:text-white">{item.Cus_ID}</p>
             </div>
             <div className="flex flex-row">
-              <p className="font-bold text-gray-400">Name :</p>
-              <p className="ps-1">
+              <p className="font-bold text-black dark:text-gray-300">Name :</p>
+              <p className="ps-1 text-black dark:text-white">
                 {item.FirstName} {item.LastName}
               </p>
             </div>
             <div className="flex flex-row">
-              <p className="font-bold text-gray-400">Father Name :</p>
-              <p className="ps-1">{item.FatherName}</p>
+              <p className="font-bold text-black dark:text-gray-300">Father Name :</p>
+              <p className="ps-1 text-black dark:text-white">{item.FatherName}</p>
             </div>
             <div className="flex flex-row">
-              <p className="font-bold text-gray-400">Address :</p>
-              <p className="ps-1"> {item.Address}</p>
+              <p className="font-bold text-black dark:text-gray-300">Address :</p>
+              <p className="ps-1 text-black dark:text-white"> {item.Address}</p>
             </div>
             <div className="hover:text-gray-500 flex flex-row cursor-pointer" onClick={()=>window.open(`tel:+91${item.MobileNo}`)}>
-              <p className="font-bold text-gray-400">Mobile :</p>
-              <p className="ps-1"> {item.MobileNo}</p>
+              <p className="font-bold text-black dark:text-gray-300">Mobile :</p>
+              <p className="ps-1 text-black dark:text-white"> {item.MobileNo}</p>
             </div>
           </div>
         ))}

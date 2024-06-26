@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import ProfitTable from '../components/ProfitTable';
-import { utils, writeFile } from 'xlsx';
-import moment from 'moment';
+import React, { useCallback, useEffect, useState } from "react";
+import ProfitTable from "../components/ProfitTable";
+import { utils, writeFile } from "xlsx";
+import moment from "moment";
 
 function DepositProfits() {
   useEffect(() => {
-    document.title = 'Profit - Deposit';
+    document.title = "Profit - Deposit";
   }, []);
 
   const [deposits, setDeposits] = useState([]);
@@ -33,10 +33,10 @@ function DepositProfits() {
   };
 
   let entire = [...deposits, [{}], ...total];
-
+  const [no, setNo] = useState([]);
   useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${form.year}`, {
-      method: 'GET',
+      method: "GET",
     })
       .then(async (response) => response.json())
       .then((data) => {
@@ -45,29 +45,37 @@ function DepositProfits() {
       .catch((error) => console.log(error));
 
     fetch(`https://app-1odw.onrender.com/api/profit/deposit/total/${form.year}`, {
-      method: 'GET',
+      method: "GET",
     })
       .then(async (response) => response.json())
       .then((data) => {
         setTotal(data);
       })
       .catch((error) => console.log(error));
+    fetch("https://app-1odw.onrender.com/api/profit/deposit/c/", {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setNo(data);
+      })
+      .catch((error) => console.log(error));
   }, [form]);
 
   let Heading = [
     [
-      'Month',
-      'Total Amount Given',
-      'Monthly Entries',
-      'Average Interest',
-      '',
-      'Overall Amount',
-      'Overall Entries',
-      'Overall Average Interest',
+      "Month",
+      "Total Amount Given",
+      "Monthly Entries",
+      "Average Interest",
+      "",
+      "Overall Amount",
+      "Overall Entries",
+      "Overall Average Interest",
     ],
   ];
 
-  const today = moment().format('DD/MM/YYYY');
+  const today = moment().format("DD/MM/YYYY");
 
   const exportFile = useCallback(() => {
     const ws1 = utils.json_to_sheet(entire, { skipHeader: true });
@@ -75,7 +83,7 @@ function DepositProfits() {
     utils.sheet_add_json(ws1, deposits);
     utils.sheet_add_json(ws1, total);
     const wb = utils.book_new();
-    utils.book_append_sheet(wb, ws1, 'Deposit Profits');
+    utils.book_append_sheet(wb, ws1, "Deposit Profits");
     writeFile(wb, `DepositProfits_${today}.xlsx`);
   }, [deposits]);
 
@@ -84,14 +92,27 @@ function DepositProfits() {
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Deposits Analysis</h1>
-          <select onChange={handleInput} name="year" defaultValue={form.year}>
-            <option value="">Choose a year</option>
-            {years.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          <div className="">
+            <div className="justify-start">
+              <select
+                onChange={handleInput}
+                name="year"
+                defaultValue={form.year}
+              >
+                <option value="">Choose a year</option>
+                {years.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex justify-end">
+              <h2 className="font-bold">
+                No of currently available customers: {no[0] ? no[0].cus_count : 0}
+              </h2>
+            </div>
+          </div>
           {form.year ? <ProfitTable items={deposits} total={total} /> : <></>}
           <div className="flex justify-center">
             <button

@@ -2,6 +2,9 @@ import express from "express";
 import {
   getBalance,
   getBalanceTotal,
+  getCustomersDeposit,
+  getCustomersEMI,
+  getCustomersLoan,
   getDepositProfits,
   getDepositTotal,
   getEMIProfits,
@@ -19,5 +22,8 @@ router.get("/deposit/total/:id", getDepositTotal);
 router.get("/emi/total/:id", getEMITotal);
 router.get("/balance/e/:id",getBalance)
 router.get("/balance/total/:id",getBalanceTotal)
+router.get("/loans/c",getCustomersLoan)
+router.get("/deposit/c",getCustomersDeposit)
+router.get("/emi/c",getCustomersEMI)
 
 export default router;

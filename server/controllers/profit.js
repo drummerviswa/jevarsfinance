@@ -1,5 +1,26 @@
 import { db } from "../connect.js";
 
+export const getCustomersLoan = (req,res) => {
+  const q = "SELECT COUNT(l.Cus_ID) as cus_count from loans l INNER JOIN customers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';"
+  db.query(q,(err,data)=>{
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
+export const getCustomersDeposit = (req,res) => {
+  const q = "SELECT COUNT(l.Cus_ID) as cus_count from depositloans l INNER JOIN depositcustomers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';"
+  db.query(q,(err,data)=>{
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
+export const getCustomersEMI = (req,res) => {
+  const q = "SELECT COUNT(l.Cus_ID) as cus_count from emiloans l INNER JOIN emicustomers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';"
+  db.query(q,(err,data)=>{
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  })
+}
 export const getLoanProfits = (req, res) => {
   const q =
     "WITH LoanData AS ( SELECT MONTH(DOB) AS Month, SUM(Amount) AS Amount, AVG(Interest) AS Avg_Interest FROM loans WHERE YEAR(DOB) = ? GROUP BY MONTH(DOB) ), PaymentData AS ( SELECT MONTH(Pay_Date) AS Month, SUM(Pay_Amount) AS Pay_Amount FROM entries WHERE YEAR(Pay_Date) = ? GROUP BY MONTH(Pay_Date) ) SELECT COALESCE(ld.Month, pd.Month) AS month, COALESCE(ld.Amount, 0) AS total_amount, COALESCE(pd.Pay_Amount, 0) AS total_interest, COALESCE(ld.Avg_Interest, 0) AS avg_interest FROM LoanData ld LEFT JOIN PaymentData pd ON ld.Month = pd.Month UNION SELECT COALESCE(ld.Month, pd.Month) AS month, COALESCE(ld.Amount, 0) AS total_amount, COALESCE(pd.Pay_Amount, 0) AS total_interest, COALESCE(ld.Avg_Interest, 0) AS avg_interest FROM LoanData ld RIGHT JOIN PaymentData pd ON ld.Month = pd.Month ORDER BY month";
