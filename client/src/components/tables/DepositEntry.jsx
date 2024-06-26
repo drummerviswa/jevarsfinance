@@ -110,6 +110,18 @@ function DepositEntryTable() {
               </div>
             </th>
             <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Pay_Type")}>
+                Payment Type
+                {activeColumn === "Pay_Type" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="px-6 py-3">
+              <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Entry_Type")}>
+                Entry Type
+                {activeColumn === "Entry_Type" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="px-6 py-3">
               <div className="flex items-center cursor-pointer" onClick={() => sortByColumn("Validity")}>
                 Validity
                 {activeColumn === "Validity" && (sortingColumn ? " ↑" : " ↓")}
@@ -138,8 +150,10 @@ function DepositEntryTable() {
                 <td className="px-6 py-4">{item.FirstName} {item.LastName}</td>
                 <td className="px-6 py-4">{moment(item.Pay_Date).format("DD-MM-YYYY")}</td>
                 <td className="px-6 py-4">{item.Pay_Amount}</td>
+                <td className="px-6 py-4">{item.Pay_Type}</td>
+                <td className="px-6 py-4">{item.Entry_Type}</td>
                 <td className="px-6 py-4">{moment(item.Validity).format("DD-MM-YYYY")}</td>
-                <td className="px-6 py-4 space-x-3">
+                <td className="flex px-6 py-4 space-x-3">
                   <button
                     onClick={() => handleUpdate(item)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"

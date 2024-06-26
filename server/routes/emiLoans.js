@@ -3,6 +3,7 @@ import {
   addEMILoan,
   deleteEMILoan,
   getEMILoanByCustomer,
+  getEMILoanByCustomerOpen,
   getEMILoans,
   setEMIStatus,
   updateEMILoan,
@@ -10,7 +11,8 @@ import {
 
 const router = express.Router();
 router.get("/", getEMILoans);
-router.get("/:id", getEMILoanByCustomer);
+router.get("/c/:id", getEMILoanByCustomer);
+router.get("/o/:id", getEMILoanByCustomerOpen);
 router.post("/", addEMILoan);
 router.put("/:id", updateEMILoan);
 router.put("/status/:id", setEMIStatus);

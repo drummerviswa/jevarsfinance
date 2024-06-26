@@ -12,7 +12,7 @@ const SpecificLoan = ({ updated, setUpdated }) => {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/loans/${customer[0]["Cus_ID"]}`, {
+    fetch(`https://app-1odw.onrender.com/api/loans/c/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

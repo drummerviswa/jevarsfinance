@@ -11,7 +11,7 @@ function Interests() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/loans/${current?.Cus_ID}`, {
+    fetch(`https://app-1odw.onrender.com/api/loans/o/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -51,6 +51,8 @@ function Interests() {
     validity: "",
     payDate: "",
     payAmount: "",
+    payType:"",
+    entryType:""
   });
   console.info("Form",form)
   const handleCustomerChange = (event) => {
@@ -219,7 +221,7 @@ function Interests() {
               id="payAmount"
               onChange={handleInput}
               min="0.00"
-              step="500.00"
+              step="100"
               className="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
@@ -230,6 +232,46 @@ function Interests() {
             >
               Payment Amount
             </label>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+          <label
+              htmlFor="type"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Payment Type
+            </label>
+            <select
+              id="customers"
+              name="payType"
+              onChange={handleInput}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="">Choose a PayType</option>
+              <option value="Cash">Cash</option>
+              <option value="UPI">UPI</option>
+              <option value="Account Transfer">Account Transfer</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+          <label
+              htmlFor="type"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            >
+              Entry Type
+            </label>
+            <select
+              id="customers"
+              name="entryType"
+              onChange={handleInput}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            >
+              <option value="">Choose a EntryType</option>
+              <option value="Interest">Interest</option>
+              <option value="Principal">Principal</option>
+            </select>
           </div>
         </div>
         <div className="grid md:grid-cols-1 md:gap-6">

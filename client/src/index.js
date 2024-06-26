@@ -41,6 +41,7 @@ import Register from "./pages/Register";
 import Overall from "./pages/Overall";
 import Balance from "./pages/Balance";
 import Users from "./pages/Users";
+import Lands from "./pages/Lands";
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
@@ -168,6 +169,10 @@ const router = createBrowserRouter([
         path: "users",
         element: <Users />,
       },
+      {
+        path:"lands",
+        element:<Lands />
+      }
     ],
   },
   {

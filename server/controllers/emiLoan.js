@@ -17,6 +17,14 @@ export const getEMILoan = (req, res) => {
     return res.status(200).json(data);
   });
 };
+export const getEMILoanByCustomerOpen = (req, res) => {
+  const q =
+    "SELECT FirstName,LastName,l.* from emiloans l INNER JOIN emicustomers ON l.Cus_ID=emicustomers.Cus_ID WHERE Status='Open' AND l.Cus_ID=?";
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
 export const getEMILoanByCustomer = (req, res) => {
   const q =
     "SELECT FirstName,LastName,l.* from emiloans l INNER JOIN emicustomers ON l.Cus_ID=emicustomers.Cus_ID WHERE l.Cus_ID=?";

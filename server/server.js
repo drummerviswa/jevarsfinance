@@ -14,6 +14,7 @@ import emiLoanRoutes from "./routes/emiLoans.js";
 import emiEntryRoutes from "./routes/emiEntries.js";
 import emiValidityRoutes from "./routes/emiValid.js";
 import profitRoutes from "./routes/profits.js"
+import landRoutes from "./routes/lands.js"
 import cookieParser from 'cookie-parser'
 
 const app = express();
@@ -39,7 +40,7 @@ app.use("/api/emi/loans",emiLoanRoutes)
 app.use("/api/emi/entries",emiEntryRoutes)
 app.use("/api/emi/validity",emiValidityRoutes);
 app.use("/api/profit",profitRoutes);
-
+app.use("/api/lands",landRoutes);
 app.listen(8800,()=>{
     console.log("Api started");
 })

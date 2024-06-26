@@ -19,13 +19,15 @@ export const getEntryFromCustomer = (req, res) => {
 
 export const addEntries = (req, res) => {
   const q =
-    "INSERT INTO `entries`(`Loan_No`, `Cus_ID`, `Pay_Date`, `Pay_Amount`, `Validity`) VALUES (?,?,?,?,?)";
+    "INSERT INTO `entries`(`Loan_No`, `Cus_ID`, `Pay_Date`, `Pay_Amount`, `Validity`,`Pay_Type`,`Entry_Type`) VALUES (?,?,?,?,?,?,?)";
   const value = [
     req.body.Loan_No,
     req.body.Cus_ID,
     req.body.payDate,
     req.body.payAmount,
     req.body.validity,
+    req.body.payType,
+    req.body.entryType,
   ];
   db.query(q, value, (err, data) => {
     if (err) return res.status(500).json(err);
@@ -47,10 +49,17 @@ export const deleteEntry = (req, res) => {
 
 export const updateEntry = (req, res) => {
   const q =
-    "UPDATE `entries` SET `Pay_Date`=?,`Pay_Amount`=?,`Validity`=? WHERE `Entry_ID`=?";
+    "UPDATE `entries` SET `Pay_Date`=?,`Pay_Amount`=?,`Validity`=?,`Pay_Type`=?,`Entry_Type`=? WHERE `Entry_ID`=?";
   db.query(
     q,
-    [req.body.payDate, req.body.payAmount, req.body.validity, req.params.id],
+    [
+      req.body.payDate,
+      req.body.payAmount,
+      req.body.validity,
+      req.body.payType,
+      req.body.entryType,
+      req.params.id,
+    ],
     (err, data) => {
       if (err) {
         console.error(err);

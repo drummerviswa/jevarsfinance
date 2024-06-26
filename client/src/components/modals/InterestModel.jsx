@@ -14,6 +14,8 @@ export default function InterestModel({
     validity: "",
     payDate: "",
     payAmount: "",
+    payType: "",
+    entryType: "",
   });
   useEffect(() => {
     if (interest) {
@@ -23,6 +25,8 @@ export default function InterestModel({
         validity: moment(interest.Validity).format("YYYY-MM-DD"),
         payDate: moment(interest.Pay_Date).format("YYYY-MM-DD"),
         payAmount: interest.Pay_Amount,
+        payType: interest.Pay_Type,
+        entryType: interest.Entry_Type,
       });
     }
   }, [interest]);
@@ -34,7 +38,10 @@ export default function InterestModel({
     try {
       axios
         .put(`https://app-1odw.onrender.com/api/entries/${interest.Entry_ID}`, newData)
-        .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
+        .then((response) => {
+          console.log("Data:", response);
+          setUpdatedData((prev) => !prev);
+        })
         .catch((err) => {
           alert(err);
         });
@@ -131,7 +138,9 @@ export default function InterestModel({
                           type="date"
                           onChange={handleInput}
                           name="payDate"
-                          defaultValue={moment(interest.Pay_Date).format("YYYY-MM-DD")}
+                          defaultValue={moment(interest.Pay_Date).format(
+                            "YYYY-MM-DD"
+                          )}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Select date"
                         />
@@ -144,7 +153,7 @@ export default function InterestModel({
                           Paid Amount
                         </label>
                         <input
-                          defaultValue={parseInt(interest.Pay_Amount,10)}
+                          defaultValue={parseInt(interest.Pay_Amount, 10)}
                           type="number"
                           min="0.00"
                           onChange={handleInput}
@@ -168,10 +177,54 @@ export default function InterestModel({
                           type="date"
                           onChange={handleInput}
                           name="validity"
-                          defaultValue={moment(interest.Validity).format("YYYY-MM-DD")}
+                          defaultValue={moment(interest.Validity).format(
+                            "YYYY-MM-DD"
+                          )}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                           placeholder="Select date"
                         />
+                      </div>
+                      <div className="relative z-0 w-full mb-5 group">
+                        <label
+                          htmlFor="type"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Payment Type
+                        </label>
+                        <select
+                          id="customers"
+                          name="payType"
+                          onChange={handleInput}
+                          defaultValue={interest.Pay_Type}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        >
+                          <option value="">Choose a PayType</option>
+                          <option value="Cash">Cash</option>
+                          <option value="UPI">UPI</option>
+                          <option value="Account Transfer">
+                            Account Transfer
+                          </option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </div>
+                      <div className="relative z-0 w-full mb-5 group">
+                        <label
+                          htmlFor="type"
+                          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Entry Type
+                        </label>
+                        <select
+                          id="customers"
+                          name="entryType"
+                          defaultValue={interest.Entry_Type}
+                          onChange={handleInput}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        >
+                          <option value="">Choose a EntryType</option>
+                          <option value="Interest">Interest</option>
+                          <option value="Principal">Principal</option>
+                        </select>
                       </div>
                     </div>
                     <div className="flex justify-between">

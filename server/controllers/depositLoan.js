@@ -8,11 +8,18 @@ export const getDepositLoans = (req, res) => {
     return res.status(200).json(data);
   });
 };
-
 export const getDepositLoan = (req, res) => {
   const q =
     "SELECT FirstName,LastName,l.* from depositloans l INNER JOIN depositcustomers ON l.Cus_ID=depositcustomers.Cus_ID WHERE Cus_ID=?";
   db.query(q, [req.param.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getDepositLoanByCustomerOpen = (req, res) => {
+  const q =
+    "SELECT FirstName,LastName,l.* from depositloans l INNER JOIN depositcustomers ON l.Cus_ID=depositcustomers.Cus_ID WHERE Status='Open' AND l.Cus_ID=?";
+  db.query(q, [req.params.id], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
   });

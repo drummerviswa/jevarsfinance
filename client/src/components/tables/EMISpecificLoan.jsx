@@ -12,7 +12,7 @@ const EMISpecificLoan = ({ updated, setUpdated }) => {
   const [current, setCurrent] = useState({});
   const emi = useSelector((state) => state.emi);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/emi/loans/${emi[0]["Cus_ID"]}`, {
+    fetch(`https://app-1odw.onrender.com/api/emi/loans/c/${emi[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

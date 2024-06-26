@@ -3,6 +3,7 @@ import {
   addDepositLoan,
   deleteDepositLoan,
   getDepositLoanByCustomer,
+  getDepositLoanByCustomerOpen,
   getDepositLoans,
   setDepositStatus,
   updateDepositLoan,
@@ -10,7 +11,8 @@ import {
 
 const router = express.Router();
 router.get("/", getDepositLoans);
-router.get("/:id", getDepositLoanByCustomer);
+router.get("/c/:id", getDepositLoanByCustomer);
+router.get("/o/:id", getDepositLoanByCustomerOpen);
 router.post("/", addDepositLoan);
 router.put("/:id", updateDepositLoan);
 router.put("/status/:id", setDepositStatus);

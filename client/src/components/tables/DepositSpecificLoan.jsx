@@ -12,7 +12,7 @@ const DepositSpecificLoan = ({ updated, setUpdated }) => {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.deposit);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/deposit/loans/${customer[0]["Cus_ID"]}`, {
+    fetch(`https://app-1odw.onrender.com/api/deposit/loans/c/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

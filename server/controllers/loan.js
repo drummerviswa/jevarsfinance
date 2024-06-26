@@ -17,6 +17,14 @@ export const getLoan = (req, res) => {
     return res.status(200).json(data);
   });
 };
+export const getLoanByCustomerOpen = (req, res) => {
+  const q =
+    "SELECT FirstName,LastName,l.* from loans l INNER JOIN customers ON l.Cus_ID=customers.Cus_ID WHERE Status='Open' AND l.Cus_ID=?";
+  db.query(q, [req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
 export const getLoanByCustomer = (req, res) => {
   const q =
     "SELECT FirstName,LastName,l.* from loans l INNER JOIN customers ON l.Cus_ID=customers.Cus_ID WHERE l.Cus_ID=?";
