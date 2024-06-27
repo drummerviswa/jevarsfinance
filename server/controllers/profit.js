@@ -530,7 +530,7 @@ export const getBalanceTotal = (req, res) => {
 PaymentData AS (
     SELECT SUM(Pay_Amount) AS Total_total_interest 
     FROM entries 
-    WHERE YEAR(Pay_Date) = ?
+    WHERE YEAR(Pay_Date) = ? AND Entry_Type='Interest'
 ),
 DepositLoanData AS (
     SELECT 
@@ -543,7 +543,7 @@ DepositLoanData AS (
 DepositPaymentData AS (
     SELECT SUM(Pay_Amount) AS Total_total_interest 
     FROM depositentries 
-    WHERE YEAR(Pay_Date) = ?
+    WHERE YEAR(Pay_Date) = ? AND Entry_Type='Interest'
 ),
 EMILoanData AS (
     SELECT 
@@ -556,7 +556,7 @@ EMILoanData AS (
 EMIPaymentData AS (
     SELECT SUM(Pay_Amount) AS Total_total_interest 
     FROM emientries 
-    WHERE YEAR(Pay_Date) = ?
+    WHERE YEAR(Pay_Date) = ? AND Entry_Type='Interest'
 )
 SELECT 
     COALESCE(ld.Total_total_amount, 0) + COALESCE(ed.Total_total_amount, 0) AS Total_credits,
