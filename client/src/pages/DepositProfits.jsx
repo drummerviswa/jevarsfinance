@@ -34,6 +34,7 @@ function DepositProfits() {
 
   let entire = [...deposits, [{}], ...total];
   const [no, setNo] = useState([]);
+  const [overall, setOverall] = useState([]);
   useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${form.year}`, {
       method: "GET",
@@ -58,6 +59,14 @@ function DepositProfits() {
       .then(async (response) => response.json())
       .then((data) => {
         setNo(data);
+      })
+      .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/deposit/overall/${currentYear}`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setOverall(data);
       })
       .catch((error) => console.log(error));
   }, [form]);
@@ -93,6 +102,28 @@ function DepositProfits() {
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Deposits Analysis</h1>
           <div className="">
+            <div className="flex flex-col justify-between">
+              <div className="flex flex-col justify-start">
+                <h2 className="font-bold">
+                  Overall deposit amount till {currentYear}: ₹
+                  {(overall[0] && overall[0].Amount) || 0}
+                </h2>
+                <h2 className="font-bold">
+                  Overall average rate of interest till {currentYear}:{" "}
+                  {(overall[0] && overall[0].Interest) || 0}%
+                </h2>
+                <h2 className="font-bold">
+                  Overall Entries till {currentYear}:{" "}
+                  ₹{(overall[0] && overall[0].Entry) || 0}
+                </h2>
+              </div>
+              <div className="flex justify-end">
+                <h2 className="font-bold">
+                  No of currently available customers:{" "}
+                  {no[0] ? no[0].cus_count : 0}
+                </h2>
+              </div>
+            </div>
             <div className="justify-start">
               <select
                 onChange={handleInput}
@@ -106,11 +137,6 @@ function DepositProfits() {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="flex justify-end">
-              <h2 className="font-bold">
-                No of currently available customers: {no[0] ? no[0].cus_count : 0}
-              </h2>
             </div>
           </div>
           {form.year ? <ProfitTable items={deposits} total={total} /> : <></>}

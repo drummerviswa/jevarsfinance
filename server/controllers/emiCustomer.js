@@ -47,7 +47,7 @@ export const deleteEMICustomer = (req, res) => {
   db.query(q, [req.params.id], (err, data) => {
     if (err) return res.status(500).json(err);
     if (!data.length) return res.status(409).json("Customer not found");
-    const q = "DELETE FROM customers WHERE `Cus_ID`=?";
+    const q = "DELETE FROM emicustomers WHERE `Cus_ID`=?";
     db.query(q, [req.params.id], (err, data) => {
       return res.status(200).json("Customer deleted.");
     });

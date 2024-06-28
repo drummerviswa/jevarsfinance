@@ -13,7 +13,8 @@ function LoanProfits() {
   const [form, setForm] = useState({
     year: new Date().getFullYear().toString(), // Set current year as default
   });
-  const [no,setNo] = useState([])
+  const [no, setNo] = useState([]);
+  const [overall, setOverall] = useState([]);
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -82,16 +83,44 @@ function LoanProfits() {
         setNo(data);
       })
       .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/loans/overall/${currentYear}`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setOverall(data);
+      })
+      .catch((error) => console.log(error));
   }, [form]);
-
-  console.log("LoanP", no);
-  console.log("TOtal:",total)
+  console.info("Overall", overall);
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Loans Analysis</h1>
           <div className="">
+            <div className="flex flex-col justify-between">
+              <div className="flex flex-col justify-start">
+                <h2 className="font-bold">
+                  Overall loan amount till {currentYear}: ₹
+                  {(overall[0] && overall[0].Amount) || 0}
+                </h2>
+                <h2 className="font-bold">
+                  Overall average rate of interest till {currentYear}:{" "}
+                  {(overall[0] && overall[0].Interest) || 0}%
+                </h2>
+                <h2 className="font-bold">
+                  Overall Entries till {currentYear}:{" "}
+                  ₹{(overall[0] && overall[0].Entry) || 0}
+                </h2>
+              </div>
+              <div className="flex justify-end">
+                <h2 className="font-bold">
+                  No of currently available customers:{" "}
+                  {no[0] ? no[0].cus_count : 0}
+                </h2>
+              </div>
+            </div>
             <div className="justify-start">
               <select
                 onChange={handleInput}
@@ -105,9 +134,6 @@ function LoanProfits() {
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="flex justify-end">
-              <h2 className="font-bold">No of currently available customers: {no[0]?no[0].cus_count:0}</h2>
             </div>
           </div>
           {form.year ? <ProfitTable items={loans} total={total} /> : <></>}

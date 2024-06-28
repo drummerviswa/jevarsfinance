@@ -5,6 +5,7 @@ import { utils, writeFile } from "xlsx";
 import ProfitTable from "../components/ProfitTable";
 import Icon from "react-icons-kit";
 import { ic_call } from "react-icons-kit/md/ic_call";
+import BalanceTable from "../components/BalanceTable";
 function Overall() {
   const now = moment();
   const [Ploans, setPLoans] = useState([]);
@@ -25,10 +26,13 @@ function Overall() {
   const [Emivalidity, setEmiValidity] = useState([]);
   const [Loanvalidity, setLoanValidity] = useState([]);
   const [DepositValidity, setDepositValidity] = useState([]);
+  const [emi, setEmi] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [till, setTill] = useState([]);
   useEffect(() => {
     document.title = `${now.format("DD/MM/YYYY")} Overall`;
   }, []);
-  var currentTime = new Date()
+  var currentTime = new Date();
   const year = currentTime.getFullYear();
   useEffect(() => {
     fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${year}`, {
@@ -173,6 +177,30 @@ function Overall() {
       .then(async (response) => response.json())
       .then((data) => {
         setEmiValidity(data);
+      })
+      .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/balance/e/${year}`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setEmi(data);
+      })
+      .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/balance/total/${year}`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setTotal(data);
+      })
+      .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/balance/till/${year}`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setTill(data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -1017,6 +1045,16 @@ function Overall() {
                     </th>
                     <th className="px-6 py-3">
                       <div className="flex items-center cursor-pointer">
+                        Payment Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
                         Validity
                       </div>
                     </th>
@@ -1046,6 +1084,8 @@ function Overall() {
                           {moment(item.Pay_Date).format("DD-MM-YYYY")}
                         </td>
                         <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">{item.Pay_Type}</td>
+                        <td className="px-6 py-4">{item.Entry_Type}</td>
                         <td className="px-6 py-4">
                           {moment(item.Validity).format("DD-MM-YYYY")}
                         </td>
@@ -1101,6 +1141,16 @@ function Overall() {
                     </th>
                     <th className="px-6 py-3">
                       <div className="flex items-center cursor-pointer">
+                        Payment Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
                         Validity
                       </div>
                     </th>
@@ -1130,6 +1180,8 @@ function Overall() {
                           {moment(item.Pay_Date).format("DD-MM-YYYY")}
                         </td>
                         <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">{item.Pay_Type}</td>
+                        <td className="px-6 py-4">{item.Entry_Type}</td>
                         <td className="px-6 py-4">
                           {moment(item.Validity).format("DD-MM-YYYY")}
                         </td>
@@ -1190,6 +1242,16 @@ function Overall() {
                     </th>
                     <th className="px-6 py-3">
                       <div className="flex items-center cursor-pointer">
+                        Payment Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
+                        Entry Type
+                      </div>
+                    </th>
+                    <th className="px-6 py-3">
+                      <div className="flex items-center cursor-pointer">
                         Validity
                       </div>
                     </th>
@@ -1220,6 +1282,8 @@ function Overall() {
                           {moment(item.Pay_Date).format("DD-MM-YYYY")}
                         </td>
                         <td className="px-6 py-4">{item.Pay_Amount}</td>
+                        <td className="px-6 py-4">{item.Pay_Type}</td>
+                        <td className="px-6 py-4">{item.Entry_Type}</td>
                         <td className="px-6 py-4">
                           {moment(item.Validity).format("DD-MM-YYYY")}
                         </td>
@@ -1596,6 +1660,18 @@ function Overall() {
             <div className="relative isolate px-6 lg:px-8">
               <h1 className="font-bold text-center">EMI Profits</h1>
               <ProfitTable items={PEMI} total={Etotal} />
+            </div>
+          </div>
+          <div className="relative isolate px-6 pt-20 lg:px-8">
+            <div className="max-w-[900px] m-auto px-4 py-24">
+              <h1 className="text-center font-bold text-2xl">
+                Balance Analysis
+              </h1>
+              {year ? (
+                <BalanceTable items={emi} total={total} till={till} />
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

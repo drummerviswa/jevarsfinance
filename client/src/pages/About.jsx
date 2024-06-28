@@ -35,7 +35,7 @@ Ravikumar K`,
           Welcome to Jevars Financial Office
         </h1>
         {owners.map((item) => (
-          <div className="py-7 content-center items-center flex flex-col lg:flex-row justify-between gap-8">
+          <div key={item.title} className="py-7 content-center items-center flex flex-col lg:flex-row justify-between gap-8">
             <div className="w-full lg:w-2/4 items-center flex flex-col justify-center">
               <img
                 className="w-80 h-80 rounded-xl"

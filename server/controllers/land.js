@@ -39,6 +39,15 @@ export const updateLand = (req, res) => {
   });
 };
 
+
+export const LandStatus = (req,res) => {
+  const q = `SELECT COUNT(Land_No) as no_of_lands,SUM(Land_Value) as total_lands FROM lands`;
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+}
+
 export const addLands = (req, res) => {
   const q =
     "INSERT INTO `lands`(`Land_Details`, `Land_Value`, `Land_Location`) VALUES (?,?,?)";

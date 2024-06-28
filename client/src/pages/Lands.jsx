@@ -1,13 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Customer from '../components/tables/Customers'
 import '../index.css'
 import LandForm from '../components/forms/LandForm';
 import LandTable from '../components/tables/LandTable';
 
 function Lands() {
+  const [lands, setLands] = useState({
+    total:0,
+    no:0
+  });
   useEffect(() => {
     document.title= "Lands";
+    fetch("https://app-1odw.onrender.com/api/lands/status").then(async (response) => response.json())
+    .then((data) => {
+      setLands({
+          total:data[0].total_lands,
+          no:data[0].no_of_lands
+      });
+    })
   }, [])
+  console.log("Lands",lands)
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-14 lg:px-8 py-10">
@@ -19,6 +31,10 @@ function Lands() {
         <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-36">
           <LandForm />
         </div>
+          <div className='flex justify-around'>
+            <h1 className='text-xl font-bold'>No.of Lands: {lands.no}</h1>
+            <h1 className='text-xl font-bold'>Total Land Value: {lands.total||0}</h1>
+          </div>
           <LandTable  />
       </div>
     </div>

@@ -175,7 +175,7 @@ function DepositLo() {
             <input
               type="number"
               min="0.00"
-              step="1000.00"
+              step="100.00"
               name="amount"
               onChange={handleInput}
               id="floating_amount"

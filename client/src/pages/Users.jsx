@@ -81,6 +81,7 @@ function Users() {
                         <td className="px-6 py-4 text-2xl text-black whitespace-nowrap">
                           {u.name}
                         </td>
+                        <td>
                         {u.UID != currentUser.UID ? (
                           <button
                             onClick={() => handleDelete(u)}
@@ -89,6 +90,7 @@ function Users() {
                             Delete
                           </button>
                         ) : null}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
