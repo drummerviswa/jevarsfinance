@@ -155,7 +155,7 @@ export const getLoanTotal = (req, res) => {
         FROM
             loans
         WHERE
-            STATUS = 'Open' AND YEAR(DOB) <= ?
+            STATUS = 'Open' AND YEAR(DOB) = ?
     ),
     PaymentData AS (
         SELECT
@@ -163,7 +163,7 @@ export const getLoanTotal = (req, res) => {
         FROM
             entries
         WHERE
-            YEAR(Pay_Date) <= ? AND Entry_Type = 'Interest'
+            YEAR(Pay_Date) = ? AND Entry_Type = 'Interest'
     ),
     PaymentE AS (
         SELECT
@@ -171,7 +171,7 @@ export const getLoanTotal = (req, res) => {
         FROM
             entries
         WHERE
-            YEAR(Pay_Date) <= ? AND Entry_Type = 'Principal'
+            YEAR(Pay_Date) = ? AND Entry_Type = 'Principal'
     )
 SELECT
     COALESCE(ld.Total_total_amount, 0) AS Total_total_amount,
@@ -200,7 +200,7 @@ export const getDepositTotal = (req, res) => {
         depositloans
     WHERE
 STATUS
-    = 'Open' AND YEAR(DOB) <= ?
+    = 'Open' AND YEAR(DOB) = ?
 ),
 PaymentData AS(
     SELECT
@@ -208,7 +208,7 @@ PaymentData AS(
     FROM
         depositentries
     WHERE
-        YEAR(Pay_Date) <= ? AND Entry_Type="Interest"
+        YEAR(Pay_Date) = ? AND Entry_Type="Interest"
 ),
 PaymentE AS(
     SELECT
@@ -216,7 +216,7 @@ PaymentE AS(
     FROM
         depositentries
     WHERE
-        YEAR(Pay_Date) <= ? AND Entry_Type="Principal"
+        YEAR(Pay_Date) = ? AND Entry_Type="Principal"
 )
 SELECT
     COALESCE(ld.Total_total_amount, 0) AS Total_total_amount,
@@ -242,7 +242,7 @@ export const getEMITotal = (req, res) => {
         emiloans
     WHERE
 STATUS
-    = 'Open' AND YEAR(DOB) <= ?
+    = 'Open' AND YEAR(DOB) = ?
 ),
 PaymentData AS(
     SELECT
@@ -250,7 +250,7 @@ PaymentData AS(
     FROM
         emientries
     WHERE
-        YEAR(Pay_Date) <= ? AND Entry_Type="Interest"
+        YEAR(Pay_Date) = ? AND Entry_Type="Interest"
 ),
 PaymentE AS(
     SELECT
@@ -258,7 +258,7 @@ PaymentE AS(
     FROM
         emientries
     WHERE
-        YEAR(Pay_Date) <= ? AND Entry_Type="Principal"
+        YEAR(Pay_Date) = ? AND Entry_Type="Principal"
 )
 SELECT
     COALESCE(ld.Total_total_amount, 0) AS Total_total_amount,
