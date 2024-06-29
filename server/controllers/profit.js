@@ -30,7 +30,7 @@ export const getSumLoans = (req, res) => {
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
     COALESCE(ld.Interest, 0) AS Interest,
-    COALESCE(pd.Entry, 0) AS Entry,
+    COALESCE(pd.Entry, 0) AS Entry
 FROM
     LoanData ld
 CROSS JOIN PaymentData pd;`;
@@ -62,7 +62,7 @@ export const getSumDeposit = (req, res) => {
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
     COALESCE(ld.Interest, 0) AS Interest,
-    COALESCE(pd.Entry, 0) AS Entry,
+    COALESCE(pd.Entry, 0) AS Entry
 FROM
     LoanData ld
 CROSS JOIN PaymentData pd;`;
@@ -94,7 +94,7 @@ export const getSumEMI = (req, res) => {
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
     COALESCE(ld.Interest, 0) AS Interest,
-    COALESCE(pd.Entry, 0) AS Entry,
+    COALESCE(pd.Entry, 0) AS Entry
 FROM
     LoanData ld
 CROSS JOIN PaymentData pd;`;
