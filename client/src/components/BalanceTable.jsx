@@ -1,6 +1,6 @@
 import React from "react";
 
-function BalanceTable({ items, total, till }) {
+function BalanceTable({ items, total, till,year }) {
   const getMonthName = (monthNumber) => {
     const date = new Date();
     date.setMonth(monthNumber - 1);
@@ -80,7 +80,7 @@ function BalanceTable({ items, total, till }) {
               total.map((i, index) => (
                 <div className="">
                   <h1 className="font-bold  text-center text-black">
-                    At {currentYear}
+                    At {year}
                   </h1>
                   <thead
                     key={index}

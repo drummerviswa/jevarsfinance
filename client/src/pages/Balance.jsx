@@ -84,7 +84,7 @@ function Balance() {
               <option value={y}>{y}</option>
             ))}
           </select>
-          {form.year ? <BalanceTable items={emi} total={total} till={till} /> : <></>}
+          {form.year ? <BalanceTable items={emi} total={total} year={form.year} till={till} /> : <></>}
           <div className="flex justify-center">
             <button
               onClick={exportFile}
