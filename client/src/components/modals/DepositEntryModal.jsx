@@ -37,7 +37,7 @@ export default function DepositEntryModal({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/deposit/entries/${interest.Entry_ID}`, newData)
+        .put(`https://app-1odw.onrender.com/api/deposit/entries/${interest.Entry_ID}`, newData)
         .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);

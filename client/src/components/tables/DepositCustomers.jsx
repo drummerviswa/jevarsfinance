@@ -13,7 +13,7 @@ function DepositCustomers() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/deposit/customers/", {
+    fetch("https://app-1odw.onrender.com/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -30,7 +30,7 @@ function DepositCustomers() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/deposit/customers/${item.Cus_ID}`);
+      await axios.delete(`https://app-1odw.onrender.com/api/deposit/customers/${item.Cus_ID}`);
       setCustomers(customers.filter((i) => i.Cus_ID !== item.Cus_ID));
       setUpdated(!updated);
     } catch (error) {

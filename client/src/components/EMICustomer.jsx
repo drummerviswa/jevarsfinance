@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function EMICustomer({ updated, setUpdated, person }) {
   const [customers, setCustomers] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/customers/${person["Cus_ID"]}`, {
+    fetch(`https://app-1odw.onrender.com/api/emi/customers/${person["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

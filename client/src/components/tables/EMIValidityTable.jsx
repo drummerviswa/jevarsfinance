@@ -14,7 +14,7 @@ function EMIValidityTable() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/validity`, {
+    fetch(`https://app-1odw.onrender.com/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

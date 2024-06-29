@@ -9,7 +9,7 @@ function DepositSpecificForm({updated,setUpdated}) {
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:8800/api/deposit/customers/")
+    axios.get("https://app-1odw.onrender.com/api/deposit/customers/")
       .then(response => {
         setCustomers(response.data);
       })
