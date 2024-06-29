@@ -14,7 +14,7 @@ function EMIValidityTable() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/emi/validity`, {
+    fetch(`http://localhost:8800/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -182,7 +182,7 @@ function EMIValidityTable() {
                   <td className="px-6 py-4">
                   <>
                         {-1 * moment(item.Validity).diff(now, "months")} months
-                        and
+                        and{" "}
                       </>
                       {-1 *
                         moment(item.Validity).diff(

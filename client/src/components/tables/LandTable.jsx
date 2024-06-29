@@ -13,7 +13,7 @@ function LandTable() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/lands/", {
+    fetch("http://localhost:8800/api/lands/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -30,7 +30,7 @@ function LandTable() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`https://app-1odw.onrender.com/api/lands/${item.Land_No}`);
+      await axios.delete(`http://localhost:8800/api/lands/${item.Land_No}`);
       setCustomers(customers.filter((i) => i.Land_No !== item.Land_No));
       setUpdated(!updated);
     } catch (error) {

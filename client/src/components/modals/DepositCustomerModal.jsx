@@ -36,7 +36,7 @@ export default function DepositCustomerModel({
     e.preventDefault();
     try {
       axios
-        .put(`https://app-1odw.onrender.com/api/deposit/customers/${customer.Cus_ID}`, newData)
+        .put(`http://localhost:8800/api/deposit/customers/${customer.Cus_ID}`, newData)
         .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);
@@ -208,7 +208,7 @@ export default function DepositCustomerModel({
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={handleClick}
+                    onClick={()=>setShowModal(false)}
                   >
                     Close
                   </button>

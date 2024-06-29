@@ -16,10 +16,10 @@ export const getCustomer = (req, res) => {
 };
 export const addCustomer = (req, res) => {
   const q =
-    "SELECT * FROM customers WHERE firstName=? AND fatherName=? OR mobileNo=?";
+    "SELECT * FROM customers WHERE firstName=? AND fatherName=?";
   db.query(
     q,
-    [req.body.firstName, req.body.fatherName, req.body.mobileNo],
+    [req.body.firstName, req.body.fatherName],
     (err, data) => {
       if (err) return res.status(500).json(err);
       if (data.length) return res.status(409).json("Customer Already exist");

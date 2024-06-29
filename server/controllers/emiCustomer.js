@@ -16,10 +16,10 @@ export const getEMICustomer = (req, res) => {
 };
 export const addEMICustomer = (req, res) => {
   const q =
-    "SELECT * FROM emicustomers WHERE firstName=? AND fatherName=? OR mobileNo=?";
+    "SELECT * FROM emicustomers WHERE firstName=? AND fatherName=?";
   db.query(
     q,
-    [req.body.firstName, req.body.fatherName, req.body.mobileNo],
+    [req.body.firstName, req.body.fatherName],
     (err, data) => {
       if (err) return res.status(500).json(err);
       if (data.length) return res.status(409).json("Customer Already exist");

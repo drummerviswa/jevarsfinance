@@ -36,7 +36,7 @@ function DepositProfits() {
   const [no, setNo] = useState([]);
   const [overall, setOverall] = useState([]);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/e/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -45,7 +45,7 @@ function DepositProfits() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/total/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -53,7 +53,7 @@ function DepositProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/deposit/c/", {
+    fetch("http://localhost:8800/api/profit/deposit/c/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -61,7 +61,7 @@ function DepositProfits() {
         setNo(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/deposit/overall/${currentYear}`, {
+    fetch(`http://localhost:8800/api/profit/deposit/overall/${currentYear}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

@@ -9,7 +9,7 @@ function Specific({updated,setUpdated}) {
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
 
   useEffect(() => {
-    axios.get("https://app-1odw.onrender.com/api/customers/")
+    axios.get("http://localhost:8800/api/customers/")
       .then(response => {
         setCustomers(response.data);
       })

@@ -6,7 +6,7 @@ function EMILo() {
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/emi/customers/", {
+    fetch("http://localhost:8800/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -43,7 +43,7 @@ function EMILo() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://app-1odw.onrender.com/api/emi/loans",
+        "http://localhost:8800/api/emi/loans",
         form
       );
       console.log("Loan created:", response.data);

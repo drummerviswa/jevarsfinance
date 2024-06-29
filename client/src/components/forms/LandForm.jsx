@@ -14,7 +14,7 @@ function LandForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://app-1odw.onrender.com/api/lands",
+        "http://localhost:8800/api/lands",
         form
       );
       console.log("Land created:", response.data);

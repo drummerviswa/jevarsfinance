@@ -10,8 +10,8 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     interest: "",
     dob: "",
     document: "",
-    status:"",
-    advancePay:"",
+    status: "",
+    advancePay: "",
   });
   useEffect(() => {
     if (loans) {
@@ -21,12 +21,12 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
         interest: loans.Interest,
         dob: moment(loans.DOB).format("YYYY-MM-DD"),
         document: loans.Document,
-        status:loans.Status,
-        advancePay:loans.AdvancePay,
+        status: loans.Status,
+        advancePay: loans.AdvancePay,
       });
     }
   }, [loans]);
-  console.log("Form: ",newData)
+  console.log("Form: ", newData);
   const handleInput = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
@@ -34,8 +34,11 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
     e.preventDefault();
     try {
       axios
-        .put(`https://app-1odw.onrender.com/api/loans/${loans.Loan_No}`, newData)
-        .then((response) => {console.log("Data:", response);setUpdatedData((prev)=>!prev)})
+        .put(`http://localhost:8800/api/loans/${loans.Loan_No}`, newData)
+        .then((response) => {
+          console.log("Data:", response);
+          setUpdatedData((prev) => !prev);
+        })
         .catch((err) => {
           alert(err);
         });
@@ -154,7 +157,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                           Amount ₹
                         </label>
                         <input
-                          defaultValue={parseInt(loans.Amount,10)}
+                          defaultValue={parseInt(loans.Amount, 10)}
                           type="number"
                           min="0.00"
                           onChange={handleInput}
@@ -215,8 +218,26 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                         >
                           <option value="">Choose an option</option>
-                          <option value="yes">Yes</option>
                           <option value="no">No</option>
+                          <option value="cheque">Cheque</option>
+                          <option value="bond">Bond</option>
+                          <option value="land document">Land Document</option>
+                          <option value="gold">Gold</option>
+                          <option value="vehicle">Vehicle</option>
+                          <option value="bond and cheque">
+                            Bond and Cheque
+                          </option>
+                          <option value="bond and land document">
+                            Bond and Land Document
+                          </option>
+                          <option value="bond and gold">Bond and Gold</option>
+                          <option value="bond and vehicle">
+                            Bond and Vehicle
+                          </option>
+                          <option value="bond and others">
+                            Bond and Others
+                          </option>
+                          <option value="others">Others</option>
                         </select>
                       </div>
                       <div className="flex flex-col">

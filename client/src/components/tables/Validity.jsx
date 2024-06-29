@@ -15,7 +15,7 @@ function Validity() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/validity`, {
+    fetch(`http://localhost:8800/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
