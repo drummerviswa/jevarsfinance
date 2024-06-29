@@ -25,7 +25,7 @@ export const getSumLoans = (req, res) => {
         FROM
             entries
         WHERE
-            YEAR(Pay_Date) <= ?
+            Entry_Type='Interest' AND YEAR(Pay_Date) <= ?
     )
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
@@ -57,7 +57,7 @@ export const getSumDeposit = (req, res) => {
         FROM
             depositentries
         WHERE
-            YEAR(Pay_Date) <= ?
+            Entry_Type='Interest' AND YEAR(Pay_Date) <= ?
     )
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
@@ -89,7 +89,7 @@ export const getSumEMI = (req, res) => {
         FROM
             emientries
         WHERE
-            YEAR(Pay_Date) <= ?
+            Entry_Type='Interest' AND YEAR(Pay_Date) <= ?
     )
 SELECT
     COALESCE(ld.Amount, 0) AS Amount,
@@ -565,9 +565,9 @@ CombinedData AS(
         pd.Month = pde.Month
     LEFT JOIN LoanPrincipal pril ON
     	pd.Month = pril.Month
-    LEFT JOIN LoanPrincipal prid ON
+    LEFT JOIN DepositPrincipal prid ON
     	pd.Month = prid.Month
-    LEFT JOIN LoanPrincipal prie ON
+    LEFT JOIN EMIPrincipal prie ON
     	pd.Month = prie.Month
 )
 SELECT

@@ -180,23 +180,19 @@ function DepositValidityTable() {
                       </button>
                     </td>
                   <td className="px-6 py-4">
-                    {-1 * moment(item.Validity).diff(now, "months") > 0 ? (
-                      <>
+                  <>
                         {-1 * moment(item.Validity).diff(now, "months")} months
                         and
                       </>
-                    ) : (
-                      <></>
-                    )}{" "}
-                    {-1 *
-                      moment(item.Validity).diff(
-                        now.add(
-                          moment(item.Validity).diff(now, "months"),
-                          "months"
-                        ),
-                        "days"
-                      )}{" "}
-                    days
+                      {-1 *
+                        moment(item.Validity).diff(
+                          moment(now).add(
+                            moment(item.Validity).diff(now, "months"),
+                            "months"
+                          ),
+                          "days"
+                        )}{" "}
+                      days
                   </td>
                   <td className="px-6 py-4">
                     {moment(item.Validity).format("DD-MM-YYYY")}

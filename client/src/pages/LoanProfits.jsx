@@ -110,7 +110,7 @@ function LoanProfits() {
                   {(overall[0] && overall[0].Interest) || 0}%
                 </h2>
                 <h2 className="font-bold">
-                  Overall Entries till {currentYear}:{" "}
+                  Overall Interest till {currentYear}:{" "}
                   ₹{(overall[0] && overall[0].Entry) || 0}
                 </h2>
               </div>

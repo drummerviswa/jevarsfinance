@@ -31,9 +31,9 @@ function Lands() {
         <div className="items-center mx-auto max-w-2xl py-10 sm:py-10 lg:py-36">
           <LandForm />
         </div>
-          <div className='flex justify-around'>
+          <div className='flex justify-around py-3'>
             <h1 className='text-xl font-bold'>No.of Lands: {lands.no}</h1>
-            <h1 className='text-xl font-bold'>Total Land Value: {lands.total||0}</h1>
+            <h1 className='text-xl font-bold'>Total Land Value: ₹{lands.total||0}</h1>
           </div>
           <LandTable  />
       </div>

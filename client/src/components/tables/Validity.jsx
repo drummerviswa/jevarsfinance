@@ -138,14 +138,10 @@ function Validity() {
                       </button>
                     </td>
                     <td className="px-6 py-4">
-                      {-1 * moment(item.Validity).diff(now, "months") > 0 ? (
-                        <>
-                          {-1 * moment(item.Validity).diff(now, "months")}{" "}
-                          months and
-                        </>
-                      ) : (
-                        <></>
-                      )}{" "}
+                      <>
+                        {-1 * moment(item.Validity).diff(now, "months")} months
+                        and
+                      </>
                       {-1 *
                         moment(item.Validity).diff(
                           moment(now).add(

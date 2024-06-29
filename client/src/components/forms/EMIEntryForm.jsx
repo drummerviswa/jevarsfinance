@@ -222,7 +222,7 @@ function EMIEntryForm() {
               id="payAmount"
               onChange={handleInput}
               min="0.00"
-              step="100"
+              step="5"
               className="block py-2.5 px-0 w-full text-xs	text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required

@@ -175,7 +175,7 @@ function EMILo() {
             <input
               type="number"
               min="0.00"
-              step="100.00"
+              step="5"
               name="amount"
               onChange={handleInput}
               id="floating_amount"
@@ -214,7 +214,7 @@ function EMILo() {
             <input
               type="number"
               min="0.00"
-              step="100"
+              step="5"
               name="monthlyAmount"
               onChange={handleInput}
               id="floating_monthlyamount"

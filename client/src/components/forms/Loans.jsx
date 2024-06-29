@@ -175,7 +175,7 @@ function Loan() {
             <input
               type="number"
               min="0.00"
-              step="100"
+              step="5"
               name="amount"
               onChange={handleInput}
               id="floating_amount"
