@@ -8,51 +8,101 @@ export const getCustomersLoan = (req, res) => {
     return res.status(200).json(data);
   });
 };
-export const getSumLoans = (req,res) => {
-    const q =`
+export const getSumLoans = (req, res) => {
+  const q = `WITH
+    LoanData AS (
         SELECT
             SUM(Amount) AS Amount,
-            AVG(Interest) AS Interest,
+            AVG(Interest) AS Interest
+        FROM
+            loans
+        WHERE
+            STATUS = 'Open' AND YEAR(DOB) <= ?
+    ),
+    PaymentData AS (
+        SELECT
             SUM(Pay_Amount) AS Entry
         FROM
-            loans,entries
+            entries
         WHERE
-            YEAR(DOB) <= ?`
-    db.query(q,[req.params.id], (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.status(200).json(data);
-      });
-}
-export const getSumDeposit = (req,res) => {
-    const q =`
+            YEAR(Pay_Date) <= ?
+    )
+SELECT
+    COALESCE(ld.Amount, 0) AS Amount,
+    COALESCE(ld.Interest, 0) AS Interest,
+    COALESCE(pd.Entry, 0) AS Entry,
+FROM
+    LoanData ld
+CROSS JOIN PaymentData pd;`;
+  db.query(q, [req.params.id, req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getSumDeposit = (req, res) => {
+  const q = `
+        WITH
+    LoanData AS (
         SELECT
             SUM(Amount) AS Amount,
-            AVG(Interest) AS Interest,
+            AVG(Interest) AS Interest
+        FROM
+            depositloans
+        WHERE
+            STATUS = 'Open' AND YEAR(DOB) <= ?
+    ),
+    PaymentData AS (
+        SELECT
             SUM(Pay_Amount) AS Entry
         FROM
-            depositloans,depositentries
+            depositentries
         WHERE
-            YEAR(DOB) <= ?`
-    db.query(q,[req.params.id], (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.status(200).json(data);
-      });
-}
-export const getSumEMI = (req,res) => {
-    const q =`
+            YEAR(Pay_Date) <= ?
+    )
+SELECT
+    COALESCE(ld.Amount, 0) AS Amount,
+    COALESCE(ld.Interest, 0) AS Interest,
+    COALESCE(pd.Entry, 0) AS Entry,
+FROM
+    LoanData ld
+CROSS JOIN PaymentData pd;`;
+  db.query(q, [req.params.id, req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getSumEMI = (req, res) => {
+  const q = `
+        WITH
+    LoanData AS (
         SELECT
             SUM(Amount) AS Amount,
-            AVG(Interest) AS Interest,
+            AVG(Interest) AS Interest
+        FROM
+            emiloans
+        WHERE
+            STATUS = 'Open' AND YEAR(DOB) <= ?
+    ),
+    PaymentData AS (
+        SELECT
             SUM(Pay_Amount) AS Entry
         FROM
-            emiloans,emientries
+            emientries
         WHERE
-            YEAR(DOB) <= ?;`
-    db.query(q,[req.params.id], (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.status(200).json(data);
-      });
-}
+            YEAR(Pay_Date) <= ?
+    )
+SELECT
+    COALESCE(ld.Amount, 0) AS Amount,
+    COALESCE(ld.Interest, 0) AS Interest,
+    COALESCE(pd.Entry, 0) AS Entry,
+FROM
+    LoanData ld
+CROSS JOIN PaymentData pd;`;
+  db.query(q, [req.params.id, req.params.id], (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
 export const getCustomersDeposit = (req, res) => {
   const q =
     "SELECT COUNT(l.Cus_ID) as cus_count from depositloans l INNER JOIN depositcustomers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';";
