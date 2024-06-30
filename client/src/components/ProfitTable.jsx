@@ -6,8 +6,6 @@ function ProfitTable({ items, total }) {
     date.setMonth(monthNumber - 1); // monthNumber is 1-based index
     return date.toLocaleString("default", { month: "long" });
   };
-  console.log(total)
-
   return (
     <div>
       <div className="mt-5 relative overflow-x-auto bg-white dark:bg-gray-900 rounded-xl py-2">

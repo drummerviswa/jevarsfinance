@@ -64,7 +64,6 @@ function Balance() {
     ],
   ];
   const today = moment().format("DD/MM/YYYY");
-  console.log(entire);
   const exportFile = useCallback(() => {
     const ws1 = utils.json_to_sheet(entire, { skipHeader: true });
     utils.sheet_add_aoa(ws1, Heading);

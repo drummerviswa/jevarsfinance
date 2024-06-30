@@ -2,7 +2,31 @@ import { db } from "../connect.js";
 
 export const getCustomersLoan = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from loans l INNER JOIN customers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';";
+    "SELECT COUNT(l.Cus_ID) as cus_count from loans l INNER JOIN customers c ON l.Cus_ID=c.Cus_ID";
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getLoanCount = (req, res) => {
+  const q =
+    "SELECT COUNT(Loan_No) as loan_count from loans";
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getDepositCount = (req, res) => {
+  const q =
+    "SELECT COUNT(Loan_No) as loan_count from depositloans";
+  db.query(q, (err, data) => {
+    if (err) return res.status(500).json(err);
+    return res.status(200).json(data);
+  });
+};
+export const getEMICount = (req, res) => {
+  const q =
+    "SELECT COUNT(Loan_No) as loan_count from emiloans";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
@@ -105,7 +129,7 @@ CROSS JOIN PaymentData pd;`;
 };
 export const getCustomersDeposit = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from depositloans l INNER JOIN depositcustomers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';";
+    "SELECT COUNT(l.Cus_ID) as cus_count from depositloans l INNER JOIN depositcustomers c ON l.Cus_ID=c.Cus_ID";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
@@ -113,7 +137,7 @@ export const getCustomersDeposit = (req, res) => {
 };
 export const getCustomersEMI = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from emiloans l INNER JOIN emicustomers c ON l.Cus_ID=c.Cus_ID WHERE Status='Open';";
+    "SELECT COUNT(l.Cus_ID) as cus_count from emiloans l INNER JOIN emicustomers c ON l.Cus_ID=c.Cus_ID";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);

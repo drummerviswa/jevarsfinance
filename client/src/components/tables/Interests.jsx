@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import InterestModel from "../modals/InterestModel";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Interest() {
   const [show, setShow] = useState(false);
@@ -34,6 +35,16 @@ function Interest() {
       await axios.delete(`https://app-1odw.onrender.com/api/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
+      toast.error(`${item.Entry_ID}. ${item.FirstName} -₹${item.Pay_Amount} deleted ‼️`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -58,6 +69,8 @@ function Interest() {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      {entries.length != 0 ? (
+
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -177,6 +190,11 @@ function Interest() {
             ))}
         </tbody>
       </table>
+      ) : (
+        <div>
+          <h1 className="text-center font-bold">No Entries found</h1>
+        </div>
+      )}
       <InterestModel
         setUpdatedData={setUpdated}
         interest={current}

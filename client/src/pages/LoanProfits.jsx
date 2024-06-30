@@ -10,6 +10,7 @@ function LoanProfits() {
 
   const [loans, setLoans] = useState([]);
   const [total, setTotal] = useState([]);
+  const [loanTotal, setloanTotal] = useState([]);
   const [form, setForm] = useState({
     year: new Date().getFullYear().toString(), // Set current year as default
   });
@@ -91,14 +92,21 @@ function LoanProfits() {
         setOverall(data);
       })
       .catch((error) => console.log(error));
+    fetch(`https://app-1odw.onrender.com/api/profit/loans/l/`, {
+      method: "GET",
+    })
+      .then(async (response) => response.json())
+      .then((data) => {
+        setloanTotal(data);
+      })
+      .catch((error) => console.log(error));
   }, [form]);
-  console.info("Overall", overall);
   return (
     <div className="bg-white">
       <div className="relative isolate px-6 pt-20 lg:px-8">
         <div className="max-w-[900px] m-auto px-4 py-24">
           <h1 className="text-center font-bold text-2xl">Loans Analysis</h1>
-          <div className="">
+          <div className="py-5">
             <div className="flex flex-col justify-between">
               <div className="flex flex-col justify-start">
                 <h2 className="font-bold">
@@ -107,17 +115,19 @@ function LoanProfits() {
                 </h2>
                 <h2 className="font-bold">
                   Overall average rate of interest till {currentYear}:{" "}
-                  {(overall[0] && overall[0].Interest) || 0}%
-                </h2>
-                <h2 className="font-bold">
-                  Overall Interest till {currentYear}:{" "}
-                  ₹{(overall[0] && overall[0].Entry) || 0}
+                  {(parseFloat(overall[0] && overall[0].Interest).toFixed(2)) || 0}%
                 </h2>
               </div>
               <div className="flex justify-end">
                 <h2 className="font-bold">
                   No of currently available customers:{" "}
                   {no[0] ? no[0].cus_count : 0}
+                </h2>
+              </div>
+              <div className="flex justify-end">
+                <h2 className="font-bold">
+                  No of currently available loans:{" "}
+                  {loanTotal[0] ? loanTotal[0].loan_count : 0}
                 </h2>
               </div>
             </div>
@@ -136,16 +146,24 @@ function LoanProfits() {
               </select>
             </div>
           </div>
-          {form.year ? <ProfitTable items={loans} total={total} /> : <></>}
-          <div className="flex justify-center">
-            <button
-              onClick={exportFile}
-              type="button"
-              className="flex text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            >
-              Export
-            </button>
-          </div>
+          {form.year && loans.length != 0 ? (
+            <>
+              <ProfitTable items={loans} total={total} />
+              <div className="flex justify-center">
+                <button
+                  onClick={exportFile}
+                  type="button"
+                  className="flex text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                >
+                  Export
+                </button>
+              </div>
+            </>
+          ) : (
+            <div>
+              <h1 className="font-bold text-center">No record found for this year</h1>
+            </div>
+          )}
         </div>
       </div>
     </div>

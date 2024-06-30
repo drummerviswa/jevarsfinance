@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 function Users() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
@@ -21,6 +22,16 @@ function Users() {
       await axios.delete(`https://app-1odw.onrender.com/api/auth/users/${item.UID}`);
       setUsers(users.filter((i) => i.UID !== item.UID));
       setUpdated(!updated);
+      toast.error(`${item.username} deleted`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     } catch (error) {
       console.error("Error deleting user:", error);
     }

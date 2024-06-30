@@ -42,6 +42,8 @@ import Overall from "./pages/Overall";
 import Balance from "./pages/Balance";
 import Users from "./pages/Users";
 import Lands from "./pages/Lands";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
@@ -58,6 +60,7 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Navbar />
         <Outlet />
+        <ToastContainer style={{marginTop:80}} />
       </ProtectedRoute>
     ),
     children: [

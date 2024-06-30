@@ -26,7 +26,6 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
       });
     }
   }, [loans]);
-  console.log("Form: ", newData);
   const handleInput = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
@@ -36,7 +35,6 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
       axios
         .put(`https://app-1odw.onrender.com/api/loans/${loans.Loan_No}`, newData)
         .then((response) => {
-          console.log("Data:", response);
           setUpdatedData((prev) => !prev);
         })
         .catch((err) => {
@@ -161,7 +159,7 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                           type="number"
                           min="0.00"
                           onChange={handleInput}
-                          step="100"
+                          step="1"
                           name="amount"
                           id="amount"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
@@ -220,13 +218,54 @@ function LoanModel({ showModal, setShowModal, loans, setUpdatedData }) {
                           <option value="">Choose an option</option>
                           <option value="no">No</option>
                           <option value="cheque">Cheque</option>
-                          <option value="bond">Bond</option>
+                          <option value="1 bond">1 Bond</option>
+                          <option value="2 bond">2 Bond</option>
+                          <option value="3 bond">3 Bond</option>
+                          <option value="4 bond">4 Bond</option>
+                          <option value="5 bond">5 Bond</option>
+                          <option value="multiple bonds">Multiple Bonds</option>
+                          <option value="1 bond 1 cheque">
+                            1 Bond 1 Cheque
+                          </option>
+                          <option value="1 bond 2 cheque">
+                            1 Bond 2 Cheque
+                          </option>
+                          <option value="1 bond 3 cheque">
+                            1 Bond 3 Cheque
+                          </option>
+                          <option value="1 bond 4 cheque">
+                            1 Bond 4 Cheque
+                          </option>
+                          <option value="2 bond 1 cheque">
+                            2 Bond 1 Cheque
+                          </option>
+                          <option value="2 bond 2 cheque">
+                            2 Bond 2 Cheque
+                          </option>
+                          <option value="2 bond 3 cheque">
+                            2 Bond 3 Cheque
+                          </option>
+                          <option value="2 bond 4 cheque">
+                            2 Bond 4 Cheque
+                          </option>
+                          <option value="3 bond 1 cheque">
+                            3 Bond 1 Cheque
+                          </option>
+                          <option value="3 bond 2 cheque">
+                            3 Bond 2 Cheque
+                          </option>
+                          <option value="3 bond 3 cheque">
+                            3 Bond 3 Cheque
+                          </option>
+                          <option value="3 bond 4 cheque">
+                            3 Bond 4 Cheque
+                          </option>
+                          <option value="multiple bonds and cheque">
+                            Multiple Bonds and Cheque
+                          </option>
                           <option value="land document">Land Document</option>
                           <option value="gold">Gold</option>
                           <option value="vehicle">Vehicle</option>
-                          <option value="bond and cheque">
-                            Bond and Cheque
-                          </option>
                           <option value="bond and land document">
                             Bond and Land Document
                           </option>

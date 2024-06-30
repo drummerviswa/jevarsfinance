@@ -5,10 +5,13 @@ import {
   getCustomersDeposit,
   getCustomersEMI,
   getCustomersLoan,
+  getDepositCount,
   getDepositProfits,
   getDepositTotal,
+  getEMICount,
   getEMIProfits,
   getEMITotal,
+  getLoanCount,
   getLoanProfits,
   getLoanTotal,
   getSumDeposit,
@@ -33,5 +36,8 @@ router.get("/balance/till/:id",tilltBalance)
 router.get("/loans/c",getCustomersLoan)
 router.get("/deposit/c",getCustomersDeposit)
 router.get("/emi/c",getCustomersEMI);
+router.get("/loans/l",getLoanCount);
+router.get("/deposit/l",getDepositCount);
+router.get("/emi/l",getEMICount);
 
 export default router;

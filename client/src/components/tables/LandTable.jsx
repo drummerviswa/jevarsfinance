@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LandModel from "../modals/LandModal";
+import { toast } from "react-toastify";
 
 function LandTable() {
   const [show, setShow] = useState(false);
@@ -33,6 +34,16 @@ function LandTable() {
       await axios.delete(`https://app-1odw.onrender.com/api/lands/${item.Land_No}`);
       setCustomers(customers.filter((i) => i.Land_No !== item.Land_No));
       setUpdated(!updated);
+      toast.error(`${item.Land_No} - ₹${item.Land_Value} deleted`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     } catch (error) {
       console.error("Error deleting post:", error);
     }

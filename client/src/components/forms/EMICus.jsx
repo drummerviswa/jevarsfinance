@@ -19,9 +19,7 @@ function EMICus() {
       const response = await axios.post(
         "https://app-1odw.onrender.com/api/emi/customers",
         form
-      );
-      console.log("Post created:", response.data);
-      window.location.reload();
+      ).then(()=>window.location.reload())
     } catch (error) {
       console.error("Error creating customer:", error);
       alert(error.response.data)

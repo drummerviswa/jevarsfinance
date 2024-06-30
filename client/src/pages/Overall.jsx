@@ -409,26 +409,6 @@ function Overall() {
     //File write
     writeFile(wb, `Overall_${today}.xlsx`);
   }, []);
-  console.log(
-    Ploans.length,
-    PDeposits.length,
-    PEMI.length,
-    Ltotal.length,
-    Ptotal.length,
-    Etotal.length,
-    entries.length,
-    Dentries.length,
-    Eentire.length,
-    loans.length,
-    dloans.length,
-    EMIloans.length,
-    EMICustomers.length,
-    loanCustomers.length,
-    depositCustomers.length,
-    Emivalidity.length,
-    Loanvalidity.length,
-    DepositValidity.length
-  );
   const componentRef = useRef();
   return (
     <div ref={componentRef} className="bg-white">

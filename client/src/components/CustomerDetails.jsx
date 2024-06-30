@@ -12,7 +12,6 @@ function CustomerDetails({ updated, setUpdated, person }) {
       })
       .catch((error) => console.log(error));
   }, [updated]);
-  console.log("Person:", person);
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700 text-white my-3">
       {customers &&

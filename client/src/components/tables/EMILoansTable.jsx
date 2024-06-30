@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
 import EMILoanModel from "../modals/EMILoanModal";
+import { toast } from "react-toastify";
 
 const EMILoansTable = () => {
   const [show, setShow] = useState(false);
@@ -34,6 +35,16 @@ const EMILoansTable = () => {
       await axios.delete(`https://app-1odw.onrender.com/api/emi/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
+      toast.error(`${item.FirstName} - ₹${item.Amount} deleted ⛔`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -43,6 +54,16 @@ const EMILoansTable = () => {
       await axios.put(`https://app-1odw.onrender.com/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
+      toast(`${item.Loan_No}. ${item.FirstName} - ₹${item.Amount} Loan Closed!🦄`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -70,6 +91,8 @@ const EMILoansTable = () => {
   };
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      {loans.length != 0 ? (
+
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -268,6 +291,11 @@ const EMILoansTable = () => {
           ))}
         </tbody>
       </table>
+      ) : (
+        <div>
+          <h1 className="text-center font-bold">No Loans found</h1>
+        </div>
+      )}
       <EMILoanModel
         setUpdatedData={setUpdated}
         loans={current}

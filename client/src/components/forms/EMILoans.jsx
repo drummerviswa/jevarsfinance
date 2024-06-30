@@ -15,7 +15,6 @@ function EMILo() {
       })
       .catch((error) => console.log(error));
   }, []);
-  console.log("Current",current)
   const [form,setForm] = useState({
     Cus_ID:"",
     loanType: "",
@@ -45,9 +44,7 @@ function EMILo() {
       const response = await axios.post(
         "https://app-1odw.onrender.com/api/emi/loans",
         form
-      );
-      console.log("Loan created:", response.data);
-      window.location.reload();
+      ).then(()=>window.location.reload())
     } catch (error) {
       console.error("Error creating customer:", error);
       alert("Error:",error)
@@ -175,7 +172,7 @@ function EMILo() {
             <input
               type="number"
               min="0.00"
-              step="5"
+              step="1"
               name="amount"
               onChange={handleInput}
               id="floating_amount"
@@ -214,7 +211,7 @@ function EMILo() {
             <input
               type="number"
               min="0.00"
-              step="5"
+              step="1"
               name="monthlyAmount"
               onChange={handleInput}
               id="floating_monthlyamount"
@@ -266,11 +263,28 @@ function EMILo() {
               <option value="">Choose an option</option>
               <option value="no">No</option>
               <option value="cheque">Cheque</option>
-              <option value="bond">Bond</option>
+              <option value="1 bond">1 Bond</option>
+              <option value="2 bond">2 Bond</option>
+              <option value="3 bond">3 Bond</option>
+              <option value="4 bond">4 Bond</option>
+              <option value="5 bond">5 Bond</option>
+              <option value="multiple bonds">Multiple Bonds</option>
+              <option value="1 bond 1 cheque">1 Bond 1 Cheque</option>
+              <option value="1 bond 2 cheque">1 Bond 2 Cheque</option>
+              <option value="1 bond 3 cheque">1 Bond 3 Cheque</option>
+              <option value="1 bond 4 cheque">1 Bond 4 Cheque</option>
+              <option value="2 bond 1 cheque">2 Bond 1 Cheque</option>
+              <option value="2 bond 2 cheque">2 Bond 2 Cheque</option>
+              <option value="2 bond 3 cheque">2 Bond 3 Cheque</option>
+              <option value="2 bond 4 cheque">2 Bond 4 Cheque</option>
+              <option value="3 bond 1 cheque">3 Bond 1 Cheque</option>
+              <option value="3 bond 2 cheque">3 Bond 2 Cheque</option>
+              <option value="3 bond 3 cheque">3 Bond 3 Cheque</option>
+              <option value="3 bond 4 cheque">3 Bond 4 Cheque</option>
+              <option value="multiple bonds and cheque">Multiple Bonds and Cheque</option>
               <option value="land document">Land Document</option>
               <option value="gold">Gold</option>
               <option value="vehicle">Vehicle</option>
-              <option value="bond and cheque">Bond and Cheque</option>
               <option value="bond and land document">Bond and Land Document</option>
               <option value="bond and gold">Bond and Gold</option>
               <option value="bond and vehicle">Bond and Vehicle</option>
