@@ -11,7 +11,7 @@ function Interests() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/loans/o/${current?.Cus_ID}`, {
+    fetch(`http://localhost:8800/api/loans/o/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function Interests() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/customers/`, {
+    fetch(`http://localhost:8800/api/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function Interests() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://app-1odw.onrender.com/api/entries",
+        "http://localhost:8800/api/entries",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

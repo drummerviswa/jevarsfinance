@@ -15,7 +15,7 @@ const Loan = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    fetch("https://app-1odw.onrender.com/api/loans/", {
+    fetch("http://localhost:8800/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -32,7 +32,7 @@ const Loan = () => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`https://app-1odw.onrender.com/api/loans/${item.Loan_No}`);
+      await axios.delete(`http://localhost:8800/api/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
       toast.error(`${item.FirstName} - ₹${item.Amount} deleted ⛔`, {
@@ -52,7 +52,7 @@ const Loan = () => {
   const handleStatus = async (item) => {
     try {
       await axios.put(
-        `https://app-1odw.onrender.com/api/loans/status/${item.Loan_No}`,
+        `http://localhost:8800/api/loans/status/${item.Loan_No}`,
         { status: "Closed" }
       );
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));

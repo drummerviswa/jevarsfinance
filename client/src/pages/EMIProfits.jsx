@@ -31,7 +31,7 @@ function EMIProfits() {
   const [no, setNo] = useState([]);
   const [loanTotal, setloanTotal] = useState([]);
   useEffect(() => {
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/e/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/emi/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -39,7 +39,7 @@ function EMIProfits() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/total/${form.year}`, {
+    fetch(`http://localhost:8800/api/profit/emi/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -47,7 +47,7 @@ function EMIProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("https://app-1odw.onrender.com/api/profit/emi/c/", {
+    fetch("http://localhost:8800/api/profit/emi/c/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -55,7 +55,7 @@ function EMIProfits() {
         setNo(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/overall/${currentYear}`, {
+    fetch(`http://localhost:8800/api/profit/emi/overall/${currentYear}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -63,7 +63,7 @@ function EMIProfits() {
         setOverall(data);
       })
       .catch((error) => console.log(error));
-    fetch(`https://app-1odw.onrender.com/api/profit/emi/l/`, {
+    fetch(`http://localhost:8800/api/profit/emi/l/`, {
       method: "GET",
     })
       .then(async (response) => response.json())

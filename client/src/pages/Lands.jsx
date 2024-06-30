@@ -11,7 +11,7 @@ function Lands() {
   });
   useEffect(() => {
     document.title= "Lands";
-    fetch("https://app-1odw.onrender.com/api/lands/status").then(async (response) => response.json())
+    fetch("http://localhost:8800/api/lands/status").then(async (response) => response.json())
     .then((data) => {
       setLands({
           total:data[0].total_lands,

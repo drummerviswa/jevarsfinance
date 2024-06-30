@@ -17,7 +17,7 @@ function DepositCu() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://app-1odw.onrender.com/api/deposit/customers",
+        "http://localhost:8800/api/deposit/customers",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

@@ -36,7 +36,7 @@ export default function DepositCustomerModel({
     e.preventDefault();
     try {
       axios
-        .put(`https://app-1odw.onrender.com/api/deposit/customers/${customer.Cus_ID}`, newData)
+        .put(`http://localhost:8800/api/deposit/customers/${customer.Cus_ID}`, newData)
         .then((response) => {setUpdatedData((prev)=>!prev)})
         .catch((err) => {
           alert(err);
