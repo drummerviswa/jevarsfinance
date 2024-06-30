@@ -2,7 +2,7 @@ import { db } from "../connect.js";
 
 export const getCustomersLoan = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from loans l INNER JOIN customers c ON l.Cus_ID=c.Cus_ID";
+    "SELECT COUNT(Cus_ID) as cus_count customers";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
@@ -129,7 +129,7 @@ CROSS JOIN PaymentData pd;`;
 };
 export const getCustomersDeposit = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from depositloans l INNER JOIN depositcustomers c ON l.Cus_ID=c.Cus_ID";
+    "SELECT COUNT(Cus_ID) as cus_count depositcustomers";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
@@ -137,7 +137,7 @@ export const getCustomersDeposit = (req, res) => {
 };
 export const getCustomersEMI = (req, res) => {
   const q =
-    "SELECT COUNT(l.Cus_ID) as cus_count from emiloans l INNER JOIN emicustomers c ON l.Cus_ID=c.Cus_ID";
+    "SELECT COUNT(Cus_ID) as cus_count emicustomers";
   db.query(q, (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);
