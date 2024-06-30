@@ -37,7 +37,7 @@ function DepositProfits() {
   const [no, setNo] = useState([]);
   const [overall, setOverall] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/profit/deposit/e/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -46,7 +46,7 @@ function DepositProfits() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`http://localhost:8800/api/profit/deposit/total/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -54,7 +54,7 @@ function DepositProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/deposit/c/", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/deposit/c/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -62,7 +62,7 @@ function DepositProfits() {
         setNo(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/deposit/overall/${currentYear}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/overall/${currentYear}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -70,7 +70,7 @@ function DepositProfits() {
         setOverall(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/deposit/l/`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/l/`, {
       method: "GET",
     })
       .then(async (response) => response.json())

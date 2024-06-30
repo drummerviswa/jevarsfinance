@@ -14,7 +14,7 @@ function DepositValidityTable() {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.customer);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

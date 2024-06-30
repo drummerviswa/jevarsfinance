@@ -15,7 +15,7 @@ function EMIEntryTable() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -33,7 +33,7 @@ function EMIEntryTable() {
   const handleDelete = async (item) => {
     try {
       await axios.delete(
-        `http://localhost:8800/api/emi/entries/${item.Entry_ID}`
+        `https://jevarsfinance.onrender.com/api/emi/entries/${item.Entry_ID}`
       );
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);

@@ -15,7 +15,7 @@ function Interest() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -32,7 +32,7 @@ function Interest() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/entries/${item.Entry_ID}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
       toast.error(`${item.Entry_ID}. ${item.FirstName} -₹${item.Pay_Amount} deleted ‼️`, {

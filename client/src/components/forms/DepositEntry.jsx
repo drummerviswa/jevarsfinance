@@ -11,7 +11,7 @@ function DepositEntryForm() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/loans/o/${current?.Cus_ID}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/loans/o/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function DepositEntryForm() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/deposit/customers/`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function DepositEntryForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/deposit/entries",
+        "https://jevarsfinance.onrender.com/api/deposit/entries",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

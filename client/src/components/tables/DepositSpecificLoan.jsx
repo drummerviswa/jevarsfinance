@@ -12,7 +12,7 @@ const DepositSpecificLoan = ({ updated, setUpdated }) => {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.deposit);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/deposit/loans/c/${customer[0]["Cus_ID"]}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/loans/c/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ const DepositSpecificLoan = ({ updated, setUpdated }) => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/deposit/loans/${item.Loan_No}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/deposit/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
     } catch (error) {
@@ -39,7 +39,7 @@ const DepositSpecificLoan = ({ updated, setUpdated }) => {
   const handleStatus = async (item) => {
     try {
       await axios.put(
-        `http://localhost:8800/api/deposit/loans/status/${item.Loan_No}`,
+        `https://jevarsfinance.onrender.com/api/deposit/loans/status/${item.Loan_No}`,
         { status: "Closed" }
       );
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));

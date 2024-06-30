@@ -14,7 +14,7 @@ function LandForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/lands",
+        "https://jevarsfinance.onrender.com/api/lands",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

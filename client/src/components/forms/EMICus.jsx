@@ -17,7 +17,7 @@ function EMICus() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/emi/customers",
+        "https://jevarsfinance.onrender.com/api/emi/customers",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

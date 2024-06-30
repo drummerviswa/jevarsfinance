@@ -15,7 +15,7 @@ const EMILoansTable = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/emi/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -32,7 +32,7 @@ const EMILoansTable = () => {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/emi/loans/${item.Loan_No}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/emi/loans/${item.Loan_No}`);
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
       toast.error(`${item.FirstName} - ₹${item.Amount} deleted ⛔`, {
@@ -51,7 +51,7 @@ const EMILoansTable = () => {
   };
   const handleStatus = async (item) => {
     try {
-      await axios.put(`http://localhost:8800/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
+      await axios.put(`https://jevarsfinance.onrender.com/api/emi/loans/status/${item.Loan_No}`,{status:"Closed"});
       setLoans(loans.filter((i) => i.Loan_No !== item.Loan_No));
       setUpdated(!updated);
       toast(`${item.Loan_No}. ${item.FirstName} - ₹${item.Amount} Loan Closed!🦄`, {

@@ -37,7 +37,7 @@ export default function InterestModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/entries/${interest.Entry_ID}`, newData)
+        .put(`https://jevarsfinance.onrender.com/api/entries/${interest.Entry_ID}`, newData)
         .then((response) => {
           setUpdatedData((prev) => !prev);
         })

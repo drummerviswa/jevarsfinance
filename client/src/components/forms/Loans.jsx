@@ -6,7 +6,7 @@ function Loan() {
   let [current, setCurrent] = useState({});
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   useEffect(() => {
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -40,7 +40,7 @@ function Loan() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/loans",
+        "https://jevarsfinance.onrender.com/api/loans",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

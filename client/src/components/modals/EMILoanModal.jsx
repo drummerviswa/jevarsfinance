@@ -42,7 +42,7 @@ export default function EMILoanModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/emi/loans/${loans.Loan_No}`, newData)
+        .put(`https://jevarsfinance.onrender.com/api/emi/loans/${loans.Loan_No}`, newData)
         .then((response) => {
           setUpdatedData((prev) => !prev);
         })

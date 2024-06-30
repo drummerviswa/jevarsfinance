@@ -11,7 +11,7 @@ function EMIEntryForm() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/loans/o/${current?.Cus_ID}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/emi/loans/o/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function EMIEntryForm() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/emi/customers/`, {
+    fetch(`https://jevarsfinance.onrender.com/api/emi/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function EMIEntryForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/emi/entries",
+        "https://jevarsfinance.onrender.com/api/emi/entries",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

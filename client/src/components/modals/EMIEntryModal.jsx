@@ -40,7 +40,7 @@ export default function EMIEntryModal({
     try {
       axios
         .put(
-          `http://localhost:8800/api/emi/entries/${interest.Entry_ID}`,
+          `https://jevarsfinance.onrender.com/api/emi/entries/${interest.Entry_ID}`,
           newData
         )
         .then((response) => {

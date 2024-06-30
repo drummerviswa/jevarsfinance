@@ -13,7 +13,7 @@ function Customer() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -30,7 +30,7 @@ function Customer() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/customers/${item.Cus_ID}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/customers/${item.Cus_ID}`);
       setCustomers(customers.filter((i) => i.Cus_ID !== item.Cus_ID));
       setUpdated(!updated);
       toast.error(`${item.FirstName} deleted`, {

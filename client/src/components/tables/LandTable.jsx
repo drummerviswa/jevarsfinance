@@ -14,7 +14,7 @@ function LandTable() {
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:8800/api/lands/", {
+    fetch("https://jevarsfinance.onrender.com/api/lands/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -31,7 +31,7 @@ function LandTable() {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/lands/${item.Land_No}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/lands/${item.Land_No}`);
       setCustomers(customers.filter((i) => i.Land_No !== item.Land_No));
       setUpdated(!updated);
       toast.error(`${item.Land_No} - ₹${item.Land_Value} deleted`, {

@@ -8,7 +8,7 @@ function Users() {
   const [updated, setUpdated] = useState(false);
   useEffect(() => {
     document.title = "Users";
-    fetch("http://localhost:8800/api/auth/users", {
+    fetch("https://jevarsfinance.onrender.com/api/auth/users", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function Users() {
   }, [updated]);
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/auth/users/${item.UID}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/auth/users/${item.UID}`);
       setUsers(users.filter((i) => i.UID !== item.UID));
       setUpdated(!updated);
       toast.error(`${item.username} deleted`, {

@@ -35,7 +35,7 @@ function Overall() {
   var currentTime = new Date();
   const year = currentTime.getFullYear();
   useEffect(() => {
-    fetch(`http://localhost:8800/api/profit/emi/e/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/emi/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -43,7 +43,7 @@ function Overall() {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/emi/total/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/emi/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -51,7 +51,7 @@ function Overall() {
         setETotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/deposit/e/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -59,7 +59,7 @@ function Overall() {
         setPDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/deposit/total/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/deposit/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -67,7 +67,7 @@ function Overall() {
         setPTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/loans/e/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -75,7 +75,7 @@ function Overall() {
         setPLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/loans/total/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -83,7 +83,7 @@ function Overall() {
         setLTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -91,7 +91,7 @@ function Overall() {
         setEEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -99,7 +99,7 @@ function Overall() {
         setDEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -107,7 +107,7 @@ function Overall() {
         setEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -115,7 +115,7 @@ function Overall() {
         setEMILoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -123,7 +123,7 @@ function Overall() {
         setDLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -131,7 +131,7 @@ function Overall() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -139,7 +139,7 @@ function Overall() {
         setEMICustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -147,7 +147,7 @@ function Overall() {
         setLoanCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -155,7 +155,7 @@ function Overall() {
         setDepositCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -163,7 +163,7 @@ function Overall() {
         setLoanValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/deposit/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -171,7 +171,7 @@ function Overall() {
         setDepositValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/emi/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -179,7 +179,7 @@ function Overall() {
         setEmiValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/balance/e/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/e/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -187,7 +187,7 @@ function Overall() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/balance/total/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/total/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -195,7 +195,7 @@ function Overall() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/balance/till/${year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/till/${year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

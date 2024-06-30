@@ -30,7 +30,7 @@ export default function LandModel({
     e.preventDefault();
     try {
       axios
-        .put(`http://localhost:8800/api/lands/${customer.Land_No}`, newData)
+        .put(`https://jevarsfinance.onrender.com/api/lands/${customer.Land_No}`, newData)
         .then((response) => {
           setUpdatedData((prev) => !prev);
         })

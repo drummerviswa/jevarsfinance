@@ -59,7 +59,7 @@ function LoanProfits() {
   }, [loans]);
 
   useEffect(() => {
-    fetch(`http://localhost:8800/api/profit/loans/e/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -68,7 +68,7 @@ function LoanProfits() {
       })
       .catch((error) => console.log(error));
 
-    fetch(`http://localhost:8800/api/profit/loans/total/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -76,7 +76,7 @@ function LoanProfits() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/loans/c/", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/loans/c/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -84,7 +84,7 @@ function LoanProfits() {
         setNo(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/loans/overall/${currentYear}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/overall/${currentYear}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -92,7 +92,7 @@ function LoanProfits() {
         setOverall(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/loans/l/`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/loans/l/`, {
       method: "GET",
     })
       .then(async (response) => response.json())

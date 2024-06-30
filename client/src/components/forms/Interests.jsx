@@ -11,7 +11,7 @@ function Interests() {
   let [selectedCustomerId, setSelectedCustomerId] = useState("");
   let [selectedLoanNo, setSelectedLoanNo] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8800/api/loans/o/${current?.Cus_ID}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/loans/o/${current?.Cus_ID}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -19,7 +19,7 @@ function Interests() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/customers/`, {
+    fetch(`https://jevarsfinance.onrender.com/api/customers/`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -35,7 +35,7 @@ function Interests() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/entries",
+        "https://jevarsfinance.onrender.com/api/entries",
         form
       ).then(()=>window.location.reload())
     } catch (error) {

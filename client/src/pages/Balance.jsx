@@ -26,7 +26,7 @@ function Balance() {
   };
   let entire = [...emi, [{}], ...total];
   useEffect(() => {
-    fetch(`http://localhost:8800/api/profit/balance/e/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/e/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -34,7 +34,7 @@ function Balance() {
         setEmi(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/balance/total/${form.year}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/total/${form.year}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -42,7 +42,7 @@ function Balance() {
         setTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/profit/balance/till/${currentYear}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/profit/balance/till/${currentYear}`, {
       method: "GET",
     })
       .then(async (response) => response.json())

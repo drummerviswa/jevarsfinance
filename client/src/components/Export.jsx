@@ -21,7 +21,7 @@ function Export() {
   const [Loanvalidity, setLoanValidity] = useState([]);
   const [DepositValidity, setDepositValidity] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8800/api/profit/emi/", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/emi/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ function Export() {
         setEMI(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/emi/total", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/emi/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -37,7 +37,7 @@ function Export() {
         setETotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/deposit/", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/deposit/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -45,7 +45,7 @@ function Export() {
         setPDeposits(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/deposit/total", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/deposit/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -53,7 +53,7 @@ function Export() {
         setPTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -61,7 +61,7 @@ function Export() {
         setPLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/profit/loans/total", {
+    fetch("https://jevarsfinance.onrender.com/api/profit/loans/total", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -69,7 +69,7 @@ function Export() {
         setLTotal(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -77,7 +77,7 @@ function Export() {
         setEEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -85,7 +85,7 @@ function Export() {
         setDEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/entries/", {
+    fetch("https://jevarsfinance.onrender.com/api/entries/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -93,7 +93,7 @@ function Export() {
         setEntries(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -101,7 +101,7 @@ function Export() {
         setEMILoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -109,7 +109,7 @@ function Export() {
         setDLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/loans/", {
+    fetch("https://jevarsfinance.onrender.com/api/loans/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -117,7 +117,7 @@ function Export() {
         setLoans(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/emi/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/emi/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -125,7 +125,7 @@ function Export() {
         setEMICustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/deposit/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/deposit/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -133,7 +133,7 @@ function Export() {
         setLoanCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch("http://localhost:8800/api/customers/", {
+    fetch("https://jevarsfinance.onrender.com/api/customers/", {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -141,7 +141,7 @@ function Export() {
         setDepositCustomers(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -149,7 +149,7 @@ function Export() {
         setLoanValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/deposit/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/deposit/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -157,7 +157,7 @@ function Export() {
         setDepositValidity(data);
       })
       .catch((error) => console.log(error));
-    fetch(`http://localhost:8800/api/emi/validity`, {
+    fetch(`https://jevarsfinance.onrender.com/api/emi/validity`, {
       method: "GET",
     })
       .then(async (response) => response.json())

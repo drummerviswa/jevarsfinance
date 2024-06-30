@@ -17,7 +17,7 @@ function Customers() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/customers",
+        "https://jevarsfinance.onrender.com/api/customers",
         form
       ).then(()=>window.location.reload());
     } catch (error) {

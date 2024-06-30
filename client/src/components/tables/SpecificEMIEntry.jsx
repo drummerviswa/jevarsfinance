@@ -12,7 +12,7 @@ function EMISpecificEntry({ updated, setUpdated }) {
   const [current, setCurrent] = useState({});
   const customer = useSelector((state) => state.emi);
   useEffect(() => {
-    fetch(`http://localhost:8800/api/emi/entries/${customer[0]["Cus_ID"]}`, {
+    fetch(`https://jevarsfinance.onrender.com/api/emi/entries/${customer[0]["Cus_ID"]}`, {
       method: "GET",
     })
       .then(async (response) => response.json())
@@ -29,7 +29,7 @@ function EMISpecificEntry({ updated, setUpdated }) {
 
   const handleDelete = async (item) => {
     try {
-      await axios.delete(`http://localhost:8800/api/emi/entries/${item.Entry_ID}`);
+      await axios.delete(`https://jevarsfinance.onrender.com/api/emi/entries/${item.Entry_ID}`);
       setEntries(entries.filter((i) => i.Entry_ID !== item.Entry_ID));
       setUpdated(!updated);
     } catch (error) {
