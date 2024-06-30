@@ -85,6 +85,15 @@ const EMILoansTable = () => {
             <th className="py-3 px-3">
               <div
                 className="flex items-center cursor-pointer"
+                onClick={() => sortByColumn("Cus_ID")}
+              >
+                Cus ID
+                {activeColumn === "FirstName" && (sortingColumn ? " ↑" : " ↓")}
+              </div>
+            </th>
+            <th className="py-3 px-3">
+              <div
+                className="flex items-center cursor-pointer"
                 onClick={() => sortByColumn("FirstName")}
               >
                 Customer Name
@@ -183,6 +192,9 @@ const EMILoansTable = () => {
             >
               <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
                 {data.Loan_No}
+              </td>
+              <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
+                {data.Cus_ID}
               </td>
               <td className="py-2 px-3 font-normal text-base border-t whitespace-nowrap">
                 {data.FirstName} {data.LastName}
